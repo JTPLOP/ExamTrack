@@ -5,14 +5,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class AlumnoController {
+public class InicioController {
     
-    @GetMapping ("/alumnos")
-    public String alumnosBase (Model model) {
+    @GetMapping ("/, /inicio")
+    public String inicioBase (Model model) {
 
         
-        return "alumnos";
+        return "inicio";
     }
-
 
 }

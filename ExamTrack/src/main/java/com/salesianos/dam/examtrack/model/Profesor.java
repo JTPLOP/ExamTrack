@@ -1,6 +1,5 @@
 package com.salesianos.dam.examtrack.model;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
