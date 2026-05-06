@@ -2,12 +2,14 @@ package com.salesianos.dam.examtrack.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -19,6 +21,8 @@ public class Convocatoria {
     private LocalDateTime fecha;
     private String estado;
     private double nota;
+    
+    @Column (columnDefinition = "TEXT")
     private String observaciones;
 
 }
