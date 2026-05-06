@@ -1,0 +1,34 @@
+/*Estilos del SideBar*/
+
+#sidebar {
+    background-color: rgb(238,238,238);
+}
+
+#opcionesSideBar {
+    list-style-type: none;
+
+}
+
+#opcionesSideBar>li>a {
+    text-decoration: none;
+    color: rgb(51, 51, 51);
+    opacity: 100;
+    
+
+}
+
+#opcionesSideBar>li>a:hover {
+    color: rgb(12, 12, 12);
+}
+
+#sidebarLine {
+    border-color:rgb(189,189,189);
+    opacity: 50;
+    border-radius: 20px;
+    
+}
+
+.title-ExamTrack {
+    color: rgb(178,58,58);
+}
+
