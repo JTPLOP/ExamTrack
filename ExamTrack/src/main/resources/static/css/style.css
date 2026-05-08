@@ -10,10 +10,10 @@
     src: url(../font/inter/Inter-VariableFont_opsz\,wght.ttf);
 }
 
-
-body {
+h1,h2,h3,h4,h5,p {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
+
 
 #sidebar {
     background-color: rgb(238,238,238);
@@ -21,7 +21,6 @@ body {
 
 #opcionesSideBar {
     list-style-type: none;
-
 }
 
 
@@ -52,4 +51,15 @@ body {
 .title-ExamTrack {
     color: rgb(178,58,58);
 }
+
+
+/* Personalizacion Botones */
+.btn-redPrimary {
+    background-color: rgb(178,58,58);
+}
+
+.btn-redPrimary:hover {
+    background-color: rgb(210,92,92);
+}
+
 

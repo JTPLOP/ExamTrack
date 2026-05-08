@@ -13,45 +13,72 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../static/css/style.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
+    <style>
+        #rojos {
+            background-color: rgb(178, 58, 58);
+        }
 
+        #banana {
+            background-color: rgb(238, 238, 238);
+            border-top-left-radius: 20%;
+            border-bottom-left-radius: 20%;
+        }
+    </style>
 
 </head>
 
 <body>
 
-    <div class="container-fluid">
-        <div class="row"></div>
-        <div class="col-6">
-            <h1>hola</h1>
-        </div>
-
-        <div class="col-6">
-            <h2>Login</h2>
-            <p>Bienvenido a ExamTrack! Porfavor inicie sesión en los campos indicados</p>
-
-            <div>
-                <form>
-                    <div class="form-group pb-3">
-                        <label for="formGroupExampleInput">Correo Electronico</label>
-                        <input type="email" class="form-control" id="formGroupExampleInput" placeholder="Example input">
-                    </div>
-                    <div class="form-group pb-3">
-                        <label for="formGroupExampleInput2">Contraseña</label>
-                        <input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Sign in</button>
-                </form>
-
+    <div class="container-fluid m-0" id="rojos">
+        <div class="d-flex flex-row  row min-vh-100">
+            <div class="col-7 col-xxl-7 col-xl-6 col-md-4 col-sm-4">
+                <h1>Hola</h1>
             </div>
 
+            <div class="col-5 col-xxl-5 col-xl-6 col-md-8 col-sm-8 z-3 " id="banana">
+                <div class="container">
+                    <div class="d-flex flex-column m-5">
+                        <div class="pt-5 ps-5">
+                            <h1>Login</h1>
+                        </div>
 
+                        <div class="pt-2 ps-5">
+                            <p>¡Bienvenido a Examtrack! Porfavor loguease con su cuenta corporativa. </p>
+                        </div>
+
+                        <div class="pt-4 ps-5">
+                            <div>
+                                <form>
+                                    <div class="form-group pb-3 w-75 ">
+                                        <label for="formGroupExampleInput ">Correo Electronico</label>
+                                        <input type="email" class="form-control" id="formGroupExampleInput"
+                                            placeholder="example@example.com">
+                                    </div>
+                                    <div class="form-group pb-3 w-75">
+                                        <label for="formGroupExampleInput2">Contraseña</label>
+                                        <input type="password" class="form-control" id="formGroupExampleInput2"
+                                            placeholder="Introduce aquí tu contraseña">
+                                    </div>
+
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">Recuerdame</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-redPrimary w-75">Iniciar Sesión</button>
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-
-    </div>
 
 </body>
 
