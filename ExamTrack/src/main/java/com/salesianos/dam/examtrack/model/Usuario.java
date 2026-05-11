@@ -4,20 +4,23 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
+@SuperBuilder
 @ToString
 public class Usuario {
     
 	@Column (columnDefinition = "unique" , nullable = false)
+    @Id
     private String dni;
 	
     private String nombre;
@@ -32,3 +35,4 @@ public class Usuario {
 
 
 }
+ 

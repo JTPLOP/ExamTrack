@@ -14,11 +14,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-@Entity
 public class Convocatoria {
     
     @Id
@@ -38,7 +38,7 @@ public class Convocatoria {
     @JoinColumn (name="id_convocatoria",
         foreignKey = @ForeignKey (name = "fk_convocatoria_examen"))
     private Examen examen;
-
+ 
     /*Metodos Helper */
 
     public void addToExamen (Examen examen) {

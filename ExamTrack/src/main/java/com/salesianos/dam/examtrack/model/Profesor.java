@@ -1,5 +1,10 @@
 package com.salesianos.dam.examtrack.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,6 +21,11 @@ public class Profesor extends Usuario {
     private String departamento;
     private String especialidad;
     
-    
+
+
+    @OneToMany (mappedBy = "profesor" , fetch = FetchType.EAGER)
+    private List<Examen> examen = new ArrayList<>();
+
+
 
 }

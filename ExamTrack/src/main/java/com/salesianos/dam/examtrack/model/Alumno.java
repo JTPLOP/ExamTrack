@@ -2,6 +2,7 @@ package com.salesianos.dam.examtrack.model;
 
 import java.util.List;
 
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,3 +20,4 @@ public class Alumno extends Usuario {
     private List [] asignaturas;
 
 }
+ 

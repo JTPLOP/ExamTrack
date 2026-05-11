@@ -5,9 +5,12 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType; 
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,16 +19,16 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-@Entity
 public class Examen {
 
     @Id
     @GeneratedValue
-    @Column(nullable = false)
+    @Column(nullable = false) 
     private Long id;
     private String nombre;
 
@@ -41,5 +44,12 @@ public class Examen {
     @EqualsAndHashCode.Exclude
     @Builder.Default
     List <Convocatoria> convocatoria = new ArrayList<>();
+
+    @ManyToOne 
+    @JoinColumn (name="id_examen",
+        foreignKey = @ForeignKey (name = "fk_profesor_examen"))
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Profesor profesor;
 
 }
