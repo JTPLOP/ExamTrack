@@ -45,11 +45,6 @@ public class Examen {
     @Builder.Default
     List <Convocatoria> convocatoria = new ArrayList<>();
 
-    @ManyToOne 
-    @JoinColumn (name="id_examen",
-        foreignKey = @ForeignKey (name = "fk_profesor_examen"))
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Profesor profesor;
+    
 
 }

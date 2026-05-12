@@ -2,9 +2,10 @@ package com.salesianos.dam.examtrack.model;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,8 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -19,7 +22,6 @@ import lombok.experimental.SuperBuilder;
 @ToString
 public class Usuario {
     
-	@Column (columnDefinition = "unique" , nullable = false)
     @Id
     private String dni;
 	

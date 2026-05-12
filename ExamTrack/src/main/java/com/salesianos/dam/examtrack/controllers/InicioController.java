@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class InicioController {
     
-    @GetMapping ("/, /inicio")
+    @GetMapping ("/inicio")
     public String inicioBase (Model model) {
 
         
