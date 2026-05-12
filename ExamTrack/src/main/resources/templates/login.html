@@ -50,7 +50,7 @@
                                     <div
                                         class="w-100 flex-grow-1 d-flex flex-column justify-content-center align-items-center pb-5">
                                         <form class="w-75 d-flex flex-column align-items-center pb-5 needs-validation"
-                                            method="post" action="/loginForm" novalidate>
+                                            method="post" th:action=@{/login} novalidate>
                                             <div class="mb-3 w-75 py-3">
                                                 <label for="emailLabel" class="form-label col-form-label-lg">Correo
                                                     Electronico</label>
