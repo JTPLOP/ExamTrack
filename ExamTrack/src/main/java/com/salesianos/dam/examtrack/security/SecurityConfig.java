@@ -15,22 +15,40 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
     
-    /* SOLUCIONAR EL FALLO
+
+
+
+    
+
+
+
+    /* MEDIANTE CACHE ORDENADOR (NO IDENTIDADES)
+
     @Bean
-    SecurityFilterChain securityFilterChain ( HttpSecurity http) { 
+	SecurityFilterChain securityFilterChain(HttpSecurity http) {
 
-        http.authorizeHttpRequests(
-            (authz) -> authz.requestMatchers("/css/**", "/js/**", "/", "/login  ")
-                .authenticated()
-                .anyRequest()
-                .permitAll())
-            .formLogin(form -> form
-                .loginPage("/login")
-                .permitAll()
-            );
-    }
-    */
+		http.authorizeHttpRequests(
+				(authz) -> authz
+					.requestMatchers("/producto/**").authenticated()
+					.requestMatchers("/login", "/css/**", "/js/**", "/image/**").permitAll()
+					.anyRequest()
+					.authenticated())
+				.formLogin(form -> form
+						.loginPage("/login")
+						.permitAll()
+				);
 
+		
+		http.csrf((csrf) -> {
+			csrf.ignoringRequestMatchers("/h2/**");
+		});
+		http.headers((headers) -> headers.frameOptions((opts) -> opts.disable()));
+
+		return http.build();
+	}
+    
+
+    
     @Bean
     UserDetailsService UserDetailsService () {
         InMemoryUserDetailsManager manager =
@@ -54,6 +72,11 @@ public class SecurityConfig {
 
             return manager;
     }
+
+    */
+
+
+
 
 
 
