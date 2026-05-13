@@ -20,6 +20,6 @@ public class Alumno extends Usuario {
     private String grupo;
     private List <String> asignaturas;
 
-    
+     
 }
  
