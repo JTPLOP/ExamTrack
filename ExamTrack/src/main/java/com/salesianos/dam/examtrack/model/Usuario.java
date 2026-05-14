@@ -35,6 +35,22 @@ public class Usuario {
     private String password;
     private String fotoPerfil;
 
+    public void depurarDatos() {
+        System.out.println("Usuario Creado:");
+        System.out.println("DNI:"+this.dni);
+        System.out.println("nombre:"+this.nombre);
+        System.out.println("Primer apellido:"+this.primerApellido);
+        System.out.println("segundo Apellido:"+this.segundoApellido);
+        System.out.println("email:"+this.email);
+        System.out.println("direccion:"+this.direccion);
+        System.out.println("Fecha Nacimiento"+this.fechaNacimiento);
+        System.out.println("Rol:"+this.rol);
+        System.out.println("Pass:"+this.password);
+        System.out.println("URL Foto:"+this.fotoPerfil);
 
-}
+    }
+
+
+
+} 
  

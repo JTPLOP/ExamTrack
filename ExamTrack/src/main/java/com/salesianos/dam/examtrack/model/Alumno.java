@@ -20,6 +20,13 @@ public class Alumno extends Usuario {
     private String grupo;
     private List <String> asignaturas;
 
-     
+     @Override
+     public void depurarDatos() {
+         super.depurarDatos();
+         System.out.println("Datos Alumno");
+         System.out.println("Grupo:"+this.grupo);
+         System.out.println("Asignaturas:"+this.asignaturas);
+     }
+    
 }
- 
+  

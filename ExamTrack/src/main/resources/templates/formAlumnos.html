@@ -34,64 +34,87 @@
                     <h2 class="fw-bold mb-3">Crear nuevo alumno</h2>
                     <hr class="mb-4" />
 
-                    <form method="post" th:action="@{/crearExamen}" th:object="${examen}">
-                        <div class="mb-4">
-                            <label for="exampleInputEmail1" class="form-label fw-semibold">Nombre</label>
-                            <input type="text" class="form-control form-control-lg fs-6" name="nombre"
-                                th:text="${nombre}">
+                    <form method="post" th:action="@{/crearAlumno}" th:object="${alumno}">
+
+                        <div class="row g-3">
+                            <div class="col-md-6 mb-4">
+                                <label for="exampleInputEmail1" class="form-label fw-semibold">Nombre</label>
+                                <input type="text" class="form-control form-control-lg fs-6" name="nombre"
+                                    th:text="${nombre}">
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label for="exampleInputEmail1" class="form-label fw-semibold">DNI</label>
+                                <input type="text" class="form-control form-control-lg fs-6" name="dni"
+                                    th:text="${dni}">
+                            </div>
                         </div>
 
                         <div class="mb-4">
-                            <label for="exampleInputEmail1" class="form-label fw-semibold">Primer apellido </label>
-                            <input type="text" class="form-control form-control-lg fs-6" name="nombre"
-                                th:text="${nombre}">
+                            <label for="exampleInputEmail1" class="form-label fw-semibold">Apellidos </label>
+                            <div class="input-group">
+                                <span class="input-group-text">Introduzca aquí:</span>
+                                <input type="text" aria-label="First name" class="form-control"
+                                    placeholder="Primer Apellido" name="primerApellido" th:text="${primerApellido}">
+                                <input type="text" aria-label="Last name" class="form-control"
+                                    placeholder="Segundo Apellido" name="segundoApellido" th:text="${segundoApellido}">
+                            </div>
                         </div>
 
-                        <div class="mb-4">
-                            <label for="exampleInputEmail1" class="form-label fw-semibold">Segundo apellido</label>
-                            <input type="text" class="form-control form-control-lg fs-6" name="nombre"
-                                th:text="${nombre}">
-                        </div>
+
 
                         <div class="mb-4">
                             <label for="exampleInputEmail1" class="form-label fw-semibold">Email</label>
-                            <input type="email" class="form-control form-control-lg fs-6" name="nombre"
-                                th:text="${nombre}">
+                            <input type="email" class="form-control form-control-lg fs-6" name="email"
+                                th:text="${email}" placeholder="usuario@ejemplo.com">
                         </div>
-
-                        <div class="mb-4">
-                            <label for="exampleInputEmail1" class="form-label fw-semibold">Grupo Asignado</label>
-                            <input type="text" class="form-control form-control-lg fs-6" name="nombre"
-                                th:text="${nombre}">
-                        </div>
-
 
                         <div class="mb-4">
                             <label for="exampleInputEmail1" class="form-label fw-semibold">Dirección</label>
-                            <input type="text" class="form-control form-control-lg fs-6" name="nombre"
-                                th:text="${nombre}">
+                            <input type="text" class="form-control form-control-lg fs-6" name="direccion"
+                                th:text="${direccion}">
+                        </div>
+
+
+                        <div class="row g-3">
+                            <div class="col-md-6 mb-4">
+                                <label for="exampleInputEmail1" class="form-label fw-semibold">Grupo Asignado</label>
+                                <select id="inputState" class="form-select" name="grupo"    >
+                                    <option selected>Escoger opción</option>
+                                    <option value="Primero">Primero</option>
+                                    <option value="Segundo">Segundo</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label for="exampleInputEmail1" class="form-label fw-semibold">Asignaturas</label>
+                                <select id="inputState" class="form-select" name="asignaturas" >
+                                    <option selected>Escoger opción</option>
+                                    <option value="Matematicas">Matematicas</option>
+                                    <option value="Fisica">Fisica</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="mb-4">
+                            <input type="text" hidden value="alumno" name="rol">
                         </div>
 
                         <div class="mb-4">
-                            <label for="exampleInputEmail1" class="form-label fw-semibold">Fecha de nacimiento</label>
-                            <input type="date" class="form-control form-control-lg fs-6" name="nombre"
-                                th:text="${nombre}">
+                            <input type="text" hidden value="" name="password">
                         </div>
 
-                        <div class="mb-4">
-                            <input type="text" hidden value="alumno">
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="exampleInputEmail1" class="form-label fw-semibold">Contraseña</label>
-                            <input type="text" class="form-control form-control-lg fs-6" name="nombre"
-                                th:text="${nombre}">
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="exampleInputEmail1" class="form-label fw-semibold">Foto de perfil (indique url)</label>
-                            <input type="text" class="form-control form-control-lg fs-6" name="nombre"
-                                th:text="${nombre}">
+                        <div class="row g-3">
+                            <div class="col-md-6 mb-4">
+                                <label for="exampleInputEmail1" class="form-label fw-semibold">Fecha de
+                                    nacimiento</label>
+                                <input type="date" class="form-control form-control-lg fs-6" name="fechaNacimiento"
+                                    th:text="${fechaNacimiento}">
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label for="exampleInputEmail1" class="form-label fw-semibold">Foto de perfil </label>
+                                <input type="url" class="form-control form-control-lg fs-6" name="fotoPerfil"
+                                    th:text="${fotoPerfil}" placeholder="https:www/example.com">
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-redPrimary btn-lg w-100 rounded-pill mt-2">Crear

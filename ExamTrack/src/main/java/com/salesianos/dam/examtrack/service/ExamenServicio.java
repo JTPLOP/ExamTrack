@@ -15,13 +15,4 @@ public class ExamenServicio extends ServicioBaseImpl <Examen, Long, ExamenReposi
     
 
 
-
-
-
-
-
-
-
-
-
 }
