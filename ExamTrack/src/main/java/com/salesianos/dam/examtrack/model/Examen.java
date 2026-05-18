@@ -1,5 +1,6 @@
 package com.salesianos.dam.examtrack.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,22 +30,44 @@ public class Examen {
     @Id
     @GeneratedValue
     @Column(nullable = false) 
-    private Long id;
+    private Long idExamen;
+
     private String nombre;
 
     @Column(columnDefinition = "TEXT")
     private String descripcion;
-    private String asignatura;
-    private double duracionMinutos;
+
+    private LocalDateTime fecha;
+    private String aula;
     private double puntuacionMax;
-
-
-    @OneToMany (mappedBy = "examen" , fetch = FetchType.EAGER)
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @Builder.Default
-    List <Convocatoria> convocatoria = new ArrayList<>();
+    private double duracionMinutos;
 
     
+    // Relacion Tabla intermedia
+    @OneToMany (mappedBy = "examen", fetch = FetchType.EAGER)
+    @Builder.Default
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<Inscripcion> inscripcion = new ArrayList<>();
+
+
+    // Relacion con Profesor
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JoinColumn (name = "id_profesor",
+        foreignKey = @ForeignKey (name = "fk_examen_profesor"))
+    private Profesor profesor;
+
+    /*Metodos helpers para la asociacion bidireccional */
+
+    public void addToProfesor (Profesor profesor) {
+
+        this.profesor = profesor;
+        profesor.getExamen().add(this);
+    }
+
+    public void removeToProfesor (Profesor profesor) {
+        profesor.getExamen().remove(this);
+        this.profesor = null;
+    }
 
 }

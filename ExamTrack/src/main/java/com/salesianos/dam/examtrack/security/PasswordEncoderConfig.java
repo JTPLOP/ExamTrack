@@ -8,11 +8,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class PasswordEncoderConfig {
     
-
+    /*Metodo enfocado en la encriptación de las contraseñas. */
     @Bean
     PasswordEncoder passwordEncoder () {
-        return PasswordEncoderFactories 
-            .createDelegatingPasswordEncoder();
-
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }

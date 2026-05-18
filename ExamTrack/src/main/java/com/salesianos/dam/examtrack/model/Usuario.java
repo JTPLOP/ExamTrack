@@ -1,6 +1,11 @@
 package com.salesianos.dam.examtrack.model;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,13 +19,12 @@ import lombok.experimental.SuperBuilder;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @SuperBuilder
 @ToString
-public class Usuario {
+public class Usuario  implements UserDetails{
     
     @Id
     private String dni;
@@ -28,10 +32,11 @@ public class Usuario {
     private String nombre;
     private String primerApellido;
     private String segundoApellido;
+    private String username; // sera el mismo que email
     private String email;
     private String direccion;
     private LocalDate fechaNacimiento;
-    private String rol;
+    private UsuarioRol rol;
     private String password;
     private String fotoPerfil;
 
@@ -48,9 +53,29 @@ public class Usuario {
         System.out.println("Pass:"+this.password);
         System.out.println("URL Foto:"+this.fotoPerfil);
 
+    public Collection<? extends SimpleGrantedAuthority> getAuthorities () {
+        return List.of(new SimpleGrantedAuthority("ROLE_" + rol.name()));
     }
+    
+    @Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
 
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
 
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
 
-} 
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
+}
  

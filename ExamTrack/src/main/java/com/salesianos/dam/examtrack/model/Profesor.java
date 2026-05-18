@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,6 @@ import lombok.ToString;
 
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter @Setter @EqualsAndHashCode @ToString
 
 public class Profesor extends Usuario {
@@ -24,6 +24,13 @@ public class Profesor extends Usuario {
     private String departamento;
     private String especialidad;
 
+    @OneToMany (mappedBy = "profesor", fetch = FetchType.EAGER)
+    @ToString.Exclude
+    @Builder.Default
+    private List <Examen> examen = new ArrayList<>();
 
+
+
+    
 
 }
