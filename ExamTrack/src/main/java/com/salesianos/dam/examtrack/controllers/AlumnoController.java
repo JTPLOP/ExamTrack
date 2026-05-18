@@ -28,7 +28,8 @@ public class AlumnoController {
     }
 
     @GetMapping ("/formAlumno") 
-    public String formularioAlumno () {
+    public String formularioAlumno (Model model) {
+        model.addAttribute("alumno", new Alumno());
 
         return "formAlumnos";
     }
@@ -56,7 +57,7 @@ public class AlumnoController {
 			return "formAlumnos";
 		} else {
 			return "redirect:/alumnos";
-		}
+		} 
 
 	}
 

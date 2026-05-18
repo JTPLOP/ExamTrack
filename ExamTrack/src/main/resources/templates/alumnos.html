@@ -28,7 +28,7 @@
             <div class="col-10">
                 <div class="container">
                     <div class="row">
-                        <div class="col-9">
+                        <div class="col-12">
 
                             <h1>LISTA DE ALUMNOS</h1>
                             <table class="table">
@@ -56,19 +56,18 @@
                                         <td th:text="${alumnos.fechaNacimiento}"></td>
                                         <td th:text="${alumnos.grupo}"></td>
                                         <td th:text="${alumnos.asignaturas}"></td>
-                                        <div class="btn-group btn-group-sm" role="group">
-                                            <a th:href="@{/editar/alumno/{dni}(id=${alumno.dni})}"
+                                        <td class="btn-group btn-group-sm" role="group">
+                                            <a th:href="@{/editar/alumno/{id}(id=${alumnos.dni})}"
                                                 class="btn btn-outline-primary">
                                                 <i class="bi bi-pencil-square"></i> Editar
                                             </a>
-                                        </div>
+                                        </td>
+
 
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-
-                        <div class="col-3"></div>
 
                     </div>
                 </div>
