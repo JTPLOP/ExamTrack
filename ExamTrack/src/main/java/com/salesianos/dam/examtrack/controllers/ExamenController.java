@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.salesianos.dam.examtrack.model.Alumno;
 import com.salesianos.dam.examtrack.model.Examen;
 import com.salesianos.dam.examtrack.service.ExamenServicio;
 
@@ -29,17 +30,20 @@ public class ExamenController {
         return "examenes";
     } 
 
+    /* Crear Entidad */
+
 
     @GetMapping ("/formExamen") 
     public String formularioExamen (Model model) {
 
+        model.addAttribute("examen", new Examen());
+
         return "formExamenes";
     }
 
-    @PostMapping ("/examenSubmit") 
+    @PostMapping ("/crearExamen") 
     public String creadorExamen (@ModelAttribute("examen") Examen examen, Model model) {
 
-        
         servicio.agregar(examen);
 
         /*Comprobacion de creacion objeto */
@@ -49,13 +53,15 @@ public class ExamenController {
         return "redirect:/examenes";
     }
 
+    /* Editar Entidad */
+
     @GetMapping("/editar/examen/{id}")
 	public String modificarExamen(@PathVariable("id") Long id, Model model) {
 
 		Optional <Examen> examen = servicio.filtrarPorId(id);
 
 		if (examen.isPresent()) {
-            model.addAttribute("examen", servicio.filtrarPorId(id));
+            model.addAttribute("examen", examen.get());
 
 			return "formExamenes";
 		} else {
@@ -64,9 +70,12 @@ public class ExamenController {
 
 	}
 
+    @PostMapping ("/editExamen")
+    public String editorExamen (@ModelAttribute("examen") Examen examen) {
+        
+        servicio.modificar(examen);
 
+        return "redirect:/examenes";
 
-    
-    
-    
+    }
 }
