@@ -21,7 +21,8 @@ public class ExamenController {
     
     @GetMapping ("/examenes")
     public String misExamenesBase (Model model) {
-        model.addAttribute("lista", servicio.filtrarTodos());
+        model.addAttribute("examen", servicio.filtrarTodos());
+
         return "examenes";
     }
 
