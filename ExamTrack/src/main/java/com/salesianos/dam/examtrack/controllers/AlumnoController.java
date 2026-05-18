@@ -40,7 +40,7 @@ public class AlumnoController {
         servicio.agregar(alumno);
 
         /*Comprobacion de creacion objeto */
-        System.out.println("hola");
+        System.out.println("hola"); 
         alumno.depurarDatos();
 
         return "redirect:/formAlumno";
@@ -69,5 +69,15 @@ public class AlumnoController {
         return "redirect:/alumnos";
     }
 
+    @GetMapping ("/eliminar/alumno/{dni}")
+    public String borradorExamen (@PathVariable ("dni") String dni) {
+
+        Optional <Alumno> alumno = servicio.filtrarPorId(dni);
+
+        if (alumno.isPresent()) 
+            servicio.eliminar(alumno.get());
+
+        return "redirect:/alumnos";
+    }
 
 }
