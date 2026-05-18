@@ -43,7 +43,7 @@
                                         <th scope="col">Asignatura</th>
                                         <th scope="col">Duracion (MIN)</th>
                                         <th scope="col">Puntuacion Maxima</th>
-                              
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,6 +54,14 @@
                                         <td th:text="${examenes.asignatura}"></td>
                                         <td th:text="${examenes.duracionMinutos}"></td>
                                         <td th:text="${examenes.puntuacionMax}"></td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <a th:href="@{/editar/examen/{id}(id=${examenes.id})}"
+                                                    class="btn btn-outline-primary">
+                                                    <i class="bi bi-pencil-square"></i> Editar
+                                                </a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                         </div>
