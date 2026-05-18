@@ -10,6 +10,8 @@ import com.salesianos.dam.examtrack.model.Examen;
 import com.salesianos.dam.examtrack.service.ExamenServicio;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -19,7 +21,7 @@ public class ExamenController {
     
     @GetMapping ("/examenes")
     public String misExamenesBase (Model model) {
-        
+        model.addAttribute("lista", servicio.filtrarTodos());
         return "examenes";
     }
 
@@ -41,5 +43,8 @@ public class ExamenController {
 
         return "redirect:/formExamen";
     }
+
+    
+    
     
 }
