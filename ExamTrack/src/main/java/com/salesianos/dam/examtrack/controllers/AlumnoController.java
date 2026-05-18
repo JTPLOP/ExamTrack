@@ -9,7 +9,7 @@ import com.salesianos.dam.examtrack.model.Alumno;
 import com.salesianos.dam.examtrack.service.AlumnoServicio;
 
 import lombok.RequiredArgsConstructor;
-
+ 
 @Controller
 @RequiredArgsConstructor
 public class AlumnoController {
@@ -18,7 +18,7 @@ public class AlumnoController {
     
     @GetMapping ("/alumnos")
     public String alumnosBase (Model model) {
-
+        model.addAttribute("alumno", servicio.filtrarTodos());
         
         return "alumnos";
     }
