@@ -78,4 +78,18 @@ public class ExamenController {
         return "redirect:/examenes";
 
     }
+
+    /*Borrar Entidad (falta por definir politica de borrado, por lo que actualmente es un borrado básico) */
+
+    @GetMapping ("/eliminar/examen/{id}")
+    public String borradorExamen (@PathVariable ("id") long id) {
+
+        Optional <Examen> examEliminar = servicio.filtrarPorId(id);
+
+        if (examEliminar.isPresent()) 
+            servicio.eliminar(examEliminar.get());
+
+        return "redirect:/examenes";
+    }
+
 }
