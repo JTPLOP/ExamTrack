@@ -43,7 +43,7 @@ public class Examen {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @Builder.Default
-    List <Convocatoria> convocatoria = new ArrayList<>();
+    private List <Convocatoria> convocatoria = new ArrayList<>();
 
     
 
