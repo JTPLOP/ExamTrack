@@ -10,13 +10,6 @@ public class SesionController {
     
     /* ENDPOINTS PRINCIPALES */
 
-    @GetMapping ("/login")
-    public String loginBase (Model model) {
-        
-        return "login";
-    }
-
-
     @GetMapping ("/logout")
     public String logoutBase (Model model) {
 

@@ -31,7 +31,10 @@ public class SecurityConfig {
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .formLogin((loginz) -> loginz
-                        .loginPage("/login").permitAll())
+                        .loginPage("/login").permitAll()
+                        .defaultSuccessUrl("/inicio", true)
+                        .permitAll())
+
                 .logout((logoutz) -> logoutz
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login")

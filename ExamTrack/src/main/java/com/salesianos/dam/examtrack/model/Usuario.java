@@ -53,6 +53,8 @@ public class Usuario  implements UserDetails{
         System.out.println("Pass:"+this.password);
         System.out.println("URL Foto:"+this.fotoPerfil);
 
+    }
+
     public Collection<? extends SimpleGrantedAuthority> getAuthorities () {
         return List.of(new SimpleGrantedAuthority("ROLE_" + rol.name()));
     }

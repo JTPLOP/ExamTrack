@@ -13,33 +13,33 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class InitData {
-	
+
 	private final UsuarioRepositorio repo;
-	private final PasswordEncoderConfig encoder;
-	
+	private final PasswordEncoder encoder;
+
 	@PostConstruct
 	public void init() {
-		
-		Usuario alumno = Usuario.builder()
+
+		Usuario profesor = Usuario.builder()
+				.dni("1A")
 				.email("user@user.com")
-				.username("user")
-				.password(encoder.encode("123"))
-				.role(UsuarioRol.ALUMNO)
+				.username("user@user.com")
+				.password(encoder.encode("12345"))
+				.rol(UsuarioRol.PROFESOR)
 				.build();
-		
-		repo.save(alumno);
-		
-		
+
+		repo.save(profesor);
+
 		Usuario admin = Usuario.builder()
+				.dni("1B")
 				.email("admin@admin.com")
-				.username("admin")
-				.password(encoder.encode("admin"))
+				.username("admin@admin.com")
+				.password(encoder.encode("12345"))
 				.rol(UsuarioRol.ADMIN)
 				.build();
-	
+
 		repo.save(admin);
-		
+
 	}
-	
 
 }

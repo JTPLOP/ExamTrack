@@ -17,6 +17,7 @@ import lombok.ToString;
 
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter @Setter @ToString
 public class Alumno extends Usuario {
     
@@ -26,14 +27,12 @@ public class Alumno extends Usuario {
 
     // Relacion tabla Intermedia
     @OneToMany (mappedBy = "alumno", fetch = FetchType.EAGER)
-    @Builder.Default
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Inscripcion> inscripcion = new ArrayList<>();
 
 
     
-
      @Override
      public void depurarDatos() {
          super.depurarDatos();
