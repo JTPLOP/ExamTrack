@@ -23,25 +23,91 @@
 <body>
     <div class="container-fluid">
         <div class="row min-vh-100">
-            <div th:fragment="sidebarMenu" class="col-2 order-first p-0" id="sidebar">
+            <div th:fragment="sidebarMenu" class="col-2 order-first " id="sidebar">
 
-                <nav class="sticky-top vh-100 ">
-                    <h1 class="py-4 m-0 pe-3 text-center title-ExamTrack">ExamTrack</h1>
-                    <hr id="sidebarLine" />
-                    <div class="container m-0 fs-5 ">
-                        <ul class="row " id="opcionesSideBar">
-                            <li class="col-12 py-2 "><a  th:href="@{/inicio}" ><i class="bi bi-house pe-3 "></i>Inicio</a></li>
-                            <li class="col-12 py-2"><a  th:href="@{/alumnos}"><i class="bi bi-people pe-3"></i>Alumnos</a></li>
-                            <li class="col-12 py-2"><a  th:href="@{/convocatorias}"><i class="bi bi-table pe-3"></i>Convocatorias</a></li>
-                            <li class="col-12 py-2"><a  th:href="@{/examenes}"><i class="bi bi-archive pe-3"></i>Mis Examenes</a></li>
-                            <li class="col-12 py-2"><a  th:href="@{/perfil}"><i class="bi bi-person pe-3"></i>Mi Perfil</a></li>
-                            <li class="col-12 py-2"><a href="#"><i class="bi bi-box-arrow-left pe-3"></i>Logout</a></li>
-                        </ul>
+                <nav class="sticky-top vh-100 d-flex flex-column ps-4">
+
+                    <div>
+                        <a th:href="@{/perfil}"
+                            class="d-flex align-items-center py-4 pe-2 text-decoration-none text-dark rounded nav-link menu-link">
+                            <img th:src="@{url}"
+                                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F8a%2F1a%2F4b%2F8a1a4bb250096a39f05aad50bdeef23b.png&f=1&nofb=1&ipt=0d7ce6c642b393e9e39266439e937ba0c12b99c12d1a9cd27883782d41add391"
+                                alt="Foto de perfil" class="rounded-circle me-3" width="50" height="50">
+                            <div class="d-flex flex-column lh-sm">
+                                <span class="fw-bold" th:text="${nombre}">Nombre Profesor</span>
+                                <span class="text-muted th:text=" ${email}>Profesor@educacion</span>
+                                <span class="text-muted th:text=" ${departamento}>Departamento ExamTrack</span>
+                            </div>
+                        </a>
+                        <hr id="sidebarLine" class="me-4" />
+
+                        <div class="container m-0 p-0 fs-5">
+                            <ul class="row list-unstyled pe-4">
+                                <li class="col-12 py-1"><a th:href="@{/inicio}"
+                                        class="text-dark text-decoration-none nav-link p-2 rounded menu-link"><i
+                                            class="bi bi-house pe-3"></i>Inicio</a></li>
+                                <li class="col-12 py-1"><a th:href="@{/alumnos}"
+                                        class="text-dark text-decoration-none nav-link p-2 rounded menu-link"><i
+                                            class="bi bi-people pe-3"></i>Alumnos</a></li>
+                                <li class="col-12 py-1"><a th:href="@{/convocatorias}"
+                                        class="text-dark text-decoration-none nav-link p-2 rounded menu-link"><i
+                                            class="bi bi-table pe-3"></i>Convocatorias</a></li>
+                                <li class="col-12 py-1"><a th:href="@{/examenes}"
+                                        class="text-dark text-decoration-none nav-link p-2 rounded menu-link"><i
+                                            class="bi bi-archive pe-3"></i>Mis Exámenes</a></li>
+                            </ul>
+                        </div>
                     </div>
+
+                    <div class="mt-auto w-100 pe-4 mb-4">
+
+                        <div class="dropup w-100 mb-4">
+
+                        <button type="button"
+                                class=" btn-redPrimary border rounded-pill w-100 py-2 fw-bold shadow-sm d-flex justify-content-center align-items-center"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-plus-lg pe-3 fs-5"></i> Crear
+                            </button>
+
+                            <ul class="dropdown-menu w-100 shadow border-0 rounded-4 mb-2 p-2 ">
+                                <li>
+                                    <a class="dropdown-item rounded py-2" th:href="@{/formAlumno}">
+                                        <i class="bi bi-person-plus pe-2"></i> Crear Alumno
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item rounded py-2" th:href="@{/crear-convocatoria}">
+                                        <i class="bi bi-calendar-plus pe-2"></i> Crear Convocatoria
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item rounded py-2" th:href="@{/formExamen}">
+                                        <i class="bi bi-file-earmark-plus pe-2"></i> Crear Examen
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <hr />
+
+                        <ul class="list-unstyled m-0 fs-5 mt-3">
+                            <li class="py-1"><a th:href="@{/perfil}"
+                                    class="text-dark text-decoration-none nav-link p-2 rounded menu-link"><i
+                                        class="bi bi-person pe-3"></i>Mi Perfil</a></li>
+                            <li class="py-1"><a th:href="@{/about}"
+                                    class="text-dark text-decoration-none nav-link p-2 rounded menu-link"><i
+                                        class="bi bi-info-circle pe-3"></i>Sobre nosotros</a></li>
+                            <li class="py-1"><a th:href="@{/logout}"
+                                    class="text-dark text-decoration-none nav-link p-2 rounded logout-link"><i
+                                        class="bi bi-box-arrow-left pe-3"></i>Logout</a></li>
+                        </ul>
+
+                    </div>
+
                 </nav>
             </div>
 
-            <div class="col-10 bg-light p-4">
+            <div class="col-10 bg-light m-0 ">
                 <h1>Contenido Principal</h1>
             </div>
 
