@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+
+            <div th:replace="~{fragmentos/sidebar :: sidebarMenu}"></div>
+
+            <div class="col-10 d-flex flex-column align-items-center">
+
+                <div class="w-100 p-4" style="max-width: 650px;">
+
+                    <h2 class="fw-bold mb-3">Crear Examen</h2>
+                    <hr class="mb-4" />
+
+                    <form>
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Escoge qué quieres crear</label>
+                            <select class="form-select form-select-md fs-6" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">Examen</option>
+                                <option value="2">Convocatoria</option>
+                                <option value="3">Alumnos</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="exampleInputEmail1" class="form-label fw-semibold">Nombre del examen</label>
+                            <input type="text" class="form-control form-control-lg fs-6" id="exampleInputEmail1">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="exampleFormControlTextarea1" class="form-label fw-semibold">Descripción del
+                                examen</label>
+                            <textarea class="form-control fs-6" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="exampleFormControlTextarea1" class="form-label fw-semibold">Asignatura</label>
+                            <select class="form-select form-select-md" aria-label="Small select example">
+                                <option selected>Escoge aquí tu asignatura</option>
+                                <option value="1">Ejemplo1</option>
+                                <option value="2">Ejemplo2</option>
+                            </select>
+                        </div>
+
+
+                        <div class="mb-4">
+                            <label for="exampleInputPassword1" class="form-label fw-semibold">Password</label>
+                            <input type="password" class="form-control form-control-lg" id="exampleInputPassword1">
+                        </div>
+
+
+
+                        <div class="mb-4 form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill mt-2">Submit</button>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>
