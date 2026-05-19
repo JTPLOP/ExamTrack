@@ -31,13 +31,13 @@
 
                 <div class="w-100 p-4" style="max-width: 650px;">
 
-                    <form method="post" th:action="${examen.id != null} ? @{/editExamen} : @{/crearExamen}" th:object="${examen}">
+                    <form method="post" th:action="${examen.idExamen != null} ? @{/editExamen} : @{/crearExamen}" th:object="${examen}">
 
                         <h2 class="fw-bold mb-3">Crear Examen</h2>
  
                         <hr class="mb-4" />
 
-                        <input type="hidden" th:field="*{id}">
+                        <input type="hidden" th:field="*{idExamen}">
 
                         <div class="mb-4">
                             <label for="exampleInputEmail1" class="form-label fw-semibold">Nombre del examen</label>
