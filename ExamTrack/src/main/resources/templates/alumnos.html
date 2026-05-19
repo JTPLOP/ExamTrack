@@ -27,10 +27,34 @@
 
             <div class="col-10">
                 <div class="container">
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <h1>LISTA DE ALUMNOS</h1>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-9">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Buscar alumno...">
+                                <select class="form-select">
+                                    <option selected>Filtrar por Grupo </option>
+                                    <option value="primero">Primero </option>
+                                </select>
+                                <select class="form-select">
+                                    <option selected>Filtrar por Asignaturas</option>\
+                                    <option value="matematicas">Matematicas </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <a th:href="@{/formAlumno}" class="btn btn-redPrimary w-100">Crear Alumno</a>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-12">
-
-                            <h1>LISTA DE ALUMNOS</h1>
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -43,6 +67,7 @@
                                         <th scope="col">Fecha Nacimiento</th>
                                         <th scope="col">Grupo</th>
                                         <th scope="col">Asignaturas</th>
+                                        <th scope="col">Acciones</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,28 +81,26 @@
                                         <td th:text="${alumnos.fechaNacimiento}"></td>
                                         <td th:text="${alumnos.grupo}"></td>
                                         <td th:text="${alumnos.asignaturas}"></td>
-                                        <td class="btn-group btn-group-sm" role="group">
-                                            <a th:href="@{/editar/alumno/{id}(id=${alumnos.dni})}"
-                                                class="btn btn-outline-primary">
-                                                <i class="bi bi-pencil-square"></i> Editar
-                                            </a>
-                                        </td>
-                                        <td class="btn-group btn-group-sm" role="group">
-                                            <a th:href="@{/eliminar/alumno/{id}(id=${alumnos.dni})}"
+                                        <td>
+                                            
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <a th:href="@{/editar/alumno/{id}(id=${alumnos.dni})}"
+                                                    class="btn btn-outline-primary">
+                                                    <i class="bi bi-pencil-square"></i> Editar
+                                                </a>
+                                                <a th:href="@{/eliminar/alumno/{id}(id=${alumnos.dni})}"
                                                     class="btn btn-outline-primary">
                                                     <i class="bi bi-pencil-square"></i> Eliminar
                                                 </a>
+                                            </div>
                                         </td>
-
-
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
-                </div>
 
+                </div>
             </div>
 
         </div>
