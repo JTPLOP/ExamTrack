@@ -28,6 +28,60 @@
 
             <div class="col-10">
                 <h1>Mis Examenes</h1>
+                <div class="container">
+
+
+                    <div class="row">
+
+                        <div class="col-9">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Descripcion</th>
+                                        <th scope="col">Asignatura</th>
+                                        <th scope="col">Duracion (MIN)</th>
+                                        <th scope="col">Puntuacion Maxima</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="examenes : ${examen}">
+                                        <th scope="row" th:text="${examenes.id}"></th>
+                                        <td th:text="${examenes.nombre}"></td>
+                                        <td th:text="${examenes.descripcion}"></td>
+                                        <td th:text="${examenes.asignatura}"></td>
+                                        <td th:text="${examenes.duracionMinutos}"></td>
+                                        <td th:text="${examenes.puntuacionMax}"></td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <a th:href="@{/editar/examen/{id}(id=${examenes.id})}"
+                                                    class="btn btn-outline-primary">
+                                                    <i class="bi bi-pencil-square"></i> Editar
+                                                </a>
+
+                                                <a th:href="@{/eliminar/examen/{id}(id=${examenes.id})}"
+                                                    class="btn btn-outline-primary">
+                                                    <i class="bi bi-pencil-square"></i> Eliminar
+                                                </a>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                        </div>
+
+                        <div class="col-3">
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
             </div>
 
         </div>
