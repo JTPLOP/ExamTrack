@@ -15,7 +15,7 @@ public class SesionController {
 
         return "logout";
     }
-
+ 
     /*LOGICA DEL LOGIN */
     @PostMapping ("/loginForm")
     public String formularioLogin (Model model) {

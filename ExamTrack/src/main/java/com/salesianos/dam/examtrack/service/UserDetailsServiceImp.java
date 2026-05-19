@@ -3,13 +3,17 @@ package com.salesianos.dam.examtrack.service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.salesianos.dam.examtrack.repository.UsuarioRepositorio;
 
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
 public class UserDetailsServiceImp implements UserDetailsService {
 
-    UsuarioRepositorio repositorio;
-
+    private final UsuarioRepositorio repositorio;
 
 
     /*Metodo obligatorio al extender, se encarga de buscar un usuario donde esten
