@@ -50,19 +50,20 @@
                                     <div
                                         class="w-100 flex-grow-1 d-flex flex-column justify-content-center align-items-center pb-5">
                                         <form class="w-75 d-flex flex-column align-items-center pb-5 needs-validation"
-                                            method="post" action="/loginForm" novalidate>
+                                            method="post" th:action=@{/login} novalidate>
+                                            
                                             <div class="mb-3 w-75 py-3">
                                                 <label for="emailLabel" class="form-label col-form-label-lg">Correo
                                                     Electronico</label>
-                                                <input type="email" class="form-control" id="emailLabel"
-                                                    th:form="${email}">
+                                                <input type="text" class="form-control" id="emailLabel"
+                                                    name="username">
 
-                                            </div>
+                                            </div> 
                                             <div class="mb-3 w-75 py-3">
                                                 <label for="contraLabel"
                                                     class="form-label col-form-label-lg">Contraseña</label>
                                                 <input type="password" class="form-control" id="passwordLabel"
-                                                    th:form="${password}" minlength="15">
+                                                    name="password" minlength="5">
                                             </div>
                                             <button type="submit"
                                                 class="btn btn-redPrimary w-50 mt-3 text-light">Iniciar

@@ -125,9 +125,11 @@
                             <li class="py-1"><a th:href="@{/sobreNosotros}"
                                     class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
                                         class="bi bi-info-circle pe-3"></i>Sobre nosotros</a></li>
-                            <li class="py-1"><a th:href="@{/logout}"
-                                    class="text-dark text-decoration-none nav-link p-2 rounded logout-link d-flex align-items-center w-100 sidebar-opciones"><i
-                                        class="bi bi-box-arrow-left pe-3"></i>Logout</a></li>
+                            <li class="py-1">
+                                <form method="post" th:action="@{/logout}"><button
+                                        class="text-dark text-decoration-none nav-link p-2 rounded logout-link d-flex align-items-center w-100 sidebar-opciones"><i
+                                            class="bi bi-box-arrow-left pe-3"></i>Logout</button></form>
+                            </li>
                         </ul>
 
                     </div>
