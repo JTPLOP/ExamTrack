@@ -1,8 +1,11 @@
 package com.salesianos.dam.examtrack.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.model.Usuario;
 import com.salesianos.dam.examtrack.model.UsuarioRol;
 import com.salesianos.dam.examtrack.repository.UsuarioRepositorio;
@@ -20,15 +23,25 @@ public class InitData {
 	@PostConstruct
 	public void init() {
 
-		Usuario profesor = Usuario.builder()
-				.dni("1A")
-				.email("user@user.com")
-				.username("user@user.com")
-				.password(encoder.encode("12345"))
-				.rol(UsuarioRol.PROFESOR)
-				.build();
+		Profesor profesor = new Profesor();
 
-		repo.save(profesor);
+		Profesor defecto = Profesor.builder()
+			.dni("AA1")
+			.nombre("Jose")
+			.primerApellido("Tapia")
+			.segundoApellido("Lopez")
+			.username("user@user.com")
+			.password(encoder.encode("12345"))
+			.email("user@user.com")
+			.direccion("Bosco")
+			.fechaNacimiento(LocalDate.now())
+			.rol(UsuarioRol.PROFESOR)
+			.fotoPerfil("https://i.redd.it/sby4ealaiaoe1.png")
+			.especialidad("Ingles")
+			.examen(profesor.getExamen())
+			.build();
+
+		repo.save(defecto);
 
 		Usuario admin = Usuario.builder()
 				.dni("1B")

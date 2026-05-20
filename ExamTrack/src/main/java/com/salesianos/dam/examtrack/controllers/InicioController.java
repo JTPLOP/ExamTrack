@@ -11,6 +11,8 @@ public class InicioController {
     public String inicioBase (Model model) {
 
         
+        
+
         return "inicio";
     }
 

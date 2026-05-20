@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -28,7 +29,7 @@ public class Usuario  implements UserDetails{
     
     @Id
     private String dni;
-	
+
     private String nombre;
     private String primerApellido;
     private String segundoApellido;
@@ -44,6 +45,7 @@ public class Usuario  implements UserDetails{
         System.out.println("Usuario Creado:");
         System.out.println("DNI:"+this.dni);
         System.out.println("nombre:"+this.nombre);
+        System.out.println("Username: "+this.username);
         System.out.println("Primer apellido:"+this.primerApellido);
         System.out.println("segundo Apellido:"+this.segundoApellido);
         System.out.println("email:"+this.email);
@@ -52,6 +54,7 @@ public class Usuario  implements UserDetails{
         System.out.println("Rol:"+this.rol);
         System.out.println("Pass:"+this.password);
         System.out.println("URL Foto:"+this.fotoPerfil);
+        
 
     }
 
@@ -78,6 +81,29 @@ public class Usuario  implements UserDetails{
 	public boolean isEnabled() {
 		return true;
 	}
+
+    /*AJUSTES DE LA CREACION */
+
+    public String creadorUsername() {
+
+        /*Este metodo tendra como finalidad crear un username a partir de un email, la idea
+        es partir el string por la mitad (de momento por hacer pero tengo este metodo para pruebas.) 
+        */
+
+        this.username = this.email;
+
+        return this.username;
+    }
+
+    public String creadorPassword () {
+
+        PasswordEncoder encoder;
+        
+        this.password = "Default"; // Logica basica (por mejorar)
+
+        return password;
+
+    }
 
 }
  
