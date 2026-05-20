@@ -78,7 +78,7 @@ public class ProfesorController {
 
 			return "formProfesor";
 		} else {
-			return "redirect:/profesores";
+			return "redirect:/profesor";
 		} 
 
 	}
@@ -88,7 +88,7 @@ public class ProfesorController {
         
         servicio.modificar(profesor);
 
-        return "redirect:/profesores";
+        return "redirect:/profesor";
     }
     
 
