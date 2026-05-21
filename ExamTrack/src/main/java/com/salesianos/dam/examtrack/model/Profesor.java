@@ -5,6 +5,9 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -30,6 +33,25 @@ public class Profesor extends Usuario {
     @OneToMany (mappedBy = "profesor", fetch = FetchType.EAGER)
     @ToString.Exclude
     private List <Examen> examen = new ArrayList<>();
+
+
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JoinColumn (name = "id_departamento",
+        foreignKey = @ForeignKey (name = "fk_departamento_profesor"))
+    private Departamento departamento;
+
+    /*Metodos helpers para la asociacion bidireccional */
+    public void addToDepartamento (Departamento departamento) {
+
+        this.departamento = departamento;
+        departamento.getListaProfesores().add(this);
+    }
+
+    public void removeToProfesor (Profesor profesor) {
+        departamento.getListaProfesores().remove(this);
+        this.departamento = null;
+    }
+
 
     @Override
     public void depurarDatos() {
