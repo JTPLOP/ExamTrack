@@ -55,11 +55,11 @@
                                         <td th:text="${profesores.fechaNacimiento}"></td>
                                         <td th:text="${profesores.especialidad}"></td>
                                         <td class="btn-group btn-group-sm" role="group">
-                                            <a th:href="@{/editar/profesor/{id}(id=${profesor.dni})}"
+                                            <a th:href="@{/editar/profesor/{id}(id=${profesores.dni})}"
                                                 class="btn btn-outline-primary">
                                                 <i class="bi bi-pencil-square"></i> Editar
                                             </a>
-                                            <a th:href="@{/eliminar/profesor/{id}(id=${profesor.dni})}"
+                                            <a th:href="@{/eliminar/profesor/{id}(id=${profesores.dni})}"
                                                 class="btn btn-outline-primary">
                                                 <i class="bi bi-pencil-square"></i> Eliminar
                                             </a>

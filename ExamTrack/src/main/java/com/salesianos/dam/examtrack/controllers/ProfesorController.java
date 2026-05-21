@@ -34,7 +34,7 @@ public class ProfesorController {
     public String formularioProfesor(Model model) {
         model.addAttribute("profesor", new Profesor());
 
-        return "formProfesor";
+        return "formProfesor"; 
     }
 
     @PostMapping ("/crearProfesor") 
@@ -67,7 +67,7 @@ public class ProfesorController {
         /*Comprobacion de creacion objeto */
         datosForm.depurarDatos();
 
-        return "redirect:/formProfesor";
+        return "redirect:/profesor";
     }
 
 
