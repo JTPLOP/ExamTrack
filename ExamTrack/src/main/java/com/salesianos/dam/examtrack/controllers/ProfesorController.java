@@ -42,7 +42,8 @@ public class ProfesorController {
 
         /*Estretegia de creacion de Profesor: es una estrategia de creacion de nuevo profesor aunque bastante
         pobre, de momneto al ser funcional lo voy a dejar como forma temporal aunque se tiene que cambiar la logica. */
-
+        
+        /* 
         Profesor profesor = Profesor.builder()
         .dni(datosForm.getDni())
         .nombre(datosForm.getNombre())
@@ -58,11 +59,13 @@ public class ProfesorController {
         .especialidad(datosForm.getEspecialidad())
         .examen(datosForm.getExamen())
         .build();
+        */
 
-        servicio.agregar(profesor);
+
+        servicio.agregar(datosForm);
 
         /*Comprobacion de creacion objeto */
-        profesor.depurarDatos();
+        datosForm.depurarDatos();
 
         return "redirect:/formProfesor";
     }

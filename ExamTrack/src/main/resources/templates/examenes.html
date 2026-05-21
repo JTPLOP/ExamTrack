@@ -40,7 +40,6 @@
                                         <th scope="col">Id</th>
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Descripcion</th>
-                                        <th scope="col">Asignatura</th>
                                         <th scope="col">Duracion (MIN)</th>
                                         <th scope="col">Puntuacion Maxima</th>
 
@@ -48,20 +47,19 @@
                                 </thead>
                                 <tbody>
                                     <tr th:each="examenes : ${examen}">
-                                        <th scope="row" th:text="${examenes.id}"></th>
+                                        <th scope="row" th:text="${examenes.idExamen}"></th>
                                         <td th:text="${examenes.nombre}"></td>
                                         <td th:text="${examenes.descripcion}"></td>
-                                        <td th:text="${examenes.asignatura}"></td>
                                         <td th:text="${examenes.duracionMinutos}"></td>
                                         <td th:text="${examenes.puntuacionMax}"></td>
                                         <td>
                                             <div class="btn-group btn-group-sm" role="group">
-                                                <a th:href="@{/editar/examen/{id}(id=${examenes.id})}"
+                                                <a th:href="@{/editar/examen/{id}(id=${examenes.idExamen})}"
                                                     class="btn btn-outline-primary">
                                                     <i class="bi bi-pencil-square"></i> Editar
                                                 </a>
 
-                                                <a th:href="@{/eliminar/examen/{id}(id=${examenes.id})}"
+                                                <a th:href="@{/eliminar/examen/{id}(id=${examenes.idExamen})}"
                                                     class="btn btn-outline-primary">
                                                     <i class="bi bi-pencil-square"></i> Eliminar
                                                 </a>
