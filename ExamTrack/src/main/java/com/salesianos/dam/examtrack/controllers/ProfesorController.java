@@ -94,7 +94,16 @@ public class ProfesorController {
         return "redirect:/profesor";
     }
     
+    @GetMapping ("/eliminar/profesor/{dni}")
+    public String borradorExamen (@PathVariable ("dni") String dni) {
 
+        Optional <Profesor> profesor = servicio.filtrarPorId(dni);
+
+        if (profesor.isPresent()) 
+            servicio.eliminar(profesor.get());
+
+        return "redirect:/profesor";
+    }
 
 
 
