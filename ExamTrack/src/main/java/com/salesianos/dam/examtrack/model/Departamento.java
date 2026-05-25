@@ -20,6 +20,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class Departamento {
     
     @Id
@@ -31,6 +32,7 @@ public class Departamento {
 
     @OneToMany (mappedBy = "departamento", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
+    @Builder.Default
     @ToString.Exclude
     private List <Profesor> listaProfesores = new ArrayList<>();
 

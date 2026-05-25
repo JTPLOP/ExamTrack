@@ -41,6 +41,7 @@ public class Examen {
     private String aula;
     private double puntuacionMax;
     private double duracionMinutos;
+    private int numPlazas;
 
     
     // Relacion Tabla intermedia

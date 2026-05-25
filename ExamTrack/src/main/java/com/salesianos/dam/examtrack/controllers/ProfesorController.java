@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 import com.salesianos.dam.examtrack.model.Alumno;
+import com.salesianos.dam.examtrack.model.Departamento;
 import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.model.UsuarioRol;
+import com.salesianos.dam.examtrack.service.DepartamentoServicio;
 import com.salesianos.dam.examtrack.service.ProfesorServicio;
 
 import lombok.RequiredArgsConstructor;
@@ -21,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class ProfesorController {
 
     private final ProfesorServicio servicio;
-    private final PasswordEncoder encoder;
+    private final DepartamentoServicio depaServicio;
 
     @GetMapping ("/profesor")
     public String ProfesoresBase (Model model) {
@@ -32,35 +34,15 @@ public class ProfesorController {
 
     @GetMapping ("/formProfesor") 
     public String formularioProfesor(Model model) {
+        
         model.addAttribute("profesor", new Profesor());
+        model.addAttribute("departamento", depaServicio.filtrarTodos());
 
         return "formProfesor"; 
     }
 
     @PostMapping ("/crearProfesor") 
     public String creadorProfesor (@ModelAttribute("datosForm") Profesor datosForm, Model model) {
-
-        /*Estretegia de creacion de Profesor: es una estrategia de creacion de nuevo profesor aunque bastante
-        pobre, de momneto al ser funcional lo voy a dejar como forma temporal aunque se tiene que cambiar la logica. */
-        
-        /* 
-        Profesor profesor = Profesor.builder()
-        .dni(datosForm.getDni())
-        .nombre(datosForm.getNombre())
-        .primerApellido(datosForm.getPrimerApellido())
-        .segundoApellido(datosForm.getSegundoApellido())
-        .username(datosForm.creadorUsername())
-        .password(encoder.encode(datosForm.creadorPassword()))
-        .email(datosForm.getEmail())
-        .direccion(datosForm.getDireccion())
-        .fechaNacimiento(datosForm.getFechaNacimiento())
-        .rol(UsuarioRol.PROFESOR)
-        .fotoPerfil(datosForm.getFotoPerfil())
-        .especialidad(datosForm.getEspecialidad())
-        .examen(datosForm.getExamen())
-        .build();
-        */
-
 
         servicio.agregar(datosForm);
 
@@ -104,7 +86,7 @@ public class ProfesorController {
 
         return "redirect:/profesor";
     }
-
+ 
 
 
 

@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.salesianos.dam.examtrack.model.Departamento;
 import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.model.Usuario;
 import com.salesianos.dam.examtrack.model.UsuarioRol;
+import com.salesianos.dam.examtrack.repository.DepartamentoRepositorio;
 import com.salesianos.dam.examtrack.repository.UsuarioRepositorio;
 import com.salesianos.dam.examtrack.security.PasswordEncoderConfig;
 import jakarta.annotation.PostConstruct;
@@ -18,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class InitData {
 
 	private final UsuarioRepositorio repo;
+	private final DepartamentoRepositorio depaRepo;
 	private final PasswordEncoder encoder;
 
 	@PostConstruct
@@ -52,6 +55,22 @@ public class InitData {
 				.build();
 
 		repo.save(admin);
+
+		Departamento depaMates = Departamento.builder()
+		.nombre("Matematicas")
+		.build();
+
+		Departamento depaFisica = Departamento.builder()
+		.nombre("Fisica")
+		.build();
+
+		Departamento depaIngles = Departamento.builder()
+		.nombre("Ingles")
+		.build();
+
+		depaRepo.save(depaMates);
+		depaRepo.save(depaFisica);
+		depaRepo.save(depaIngles);
 
 	}
 
