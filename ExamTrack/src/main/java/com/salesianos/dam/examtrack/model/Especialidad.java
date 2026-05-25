@@ -29,12 +29,7 @@ public class Especialidad {
     private Long idEspecialidad;
     private String nombre;
 
-    @ManyToMany (fetch = FetchType.EAGER)
-    @JoinTable (
-        name = "especialidad_profesor",
-        joinColumns = @JoinColumn (name="especialidad_id"),
-        inverseJoinColumns = @JoinColumn (name="profesor_id")
-    )
+    @ManyToMany (mappedBy = "especialidades",fetch = FetchType.EAGER)
     @Builder.Default
     private List <Profesor> profesores = new ArrayList<>();
 

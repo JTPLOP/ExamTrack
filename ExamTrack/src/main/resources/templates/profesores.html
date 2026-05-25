@@ -41,7 +41,9 @@
                                         <th scope="col">Email</th>
                                         <th scope="col">Direccion</th>
                                         <th scope="col">Fecha Nacimiento</th>
+                                        <th scope="col">Departamento</th>
                                         <th scope="col">Especialidad</th>
+                                        <th scope="col">Examenes</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -53,7 +55,9 @@
                                         <td th:text="${profesores.email}"></td>
                                         <td th:text="${profesores.direccion}"></td>
                                         <td th:text="${profesores.fechaNacimiento}"></td>
-                                        <td th:text="${profesores.especialidad}"></td>
+                                        <td th:text="${profesores.departamento}"></td>
+                                        <td th:text="${profesores.especialidades}"></td>
+                                        <td th:text="${profesores.examen}"></td>
                                         <td class="btn-group btn-group-sm" role="group">
                                             <a th:href="@{/editar/profesor/{id}(id=${profesores.dni})}"
                                                 class="btn btn-outline-primary">

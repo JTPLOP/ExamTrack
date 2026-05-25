@@ -87,13 +87,15 @@
                         <div class="row g-3">
                             <div class="col-md-6 mb-4">
                                 <label for="exampleInputEmail1" class="form-label fw-semibold">Especialidades</label>
-                                <select id="inputState" class="form-select" name="especialidad" >
+                                <select id="inputState" class="form-select" name="especialidades" >
                                     <option value="">Escoger opción</option>
                                     <option th:each="listaEspecialidades : ${listaEspecialidad}" th:value="${listaEspecialidades.idEspecialidad}" th:text="${listaEspecialidades.nombre}" required></option>
                                     
                                 </select>
                             </div>
                         </div>
+
+                        <input type="hidden" class="form-control form-control-lg fs-6" name="password" value="Default">
 
                         <div class="row g-3">
                             <div class="col-md-6 mb-4">

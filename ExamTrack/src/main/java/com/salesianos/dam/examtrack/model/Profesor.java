@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -52,7 +53,12 @@ public class Profesor extends Usuario {
         this.departamento = null;
     }
 
-    @ManyToMany (mappedBy = "profesores", fetch = FetchType.EAGER)
+    @ManyToMany (fetch = FetchType.EAGER)
+    @JoinTable (
+        name = "especialidad_profesor",
+        joinColumns = @JoinColumn (name="profesor_id"), 
+        inverseJoinColumns = @JoinColumn (name="especialidad_id") 
+    )
     @Builder.Default
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
@@ -64,6 +70,8 @@ public class Profesor extends Usuario {
         super.depurarDatos();
         System.out.println("PROFESOR\n===============");
         System.out.println("Examenes: "+this.examen);
+        System.out.println("Departamento: "+this.departamento);
+        System.out.println("Especialidad: "+this.especialidades);
     }
 
 }
