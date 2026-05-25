@@ -2,21 +2,17 @@ package com.salesianos.dam.examtrack.controllers;
 
 import java.util.Optional;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
-import com.salesianos.dam.examtrack.model.Alumno;
-import com.salesianos.dam.examtrack.model.Departamento;
 import com.salesianos.dam.examtrack.model.Profesor;
-import com.salesianos.dam.examtrack.model.UsuarioRol;
-import com.salesianos.dam.examtrack.repository.EspecialidadRepositorio;
 import com.salesianos.dam.examtrack.service.DepartamentoServicio;
 import com.salesianos.dam.examtrack.service.EspecialidadServicio;
 import com.salesianos.dam.examtrack.service.ProfesorServicio;
+import com.salesianos.dam.examtrack.service.UsuarioServicio;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +23,7 @@ public class ProfesorController {
     private final ProfesorServicio servicio;
     private final DepartamentoServicio depaServicio;
     private final EspecialidadServicio especiServicio;
+    private final UsuarioServicio userServicio;
 
     @GetMapping ("/profesor")
     public String ProfesoresBase (Model model) {
@@ -39,8 +36,8 @@ public class ProfesorController {
     public String formularioProfesor(Model model) {
         
         model.addAttribute("profesor", new Profesor());
-        model.addAttribute("departamento", depaServicio.filtrarTodos());
-        model.addAttribute("especialidad", especiServicio.filtrarTodos());
+        model.addAttribute("listaDepartamento", depaServicio.filtrarTodos());
+        model.addAttribute("listaEspecialidad", especiServicio.filtrarTodos());
 
         return "formProfesor"; 
     }
@@ -48,19 +45,20 @@ public class ProfesorController {
     @PostMapping ("/crearProfesor") 
     public String creadorProfesor (@ModelAttribute("datosForm") Profesor datosForm, Model model) {
 
+        datosForm.setPassword(userServicio.encriptadorPasswords(datosForm.getPassword()));
         servicio.agregar(datosForm);
 
         /*Comprobacion de creacion objeto */
         datosForm.depurarDatos();
 
-        return "redirect:/profesor";
+        return "redirect:/formProfesor";
     }
 
 
     @GetMapping("/editar/profesor/{dni}")
 	public String modificarAlumno(@PathVariable("dni") String dni, Model model) {
 
-		Optional <Profesor> profesor = servicio.filtrarPorId(dni); // aprender a filtrar por dni (como hacer consultas)
+		Optional <Profesor> profesor = servicio.filtrarPorId(dni); 
 
 		if (profesor.isPresent()) {
             model.addAttribute("profesor", profesor.get());

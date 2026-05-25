@@ -29,7 +29,6 @@ public class InitData {
 	@PostConstruct
 	public void init() {
 
-		Profesor profesor = new Profesor();
 
 		Profesor defecto = Profesor.builder()
 			.dni("AA1")

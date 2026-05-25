@@ -66,6 +66,8 @@
                                 th:field="*{email}" placeholder="usuario@ejemplo.com">
                         </div>
 
+                        
+
                         <div class="mb-4">
                             <label for="exampleInputEmail1" class="form-label fw-semibold">Dirección</label>
                             <input type="text" class="form-control form-control-lg fs-6" name="direccion"
@@ -77,7 +79,7 @@
                                 <label for="exampleInputEmail1" class="form-label fw-semibold">Departamento</label>
                                 <select class="form-select" name="departamento" th:field="*{departamento}">
                                     <option value="">Escoger opción</option>
-                                    <option th:each="departamentos : ${departamento}" th:value="${departamentos.idDepartamento}" th:text="${departamentos.nombre}" required></option>
+                                    <option th:each="listaDepartamentos : ${listaDepartamento}" th:value="${listaDepartamentos.idDepartamento}" th:text="${listaDepartamentos.nombre}" required></option>
                                 </select>
                             </div>
                         </div>
@@ -87,7 +89,7 @@
                                 <label for="exampleInputEmail1" class="form-label fw-semibold">Especialidades</label>
                                 <select id="inputState" class="form-select" name="especialidad" >
                                     <option value="">Escoger opción</option>
-                                    <option th:each="especialidades : ${especialidad}" th:value="${especialidades.idEspecialidad}" th:text="${especialidades.nombre}" required></option>
+                                    <option th:each="listaEspecialidades : ${listaEspecialidad}" th:value="${listaEspecialidades.idEspecialidad}" th:text="${listaEspecialidades.nombre}" required></option>
                                     
                                 </select>
                             </div>

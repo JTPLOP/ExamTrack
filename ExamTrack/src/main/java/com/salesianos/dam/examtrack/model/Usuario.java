@@ -54,8 +54,6 @@ public class Usuario  implements UserDetails{
         System.out.println("Rol:"+this.rol);
         System.out.println("Pass:"+this.password);
         System.out.println("URL Foto:"+this.fotoPerfil);
-        
-
     }
 
     public Collection<? extends SimpleGrantedAuthority> getAuthorities () {
@@ -95,15 +93,6 @@ public class Usuario  implements UserDetails{
         return this.username;
     }
 
-    public String creadorPassword () {
-
-        PasswordEncoder encoder;
-        
-        this.password = "Default"; // Logica basica (por mejorar)
-
-        return password;
-
-    }
 
 }
  
