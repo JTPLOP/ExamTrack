@@ -26,14 +26,12 @@
             <div th:replace="~{fragmentos/sidebar :: sidebarMenu}"></div>
 
             <div class="col-10">
+                <div class="my-4 ms-5 ps-3">
+                    <h1 class="display-5 fw-semibold">Alumnos</h1>
+                </div>
                 <div class="container">
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <h1>LISTA DE ALUMNOS</h1>
-                        </div>
-                    </div>
 
-                    <div class="row mb-4">
+                    <div class="row mb-4 align-items-center">
                         <div class="col-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Buscar alumno...">
@@ -42,7 +40,7 @@
                                     <option value="primero">Primero </option>
                                 </select>
                                 <select class="form-select">
-                                    <option selected>Filtrar por Asignaturas</option>\
+                                    <option selected>Filtrar por Asignaturas</option>
                                     <option value="matematicas">Matematicas </option>
                                 </select>
                             </div>
@@ -55,48 +53,72 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">DNI</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Primer Apellido</th>
-                                        <th scope="col">Segundo Apellido</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Direccion</th>
-                                        <th scope="col">Fecha Nacimiento</th>
-                                        <th scope="col">Grupo</th>
-                                        <th scope="col">Asignaturas</th>
-                                        <th scope="col">Acciones</th> 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="alumnos : ${alumno}">
-                                        <th scope="row" th:text="${alumnos.dni}"></th>
-                                        <td th:text="${alumnos.nombre}"></td>
-                                        <td th:text="${alumnos.primerApellido}"></td>
-                                        <td th:text="${alumnos.segundoApellido}"></td>
-                                        <td th:text="${alumnos.email}"></td>
-                                        <td th:text="${alumnos.direccion}"></td>
-                                        <td th:text="${alumnos.fechaNacimiento}"></td>
-                                        <td th:text="${alumnos.grupo}"></td>
-                                        <td th:text="${alumnos.asignaturas}"></td>
-                                        <td>
-                                            
-                                            <div class="btn-group btn-group-sm" role="group">
-                                                <a th:href="@{/editar/alumno/{id}(id=${alumnos.dni})}"
-                                                    class="btn btn-outline-primary">
-                                                    <i class="bi bi-pencil-square"></i> Editar
-                                                </a>
-                                                <a th:href="@{/eliminar/alumno/{id}(id=${alumnos.dni})}"
-                                                    class="btn btn-outline-primary">
-                                                    <i class="bi bi-pencil-square"></i> Eliminar
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="list-group list-group-flush">
+
+                                <div class="list-group-item px-0 py-3 bg-transparent" th:each="alumnos : ${alumno}">
+                                    <div class="row align-items-center">
+
+                                        <div class="col-md-1">
+                                            <a th:href="@{/perfil/alumno/{id}(id=${alumnos.dni})}"
+                                                class="d-inline-block text-decoration-none">
+                                                <img th:src="${alumnos.fotoPerfil ?: 'https://via.placeholder.com/50'}"
+                                                    class="rounded-circle object-fit-cover" width="50" height="50"
+                                                    alt="Foto">
+                                            </a>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <h6 class="mb-0 fw-semibold text-dark"
+                                                th:text="${alumnos.nombre + ' ' + alumnos.primerApellido}">Nombre
+                                                Apellido</h6>
+                                            <small class="text-muted"
+                                                th:text="${alumnos.email}">email@ejemplo.com</small>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <small
+                                                class="text-muted d-block mb-1 text-uppercase fs-7 fw-medium tracking-wider">Nacimiento</small>
+                                            <span class="text-secondary small"
+                                                th:text="${alumnos.fechaNacimiento}">12/05/2000</span>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <small
+                                                class="text-muted d-block mb-1 text-uppercase fs-7 fw-medium tracking-wider">Curso</small>
+                                            <span
+                                                class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-2.5 py-1.5"
+                                                th:text="${alumnos.grupo}">Grupo</span>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <small
+                                                class="text-muted d-block mb-1 text-uppercase fs-7 fw-medium tracking-wider">Asignaturas</small>
+                                            <span
+                                                class="badge bg-secondary-subtle text-secondary-emphasis text-wrap text-start fw-normal"
+                                                th:text="${alumnos.asignaturas != null and alumnos.asignaturas != '' ? alumnos.asignaturas : 'Sin asignaturas'}">
+                                                Asignaturas
+                                            </span>
+                                        </div>
+
+                                        <div class="col-md-3 d-flex gap-2 justify-content-end">
+                                            <a th:href="@{/perfil/alumno/{id}(id=${alumnos.dni})}"
+                                                class="btn btn-sm btn-secondary fw-medium px-3 text-nowrap">
+                                                Perfil
+                                            </a>
+                                            <a th:href="@{/editar/alumno/{id}(id=${alumnos.dni})}"
+                                                class="btn btn-sm btn-secondary fw-medium px-3 text-nowrap">
+                                                Editar
+                                            </a>
+                                            <a th:href="@{/eliminar/alumno/{id}(id=${alumnos.dni})}"
+                                                class="btn btn-sm text-white bg-danger bg-opacity-75 fw-medium px-3 text-nowrap">
+                                                Eliminar
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
 
