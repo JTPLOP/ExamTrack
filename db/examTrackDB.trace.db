@@ -1,0 +1,8 @@
+2026-05-25 20:16:34.209895+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "FOTO_PERFIL CHARACTER VARYING(255)": "'https://imgs.search.brave.com/rG2nitZH0iVtiKoB5BHRETnOZ-ao-ekG2gov0c4bpik/rs:fi... (280)"
+Value too long for column "FOTO_PERFIL CHARACTER VARYING(255)": "'https://imgs.search.brave.com/rG2nitZH0iVtiKoB5BHRETnOZ-ao-ekG2gov0c4bpik/rs:fi... (280)"; SQL statement:
+insert into usuario (direccion,email,fecha_nacimiento,foto_perfil,nombre,password,primer_apellido,rol,segundo_apellido,username,dni) values (?,?,?,?,?,?,?,?,?,?,?) [22001-240]
+2026-05-25 20:54:51.387931+02:00 jdbc[15]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "FOTO_PERFIL CHARACTER VARYING(255)": "'https://imgs.search.brave.com/rG2nitZH0iVtiKoB5BHRETnOZ-ao-ekG2gov0c4bpik/rs:fi... (280)"
+Value too long for column "FOTO_PERFIL CHARACTER VARYING(255)": "'https://imgs.search.brave.com/rG2nitZH0iVtiKoB5BHRETnOZ-ao-ekG2gov0c4bpik/rs:fi... (280)"; SQL statement:
+update usuario set direccion=?,email=?,fecha_nacimiento=?,foto_perfil=?,nombre=?,password=?,primer_apellido=?,rol=?,segundo_apellido=?,username=? where dni=? [22001-240]

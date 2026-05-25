@@ -36,12 +36,15 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Buscar alumno...">
                                 <select class="form-select">
-                                    <option selected>Filtrar por Grupo </option>
-                                    <option value="primero">Primero </option>
+                                    <option selected value="">Filtrar por Grupo </option>
+                                    <option value="Primero">Primero </option>
+                                    <option value="Segundo">Segundo </option>
+                                    <option value="Tercero">Tercero </option>
+                                    <option value="Cuarto">Cuarto </option>
                                 </select>
                                 <select class="form-select">
-                                    <option selected>Filtrar por Asignaturas</option>
-                                    <option value="matematicas">Matematicas </option>
+                                    <option selected>Mis Asignaturas</option>
+                                    <option th:each="especialidad : ${especialidades}" th:value="${especialidad}" th:text="${especialidad}" required></option>
                                 </select>
                             </div>
                         </div>

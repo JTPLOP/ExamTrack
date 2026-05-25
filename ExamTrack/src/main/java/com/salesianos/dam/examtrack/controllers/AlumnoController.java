@@ -2,6 +2,7 @@ package com.salesianos.dam.examtrack.controllers;
 
 import java.util.Optional;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.salesianos.dam.examtrack.model.Alumno;
 import com.salesianos.dam.examtrack.model.Examen;
+import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.service.AlumnoServicio;
+import com.salesianos.dam.examtrack.service.ProfesorServicio;
 
 import lombok.RequiredArgsConstructor;
  
@@ -19,11 +22,13 @@ import lombok.RequiredArgsConstructor;
 public class AlumnoController {
 
     private final AlumnoServicio servicio;
+    private final ProfesorServicio profeServicio;
     
     @GetMapping ("/alumnos")
-    public String alumnosBase (Model model) {
+    public String alumnosBase (Model model, @AuthenticationPrincipal Profesor profesores) {
         model.addAttribute("alumno", servicio.filtrarTodos());
-        
+        model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesores.getDni()));
+
         return "alumnos";
     }
 
