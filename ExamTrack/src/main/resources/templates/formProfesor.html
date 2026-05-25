@@ -74,7 +74,7 @@
 
                         <div class="row g-3">
                             <div class="col-md-6 mb-4">
-                                <label for="exampleInputEmail1" class="form-label fw-semibold">Especialidad</label>
+                                <label for="exampleInputEmail1" class="form-label fw-semibold">Departamento</label>
                                 <select class="form-select" name="departamento" th:field="*{departamento}">
                                     <option value="">Escoger opción</option>
                                     <option th:each="departamentos : ${departamento}" th:value="${departamentos.idDepartamento}" th:text="${departamentos.nombre}" required></option>
@@ -84,11 +84,11 @@
 
                         <div class="row g-3">
                             <div class="col-md-6 mb-4">
-                                <label for="exampleInputEmail1" class="form-label fw-semibold">Especialidad</label>
+                                <label for="exampleInputEmail1" class="form-label fw-semibold">Especialidades</label>
                                 <select id="inputState" class="form-select" name="especialidad" >
-                                    <option selected>Escoger opción</option>
-                                    <option value="Matematicas">Matematicas</option>
-                                    <option value="Fisica">Fisica</option>
+                                    <option value="">Escoger opción</option>
+                                    <option th:each="especialidades : ${especialidad}" th:value="${especialidades.idEspecialidad}" th:text="${especialidades.nombre}" required></option>
+                                    
                                 </select>
                             </div>
                         </div>

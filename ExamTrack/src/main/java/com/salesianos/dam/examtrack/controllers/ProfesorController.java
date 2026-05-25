@@ -13,7 +13,9 @@ import com.salesianos.dam.examtrack.model.Alumno;
 import com.salesianos.dam.examtrack.model.Departamento;
 import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.model.UsuarioRol;
+import com.salesianos.dam.examtrack.repository.EspecialidadRepositorio;
 import com.salesianos.dam.examtrack.service.DepartamentoServicio;
+import com.salesianos.dam.examtrack.service.EspecialidadServicio;
 import com.salesianos.dam.examtrack.service.ProfesorServicio;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ public class ProfesorController {
 
     private final ProfesorServicio servicio;
     private final DepartamentoServicio depaServicio;
+    private final EspecialidadServicio especiServicio;
 
     @GetMapping ("/profesor")
     public String ProfesoresBase (Model model) {
@@ -37,6 +40,7 @@ public class ProfesorController {
         
         model.addAttribute("profesor", new Profesor());
         model.addAttribute("departamento", depaServicio.filtrarTodos());
+        model.addAttribute("especialidad", especiServicio.filtrarTodos());
 
         return "formProfesor"; 
     }
