@@ -14,8 +14,4 @@ public class ProfesorServicio extends ServicioBaseImpl <Profesor, String, Profes
     }
 
 
-
-    
- 
-    
 }
