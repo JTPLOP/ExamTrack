@@ -67,6 +67,8 @@ public class ProfesorController {
 
         if (profesor.isPresent()) {
             model.addAttribute("profesor", profesor.get());
+            model.addAttribute("listaDepartamento", depaServicio.filtrarTodos());
+            model.addAttribute("listaEspecialidad", especiServicio.filtrarTodos());
 
             return "formProfesor";
         } else {
@@ -79,6 +81,7 @@ public class ProfesorController {
     public String editorAlumno(@ModelAttribute("profesor") Profesor profesor) {
 
         servicio.modificar(profesor);
+        profesor.creadorUsername();
 
         return "redirect:/profesor";
     }
