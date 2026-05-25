@@ -6,10 +6,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.salesianos.dam.examtrack.model.Departamento;
+import com.salesianos.dam.examtrack.model.Especialidad;
 import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.model.Usuario;
 import com.salesianos.dam.examtrack.model.UsuarioRol;
 import com.salesianos.dam.examtrack.repository.DepartamentoRepositorio;
+import com.salesianos.dam.examtrack.repository.EspecialidadRepositorio;
 import com.salesianos.dam.examtrack.repository.UsuarioRepositorio;
 import com.salesianos.dam.examtrack.security.PasswordEncoderConfig;
 import jakarta.annotation.PostConstruct;
@@ -21,6 +23,7 @@ public class InitData {
 
 	private final UsuarioRepositorio repo;
 	private final DepartamentoRepositorio depaRepo;
+	private final EspecialidadRepositorio especiRepo;
 	private final PasswordEncoder encoder;
 
 	@PostConstruct
@@ -40,7 +43,6 @@ public class InitData {
 			.fechaNacimiento(LocalDate.now())
 			.rol(UsuarioRol.PROFESOR)
 			.fotoPerfil("https://i.redd.it/sby4ealaiaoe1.png")
-			.especialidad("Ingles")
 			.examen(profesor.getExamen())
 			.build();
 
@@ -72,6 +74,23 @@ public class InitData {
 		depaRepo.save(depaFisica);
 		depaRepo.save(depaIngles);
 
+		Especialidad especiMates = Especialidad.builder()
+		.nombre("Matematicas")
+		.build();
+		Especialidad especiFisica = Especialidad.builder()
+		.nombre("Fisica")
+		.build();
+		Especialidad especiIngles = Especialidad.builder()
+		.nombre("Ingles")
+		.build();
+		Especialidad especiProgramacion = Especialidad.builder()
+		.nombre("Programacion")
+		.build();
+
+		especiRepo.save(especiMates);
+		especiRepo.save(especiFisica);
+		especiRepo.save(especiIngles);
+		especiRepo.save(especiProgramacion);
 	}
 
 }

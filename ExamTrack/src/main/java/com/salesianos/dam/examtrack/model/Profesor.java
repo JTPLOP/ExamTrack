@@ -7,9 +7,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,9 +28,6 @@ import lombok.experimental.SuperBuilder;
 
 public class Profesor extends Usuario {
     
-
-    private String especialidad;
-
 
     @OneToMany (mappedBy = "profesor", fetch = FetchType.EAGER)
     @ToString.Exclude
@@ -47,17 +46,22 @@ public class Profesor extends Usuario {
         departamento.getListaProfesores().add(this);
     }
 
-    public void removeToProfesor (Profesor profesor) {
+    public void removeToProfesor (Departamento departamento) {
         departamento.getListaProfesores().remove(this);
         this.departamento = null;
     }
+
+    @ManyToMany (mappedBy = "profesores", fetch = FetchType.EAGER)
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Especialidad> especialidades = new ArrayList<>();
 
 
     @Override
     public void depurarDatos() {
         super.depurarDatos();
         System.out.println("PROFESOR\n===============");
-        System.out.println("Especialidad: "+this.especialidad);
         System.out.println("Examenes: "+this.examen);
     }
 
