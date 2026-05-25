@@ -30,6 +30,7 @@ public class Profesor extends Usuario {
     
 
     @OneToMany (mappedBy = "profesor", fetch = FetchType.EAGER)
+    @Builder.Default
     @ToString.Exclude
     private List <Examen> examen = new ArrayList<>();
 

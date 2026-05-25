@@ -43,7 +43,6 @@ public class InitData {
 			.fechaNacimiento(LocalDate.now())
 			.rol(UsuarioRol.PROFESOR)
 			.fotoPerfil("https://i.redd.it/sby4ealaiaoe1.png")
-			.examen(profesor.getExamen())
 			.build();
 
 		repo.save(defecto);
@@ -91,6 +90,10 @@ public class InitData {
 		especiRepo.save(especiFisica);
 		especiRepo.save(especiIngles);
 		especiRepo.save(especiProgramacion);
+
+		especiProgramacion.addToProfesor(defecto);
+		especiIngles.addToProfesor(defecto);
+
 	}
 
 }
