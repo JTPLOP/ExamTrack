@@ -9,18 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import com.salesianos.dam.examtrack.model.Alumno;
-import com.salesianos.dam.examtrack.model.Especialidad;
 import com.salesianos.dam.examtrack.model.Examen;
 import com.salesianos.dam.examtrack.model.Profesor;
-import com.salesianos.dam.examtrack.repository.EspecialidadRepositorio;
-import com.salesianos.dam.examtrack.service.EspecialidadServicio;
 import com.salesianos.dam.examtrack.service.ExamenServicio;
 import com.salesianos.dam.examtrack.service.ProfesorServicio;
-
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -45,7 +38,6 @@ public class ExamenController {
 
         model.addAttribute("examen", new Examen());
         model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesores.getDni()));
-        model.addAttribute("profe", profesores);
 
         return "formExamenes";
     }
@@ -66,12 +58,13 @@ public class ExamenController {
     /* Editar Entidad */
 
     @GetMapping("/editar/examen/{id}")
-	public String modificarExamen(@PathVariable("id") Long id, Model model) {
+	public String modificarExamen(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal Profesor profesores) {
 
 		Optional <Examen> examen = servicio.filtrarPorId(id);
 
 		if (examen.isPresent()) {
             model.addAttribute("examen", examen.get());
+            model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesores.getDni()));
 
 			return "formExamenes";
 		} else {
