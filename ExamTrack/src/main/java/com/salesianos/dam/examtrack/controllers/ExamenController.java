@@ -45,13 +45,15 @@ public class ExamenController {
 
         model.addAttribute("examen", new Examen());
         model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesores.getDni()));
+        model.addAttribute("profe", profesores);
 
         return "formExamenes";
     }
 
     @PostMapping ("/crearExamen") 
-    public String creadorExamen (@ModelAttribute("examen") Examen examen, Model model) {
+    public String creadorExamen (@ModelAttribute("examen") Examen examen, Model model, @AuthenticationPrincipal Profesor profesores) {
 
+        examen.setProfesor(profesores);
         servicio.agregar(examen);
 
         /*Comprobacion de creacion objeto */

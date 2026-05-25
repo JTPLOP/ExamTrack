@@ -86,13 +86,14 @@ public class InitData {
 		.nombre("Programacion")
 		.build();
 
+		especiProgramacion.addToProfesor(defecto);
+		especiIngles.addToProfesor(defecto);
+
 		especiRepo.save(especiMates);
 		especiRepo.save(especiFisica);
 		especiRepo.save(especiIngles);
 		especiRepo.save(especiProgramacion);
 
-		especiProgramacion.addToProfesor(defecto);
-		especiIngles.addToProfesor(defecto);
 
 	}
 
