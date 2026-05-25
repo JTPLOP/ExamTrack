@@ -2,19 +2,18 @@ package com.salesianos.dam.examtrack.controllers;
 
 import java.util.Optional;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import com.salesianos.dam.examtrack.model.Alumno;
 import com.salesianos.dam.examtrack.model.Examen;
+import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.service.ExamenServicio;
-
+import com.salesianos.dam.examtrack.service.ProfesorServicio;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ExamenController {
 
     private final ExamenServicio servicio;
+    private final ProfesorServicio profeServicio;
     
     @GetMapping ("/examenes")
     public String misExamenesBase (Model model) {
@@ -34,16 +34,18 @@ public class ExamenController {
 
 
     @GetMapping ("/formExamen") 
-    public String formularioExamen (Model model) {
+    public String formularioExamen (Model model, @AuthenticationPrincipal Profesor profesores) {
 
         model.addAttribute("examen", new Examen());
+        model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesores.getDni()));
 
         return "formExamenes";
     }
 
     @PostMapping ("/crearExamen") 
-    public String creadorExamen (@ModelAttribute("examen") Examen examen, Model model) {
+    public String creadorExamen (@ModelAttribute("examen") Examen examen, Model model, @AuthenticationPrincipal Profesor profesores) {
 
+        examen.setProfesor(profesores);
         servicio.agregar(examen);
 
         /*Comprobacion de creacion objeto */
@@ -56,12 +58,13 @@ public class ExamenController {
     /* Editar Entidad */
 
     @GetMapping("/editar/examen/{id}")
-	public String modificarExamen(@PathVariable("id") Long id, Model model) {
+	public String modificarExamen(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal Profesor profesores) {
 
 		Optional <Examen> examen = servicio.filtrarPorId(id);
 
 		if (examen.isPresent()) {
             model.addAttribute("examen", examen.get());
+            model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesores.getDni()));
 
 			return "formExamenes";
 		} else {

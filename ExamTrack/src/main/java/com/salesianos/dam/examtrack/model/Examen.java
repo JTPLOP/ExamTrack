@@ -41,7 +41,8 @@ public class Examen {
     private String aula;
     private double puntuacionMax;
     private double duracionMinutos;
-
+    private int numPlazas;
+    private String asignatura;
     
     // Relacion Tabla intermedia
     @OneToMany (mappedBy = "examen", fetch = FetchType.EAGER)

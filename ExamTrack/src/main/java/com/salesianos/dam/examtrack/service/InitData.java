@@ -1,10 +1,17 @@
 package com.salesianos.dam.examtrack.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import com.salesianos.dam.examtrack.model.Departamento;
+import com.salesianos.dam.examtrack.model.Especialidad;
+import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.model.Usuario;
 import com.salesianos.dam.examtrack.model.UsuarioRol;
+import com.salesianos.dam.examtrack.repository.DepartamentoRepositorio;
+import com.salesianos.dam.examtrack.repository.EspecialidadRepositorio;
 import com.salesianos.dam.examtrack.repository.UsuarioRepositorio;
 import com.salesianos.dam.examtrack.security.PasswordEncoderConfig;
 import jakarta.annotation.PostConstruct;
@@ -15,20 +22,29 @@ import lombok.RequiredArgsConstructor;
 public class InitData {
 
 	private final UsuarioRepositorio repo;
+	private final DepartamentoRepositorio depaRepo;
+	private final EspecialidadRepositorio especiRepo;
 	private final PasswordEncoder encoder;
 
 	@PostConstruct
 	public void init() {
 
-		Usuario profesor = Usuario.builder()
-				.dni("1A")
-				.email("user@user.com")
-				.username("user@user.com")
-				.password(encoder.encode("12345"))
-				.rol(UsuarioRol.PROFESOR)
-				.build();
 
-		repo.save(profesor);
+		Profesor defecto = Profesor.builder()
+			.dni("AA1")
+			.nombre("Jose")
+			.primerApellido("Tapia")
+			.segundoApellido("Lopez")
+			.username("user@user.com")
+			.password(encoder.encode("12345"))
+			.email("user@user.com")
+			.direccion("Bosco")
+			.fechaNacimiento(LocalDate.now())
+			.rol(UsuarioRol.PROFESOR)
+			.fotoPerfil("https://i.redd.it/sby4ealaiaoe1.png")
+			.build();
+
+		repo.save(defecto);
 
 		Usuario admin = Usuario.builder()
 				.dni("1B")
@@ -39,6 +55,44 @@ public class InitData {
 				.build();
 
 		repo.save(admin);
+
+		Departamento depaMates = Departamento.builder()
+		.nombre("Matematicas")
+		.build();
+
+		Departamento depaFisica = Departamento.builder()
+		.nombre("Fisica")
+		.build();
+
+		Departamento depaIngles = Departamento.builder()
+		.nombre("Ingles")
+		.build();
+
+		depaRepo.save(depaMates);
+		depaRepo.save(depaFisica);
+		depaRepo.save(depaIngles);
+
+		Especialidad especiMates = Especialidad.builder()
+		.nombre("Matematicas")
+		.build();
+		Especialidad especiFisica = Especialidad.builder()
+		.nombre("Fisica")
+		.build();
+		Especialidad especiIngles = Especialidad.builder()
+		.nombre("Ingles")
+		.build();
+		Especialidad especiProgramacion = Especialidad.builder()
+		.nombre("Programacion")
+		.build();
+
+		especiProgramacion.addToProfesor(defecto);
+		especiIngles.addToProfesor(defecto);
+
+		especiRepo.save(especiMates);
+		especiRepo.save(especiFisica);
+		especiRepo.save(especiIngles);
+		especiRepo.save(especiProgramacion);
+
 
 	}
 

@@ -31,10 +31,11 @@
 
                 <div class="w-100 p-4" style="max-width: 650px;">
 
-                    <form method="post" th:action="${examen.idExamen != null} ? @{/editExamen} : @{/crearExamen}" th:object="${examen}">
+                    <form method="post" th:action="${examen.idExamen != null} ? @{/editExamen} : @{/crearExamen}"
+                        th:object="${examen}">
 
                         <h2 class="fw-bold mb-3">Crear Examen</h2>
- 
+
                         <hr class="mb-4" />
 
                         <input type="hidden" th:field="*{idExamen}">
@@ -55,10 +56,9 @@
                         <div class="mb-4">
                             <label for="exampleFormControlTextarea1" class="form-label fw-semibold">Asignatura</label>
                             <select class="form-select form-select-md" aria-label="Small select example"
-                                name="asignatura">
-                                <option selected >Escoge aquí tu asignatura</option>
-                                <option value="Matematicas">Matematicas</option>
-                                <option value="Fisica">Fisica</option>
+                                name="asignatura" th:field="*{asignatura}">
+                                <option value="">Escoge aquí tu asignatura</option>
+                                <option th:each="especialidad : ${especialidades}" th:value="${especialidad}" th:text="${especialidad}" required></option>
                             </select>
                         </div>
 
@@ -74,6 +74,23 @@
                             <input type="number" class="form-control form-control-lg fs-6" name="puntuacionMax"
                                 th:field="*{puntuacionMax}">
                         </div>
+
+                        <div class="mb-4 w-25">
+                            <label for="exampleInputEmail1" class="form-label fw-semibold">Fecha</label>
+                            <input type="datetime-local" class="form-control form-control-lg fs-6" name="fecha"
+                                th:field="*{fecha}">
+                        </div>
+
+                        <div class="mb-4 w-25">
+                            <label for="exampleInputEmail1" class="form-label fw-semibold">Aula</label>
+                            <input type="text" class="form-control form-control-lg fs-6" name="aula" th:field="*{aula}">
+                        </div>
+
+                        <div class="mb-4 w-25">
+                            <label for="exampleInputEmail1" class="form-label fw-semibold">Numero de Plazas</label>
+                            <input type="number" class="form-control form-control-lg fs-6" name="numPlazas" th:field="*{numPlazas}">
+                        </div>
+
 
                         <button type="submit" class="btn btn-redPrimary btn-lg w-100 rounded-pill mt-2">Crear
                             Examen</button>

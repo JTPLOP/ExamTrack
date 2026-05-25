@@ -12,5 +12,4 @@ public class AlumnoServicio extends ServicioBaseImpl <Alumno, String, AlumnoRepo
         super(repositorio);
     }
 
-
 }
