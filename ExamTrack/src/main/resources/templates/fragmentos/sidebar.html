@@ -63,9 +63,7 @@
                                         class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
                                             class="bi bi-file-earmark-medical pe-3"></i>Exámenes</a></li>
 
-                                <li class="col-12 py-1"><a th:href="@{/profesor}"
-                                        class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
-                                            class="bi bi-file-earmark-medical pe-3"></i>Profesores</a></li>        
+
 
                                 <li class="col-12 py-1">
                                     <a href="#submenuHerramientas" data-bs-toggle="collapse" role="button"
@@ -87,6 +85,35 @@
                                             <a th:href="@{/observaciones}" href="#"
                                                 class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
                                                 <i class="bi bi-chat-left-dots pe-3"></i>Observaciones
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="col-12 py-1">
+                                    <a href="#herramientasAdmin" data-bs-toggle="collapse" role="button"
+                                        aria-expanded="false" aria-controls="herramientasAdmin"
+                                        class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex justify-content-between align-items-center w-100 sidebar-opciones ">
+                                        Administrador
+                                        <i class="bi bi-chevron-down fs-6"></i>
+                                    </a>
+
+                                    <ul class="collapse list-unstyled ps-4 mt-1 w-100" id="herramientasAdmin">
+                                        <li class="col-12 py-1"><a th:href="@{/profesor}"
+                                                class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
+                                                    class="bi bi-file-earmark-medical pe-3"></i>Profesores</a></li>
+
+                                        <li class="py-1">
+                                            <a th:href="@{/departamentos}" href="#"
+                                                class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
+                                                <i class="bi bi-box pe-3"></i>Departamentos
+                                            </a>
+                                        </li>
+
+                                        <li class="py-1">
+                                            <a th:href="@{/especialidades}" href="#"
+                                                class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
+                                                <i class="bi bi-award pe-3"></i>Especialidades
                                             </a>
                                         </li>
                                     </ul>
