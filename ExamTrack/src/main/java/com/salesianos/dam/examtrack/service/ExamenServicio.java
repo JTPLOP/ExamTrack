@@ -1,18 +1,31 @@
 package com.salesianos.dam.examtrack.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
 import com.salesianos.dam.examtrack.model.Examen;
 import com.salesianos.dam.examtrack.repository.ExamenRepositorio;
 import com.salesianos.dam.examtrack.service.base.ServicioBaseImpl;
 
 @Service
+
 public class ExamenServicio extends ServicioBaseImpl <Examen, Long, ExamenRepositorio> {
 
-    public ExamenServicio(ExamenRepositorio repositorio) {
+    private final ExamenRepositorio examRepo;
+
+
+    public ExamenServicio(ExamenRepositorio repositorio, ExamenRepositorio examRepo) {
         super(repositorio);
+        this.examRepo = examRepo;
     }
 
-    
-
+    public boolean comprobarLimFecha (Long id) {
+        
+        if (LocalDateTime.now().isBefore(examRepo.extraerFechas(id)) ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

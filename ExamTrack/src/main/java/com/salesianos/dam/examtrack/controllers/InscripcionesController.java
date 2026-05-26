@@ -27,6 +27,7 @@ public class InscripcionesController {
         if (examen.isPresent()) {
             model.addAttribute("examen", examen.get());
             model.addAttribute("alumno", alumServicio.filtrarTodos());
+            model.addAttribute("validacion", examService.comprobarLimFecha(id) );
 
             return "inscripciones";
         } else {

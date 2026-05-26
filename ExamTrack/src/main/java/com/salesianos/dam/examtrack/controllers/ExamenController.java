@@ -27,6 +27,10 @@ public class ExamenController {
     public String misExamenesBase (Model model) {
         model.addAttribute("examen", servicio.filtrarTodos());
 
+        /*Este metodo no tiene sentido ya que mantendriamos todo el tiempo con la base de datos activas utilizar paginacion para traer datos 
+        predefinidos. Buscar solucion para los IDs */
+        model.addAttribute("validacion", examService.comprobarLimFecha(id) );
+
         return "examenes";
     } 
 
