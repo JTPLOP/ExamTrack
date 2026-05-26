@@ -37,7 +37,7 @@
                     <div class="card-body p-4">
 
                         <div class="mb-4">
-                            <h5 class="text-secondary fw-semibold mb-0">Detalles: <span
+                            <h5 class=" fw-semibold mb-0">Detalles: <span
                                     th:text="${examen.nombre}"></span></h5>
                             <hr class="text-muted my-2">
                         </div>
@@ -74,7 +74,7 @@
 
                             <div class="col-md-3 col-sm-12 text-center">
                                 <small class="text-muted d-block text-uppercase fw-semibold">Plazas Disp.</small>
-                                <span class="text-dark" th:text="${examen.numPlazas}">0</span>
+                                <span class="text-dark">0 / <span th:text="${examen.numPlazas}"></span>  </span>
                             </div>
 
                             <div class="col-md-3 col-sm-12 text-center">
@@ -84,7 +84,7 @@
 
                             <div class="col-md-3 col-sm-12 text-center">
                                 <small class="text-muted d-block text-uppercase fw-semibold">Puntuacion máxima</small>
-                                <span class="text-dark">0/<span th:text="${examen.puntuacionMax}"></span></span>
+                                <span class="text-dark">0 / <span th:text="${examen.puntuacionMax}"></span></span>
                             </div>
 
                         </div>
@@ -92,12 +92,63 @@
                     </div>
                 </div>
 
-                <div class="card bg-light border-light-subtle shadow-sm rounded-3 mb-4  mx-auto">
+                <div class="card bg-light border-light-subtle shadow-sm rounded-3 mb-4 mx-auto">
                     <div class="card-body p-4">
 
                         <div class="mb-4">
-                            <h5 class="text-secondary fw-semibold mb-0">Lista de Alumnos</h5>
+                            <h5 class="fw-semibold mb-0">Lista de Alumnos (<span
+                                    th:text="${examen.asignatura}">Por definir</span>)</h5>
                             <hr class="text-muted my-2">
+
+                        </div>
+
+                        <div class="list-group-item px-0 py-3 bg-transparent" th:each="alumnos : ${alumno}">
+                            <div class="row align-items-center  mx-auto g-3">
+
+                                <div class="col-1 text-center">
+                                    <a th:href="@{/perfil/alumno/{id}(id=${alumnos.dni})}"
+                                        class="d-inline-block text-decoration-none">
+                                        <img th:src="${alumnos.fotoPerfil ?: 'https://imgs.search.brave.com/UV5h1t8kUzXcIO0GMsAQlWsqZq99iqtb2wwQREXGgDo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzJjLzNi/L2Y2LzJjM2JmNmRj/ZjY0MTk3YTMwZWUx/ZWZlYTdkMTk4ZGRk/LmpwZw'}"
+                                            class="rounded-circle object-fit-cover" width="50" height="50" alt="Foto">
+                                    </a>
+                                </div>
+
+                                <div class="col-md-2 text-center text-md-start">
+                                    <h6 class="mb-0 fw-semibold text-dark"
+                                        th:text="${alumnos.nombre + ' ' + alumnos.primerApellido}">
+                                        Nombre Apellido
+                                    </h6>
+                                </div>
+
+                                <div class="col-md-2 text-center text-md-start">
+                                    <h6 class="badge bg-danger  text-light rounded-pill px-2.5 py-1.5"
+                                        th:text="${alumnos.email}">
+                                        Email
+                                    </h6>
+                                </div>
+
+                                <div class="col-2 text-center">
+                                    <span
+                                        class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-2.5 py-1.5"
+                                        th:text="${alumnos.grupo}">Grupo</span>
+                                </div>
+
+                                <div class="col-3 text-center">
+                                    <span
+                                        class="badge bg-secondary-subtle text-secondary-emphasis text-wrap text-start fw-normal"
+                                        th:text="${alumnos.asignaturas != null and alumnos.asignaturas != '' ? alumnos.asignaturas : 'Sin asignaturas'}">
+                                        Asignaturas
+                                    </span>
+                                </div>
+
+                                <div class="col-auto d-flex gap-2 justify-content-center">
+                                    <a th:href="@{/perfil/alumno/{id}(id=${alumnos.dni})}"
+                                        class="btn btn-sm btn-success fw-medium px-3 text-nowrap">
+                                        Asignar
+                                    </a>
+                                </div>
+
+                            </div>
                         </div>
 
                     </div>
