@@ -27,58 +27,76 @@
             <div th:replace="~{fragmentos/sidebar :: sidebarMenu}"></div>
 
             <div class="col-10">
-                <h1>Mis Examenes</h1>
-                <div class="container">
+                <div class="my-4 ms-5 ps-3">
+                    <h1 class="display-5 fw-semibold">Examenes</h1>
+                </div>
+                <div class="container my-4">
 
-
-                    <div class="row">
-
-                        <div class="col-9">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Id</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Descripcion</th>
-                                        <th scope="col">Duracion (MIN)</th>
-                                        <th scope="col">Puntuacion Maxima</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="examenes : ${examen}">
-                                        <th scope="row" th:text="${examenes.idExamen}"></th>
-                                        <td th:text="${examenes.nombre}"></td>
-                                        <td th:text="${examenes.descripcion}"></td>
-                                        <td th:text="${examenes.duracionMinutos}"></td>
-                                        <td th:text="${examenes.puntuacionMax}"></td>
-                                        <td>
-                                            <div class="btn-group btn-group-sm" role="group">
-                                                <a th:href="@{/editar/examen/{id}(id=${examenes.idExamen})}"
-                                                    class="btn btn-outline-primary">
-                                                    <i class="bi bi-pencil-square"></i> Editar
-                                                </a>
-
-                                                <a th:href="@{/eliminar/examen/{id}(id=${examenes.idExamen})}"
-                                                    class="btn btn-outline-primary">
-                                                    <i class="bi bi-pencil-square"></i> Eliminar
-                                                </a>
-
-                                                <a th:href="@{/examen/inscripciones/{id}(id=${examenes.idExamen})}"
-                                                    class="btn btn-outline-primary">
-                                                    <i class="bi bi-people-fill"></i> Inscripciones
-                                                </a>
-
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                    <div class="row g-3 mb-5 align-items-center bg-white p-3 rounded shadow-sm">
+                        <div class="col-6 col-md-3">
+                            <input type="text" class="form-control" placeholder="Buscar examen...">
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <select class="form-select">
+                                <option selected>Estado (Todos)</option>
+                                <option>Borrador</option>
+                                <option>Activo</option>
+                                <option>Finalizado</option>
+                            </select>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <select class="form-select">
+                                <option selected>Ordenar por...</option>
+                                <option>Fecha más reciente</option>
+                                <option>Nombre</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-2 text-md-end">
+                            <a th:href="@{/examenes}" class="btn btn-redPrimary w-100">Filtrar</a>
                         </div>
 
-                        <div class="col-3">
-
+                        <div class="col-12 col-md-2 text-md-end">
+                            <a th:href="@{/formExamen}" class="btn btn-redPrimary w-100">Crear Examen</a>
                         </div>
+                    </div>
 
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+
+                        <div class="col" th:each="examenes : ${examen}">
+                            <div class="card h-100 p-3 shadow-sm bg-white border-2 border-light-subtle rounded-3">
+
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="small text-secondary fw-semibold">
+                                        ID: <span th:text="${examenes.idExamen}"></span>
+                                    </span>
+                                    <span
+                                        class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 fw-semibold">
+                                        (Logica Activo)
+                                    </span>
+                                </div>
+
+                                <h6 class="fw-bold text-dark mb-1 text-truncate" th:text="${examenes.nombre}"></h6>
+                                <p class="small text-muted mb-4 text-truncate" th:text="${examenes.descripcion}"></p>
+
+                                <div class="btn-group btn-group-sm w-100 mt-auto" role="group">
+                                    <a th:href="@{/editar/examen/{id}(id=${examenes.idExamen})}"
+                                        class="btn btn-outline-primary" title="Editar">
+                                        <i class="bi bi-pencil-square"></i> Editar
+                                    </a>
+
+                                    <a th:href="@{/eliminar/examen/{id}(id=${examenes.idExamen})}"
+                                        class="btn btn-outline-primary" title="Eliminar">
+                                        <i class="bi bi-pencil-square"></i> Borrar
+                                    </a>
+
+                                    <a th:href="@{/examen/inscripciones/{id}(id=${examenes.idExamen})}"
+                                        class="btn btn-outline-primary" title="Inscripciones">
+                                        <i class="bi bi-people-fill"></i> Ver
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
 
                     </div>
                 </div>
