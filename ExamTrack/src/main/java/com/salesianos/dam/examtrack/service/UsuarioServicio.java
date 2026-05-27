@@ -4,6 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.salesianos.dam.examtrack.model.Usuario;
+import com.salesianos.dam.examtrack.model.UsuarioRol;
 import com.salesianos.dam.examtrack.repository.UsuarioRepositorio;
 import com.salesianos.dam.examtrack.service.base.ServicioBaseImpl;
 
@@ -28,6 +29,12 @@ public class UsuarioServicio extends ServicioBaseImpl <Usuario, String, UsuarioR
             
         return encoder.encode(password);
         
+    }
+
+    public UsuarioRol filtrarRol (String dni) {
+        
+        Usuario user = userRepo.extraerUsuario(dni).orElseThrow();
+        return user.getRol();
     }
 
 }
