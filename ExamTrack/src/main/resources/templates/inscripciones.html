@@ -99,8 +99,7 @@
                                 <h5 class="fw-semibold mb-0">
                                     Alumnos (<span th:text="${examen.asignatura}">Por definir</span>)
                                 </h5>
-                                <a th:href="@{#}"
-                                    class="btn btn-redPrimary fw-medium px-4 me-4 text-nowrap">
+                                <a th:href="@{#}" class="btn btn-redPrimary fw-medium px-4 me-4 text-nowrap">
                                     Filtrar Todos
                                 </a>
                             </div>
@@ -147,10 +146,19 @@
                                 </div>
 
                                 <div class="col-auto d-flex gap-2 justify-content-center">
-                                    <a th:href="@{/perfil/alumno/{id}(id=${alumnos.dni})}"
-                                        class="btn btn-sm btn-success fw-medium px-3 text-nowrap">
-                                        Asignar
-                                    </a>
+                                    <form
+                                        th:action="@{/examen/inscripciones/{idInscripcion}/{idAlumno}(idInscripcion=${examen.idExamen}, idAlumno=${alumnos.dni})}"
+                                        th:method="post">
+                                        <button th:if="${#lists.contains(dniInscritos, alumnos.dni)}" type="submit"
+                                            class="btn btn-sm btn-danger fw-medium px-3 text-nowrap">
+                                            Desasignar
+                                        </button>
+
+                                        <button th:unless="${#lists.contains(dniInscritos, alumnos.dni)}" type="submit"
+                                            class="btn btn-sm btn-success fw-medium px-3 text-nowrap">
+                                            Asignar
+                                        </button>
+                                    </form>
                                 </div>
 
                             </div>
@@ -158,6 +166,8 @@
 
                     </div>
                 </div>
+
+                
 
             </div>
         </div>
