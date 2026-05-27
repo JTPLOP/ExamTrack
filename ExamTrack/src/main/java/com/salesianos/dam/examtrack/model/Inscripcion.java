@@ -23,13 +23,38 @@ public class Inscripcion {
     @JoinColumn(name = "id_examen")
     private Examen examen;
 
+    /*Metodos helpers para la asociacion bidireccional */
+
+    public void addToExamen (Examen examen) {
+        this.examen = examen;
+        examen.getInscripcion().add(this);
+    }
+
+    public void removeToExamen (Examen examen) {
+        examen.getInscripcion().remove(this);
+        this.examen = null;
+    }
+
     @ManyToOne
     @MapsId ("dni")
     @JoinColumn (name = "dni_Alumno")
     private Alumno alumno;
 
+    /*Metodos helpers para la asociacion bidireccional */
+
+    public void addToAlumno (Alumno alumno) {
+        this.alumno = alumno;
+        alumno.getInscripcion().add(this);
+    }
+
+    public void removeToAlumno (Alumno alumno) {
+        alumno.getInscripcion().remove(this);
+        this.alumno = null;
+    }
+
     private double calificacion;
     private String estado;
     private String observaciones;
+
 
 }

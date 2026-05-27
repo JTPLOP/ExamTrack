@@ -37,8 +37,7 @@
                     <div class="card-body p-4">
 
                         <div class="mb-4">
-                            <h5 class=" fw-semibold mb-0">Detalles: <span
-                                    th:text="${examen.nombre}"></span></h5>
+                            <h5 class=" fw-semibold mb-0">Detalles: <span th:text="${examen.nombre}"></span></h5>
                             <hr class="text-muted my-2">
                         </div>
 
@@ -74,7 +73,7 @@
 
                             <div class="col-md-3 col-sm-12 text-center">
                                 <small class="text-muted d-block text-uppercase fw-semibold">Plazas Disp.</small>
-                                <span class="text-dark">0 / <span th:text="${examen.numPlazas}"></span>  </span>
+                                <span class="text-dark">0 / <span th:text="${examen.numPlazas}"></span> </span>
                             </div>
 
                             <div class="col-md-3 col-sm-12 text-center">
@@ -96,10 +95,16 @@
                     <div class="card-body p-4">
 
                         <div class="mb-4">
-                            <h5 class="fw-semibold mb-0">Lista de Alumnos (<span
-                                    th:text="${examen.asignatura}">Por definir</span>)</h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="fw-semibold mb-0">
+                                    Alumnos (<span th:text="${examen.asignatura}">Por definir</span>)
+                                </h5>
+                                <a th:href="@{#}"
+                                    class="btn btn-redPrimary fw-medium px-4 me-4 text-nowrap">
+                                    Filtrar Todos
+                                </a>
+                            </div>
                             <hr class="text-muted my-2">
-
                         </div>
 
                         <div class="list-group-item px-0 py-3 bg-transparent" th:each="alumnos : ${alumno}">

@@ -29,20 +29,41 @@ public class InitData {
 	@PostConstruct
 	public void init() {
 
+		Departamento depaMates = Departamento.builder().nombre("Matematicas").build();
+		Departamento depaFisica = Departamento.builder().nombre("Fisica").build();
+		Departamento depaIngles = Departamento.builder().nombre("Ingles").build();
+
+		depaRepo.save(depaMates);
+		depaRepo.save(depaFisica);
+		depaRepo.save(depaIngles);
+
+		Especialidad especiMates = Especialidad.builder().nombre("Matematicas").build();
+		Especialidad especiFisica = Especialidad.builder().nombre("Fisica").build();
+		Especialidad especiIngles = Especialidad.builder().nombre("Ingles").build();
+		Especialidad especiProgramacion = Especialidad.builder().nombre("Programacion").build();
+
+		especiRepo.save(especiMates);
+		especiRepo.save(especiFisica);
+		especiRepo.save(especiIngles);
+		especiRepo.save(especiProgramacion);
 
 		Profesor defecto = Profesor.builder()
-			.dni("AA1")
-			.nombre("Jose")
-			.primerApellido("Tapia")
-			.segundoApellido("Lopez")
-			.username("user@user.com")
-			.password(encoder.encode("12345"))
-			.email("user@user.com")
-			.direccion("Bosco")
-			.fechaNacimiento(LocalDate.now())
-			.rol(UsuarioRol.PROFESOR)
-			.fotoPerfil("https://i.redd.it/sby4ealaiaoe1.png")
-			.build();
+				.dni("AA1")
+				.nombre("Jose")
+				.primerApellido("Tapia")
+				.segundoApellido("Lopez")
+				.username("user@user.com")
+				.password(encoder.encode("12345"))
+				.email("user@user.com")
+				.direccion("Bosco")
+				.fechaNacimiento(LocalDate.now())
+				.rol(UsuarioRol.PROFESOR)
+				.fotoPerfil("https://i.redd.it/sby4ealaiaoe1.png")
+				.build();
+
+		especiProgramacion.addToProfesor(defecto);
+		especiIngles.addToProfesor(defecto);
+		defecto.addToDepartamento(depaMates);
 
 		repo.save(defecto);
 
@@ -55,45 +76,6 @@ public class InitData {
 				.build();
 
 		repo.save(admin);
-
-		Departamento depaMates = Departamento.builder()
-		.nombre("Matematicas")
-		.build();
-
-		Departamento depaFisica = Departamento.builder()
-		.nombre("Fisica")
-		.build();
-
-		Departamento depaIngles = Departamento.builder()
-		.nombre("Ingles")
-		.build();
-
-		depaRepo.save(depaMates);
-		depaRepo.save(depaFisica);
-		depaRepo.save(depaIngles);
-
-		Especialidad especiMates = Especialidad.builder()
-		.nombre("Matematicas")
-		.build();
-		Especialidad especiFisica = Especialidad.builder()
-		.nombre("Fisica")
-		.build();
-		Especialidad especiIngles = Especialidad.builder()
-		.nombre("Ingles")
-		.build();
-		Especialidad especiProgramacion = Especialidad.builder()
-		.nombre("Programacion")
-		.build();
-
-		especiProgramacion.addToProfesor(defecto);
-		especiIngles.addToProfesor(defecto);
-
-		especiRepo.save(especiMates);
-		especiRepo.save(especiFisica);
-		especiRepo.save(especiIngles);
-		especiRepo.save(especiProgramacion);
-
-
 	}
 
 }
