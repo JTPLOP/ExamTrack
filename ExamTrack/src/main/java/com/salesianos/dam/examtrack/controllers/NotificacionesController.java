@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salesianos.dam.examtrack.model.Examen;
@@ -16,8 +17,10 @@ import com.salesianos.dam.examtrack.service.ExamenServicio;
 import com.salesianos.dam.examtrack.service.InscripcionesServicio;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 
 
+@Log
 @Controller
 @RequiredArgsConstructor
 public class NotificacionesController {
@@ -26,20 +29,44 @@ public class NotificacionesController {
     private final InscripcionesServicio inscrServicio;
 
     @GetMapping("/notificaciones")
-    public String notificacionesBase(Model model, @AuthenticationPrincipal Profesor profesor) {
+    public String notificacionesBase(Model model, @AuthenticationPrincipal Profesor profesor, @RequestParam(name="filtro", required=false, defaultValue="0") int filtro) {
 
         Map <Long, Integer> contadorNumAlumnos = new HashMap<>();
-
         List <Examen> proxExamenes = examServicio.filtrarProximosExamenes(profesor.getDni());
 
-        model.addAttribute("proximosExamenes", proxExamenes);
-        model.addAttribute("profesor", profesor);
+        log.info("Valor del filtro " +filtro);
 
-        for (Examen examen : proxExamenes) {
-            contadorNumAlumnos.put(examen.getIdExamen(), inscrServicio.contarAlumnosInscritos(examen.getIdExamen()));
-        }
+        switch (filtro) {
+            case 0,1:
+                model.addAttribute("proximosExamenes", proxExamenes);
+                model.addAttribute("profesor", profesor);
+
+                for (Examen examen : proxExamenes) {
+                contadorNumAlumnos.put(examen.getIdExamen(), inscrServicio.contarAlumnosInscritos(examen.getIdExamen()));
+                }
+            
+                model.addAttribute("contadorNumAlumnos", contadorNumAlumnos);
+                break;
+
+            case 2: 
+                model.addAttribute("proximosExamenes", proxExamenes);
+                model.addAttribute("profesor", profesor);
+
+                for (Examen examen : proxExamenes) {
+                contadorNumAlumnos.put(examen.getIdExamen(), inscrServicio.contarAlumnosInscritos(examen.getIdExamen()));
+                }
+            
+                model.addAttribute("contadorNumAlumnos", contadorNumAlumnos);
+                break;
+
+            case 3:
+
+                break;
         
-        model.addAttribute("contadorNumAlumnos", contadorNumAlumnos);
+            default:
+                break;
+        } 
+
         
         return "notificaciones";
     }

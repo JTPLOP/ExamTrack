@@ -30,7 +30,27 @@
                 <div class="my-4 ms-5 ps-3">
                     <h1 class="display-5 fw-semibold">Notificaciones</h1>
                 </div>
+
                 <div class="container my-4">
+                    <div class="d-flex gap-2 mb-4 justify-content-start">
+                        <form th:action="@{/notificaciones}" method="get">
+                            <input type="hidden" name="filtro" value=1>
+                            <button type="submit" class="btn btn-redPrimary px-4 rounded-pill">Todos</button>
+                        </form>
+
+                        <form th:action="@{/notificaciones}" method="get">
+                            <input type="hidden" name="filtro" value=2>
+                            <button type="submit" class="btn btn-redPrimary px-4 rounded-pill">Próximos
+                                Exámenes</button>
+                        </form>
+
+                        <form th:action="@{/notificaciones}" method="get">
+                            <input type="hidden" name="filtro" value=3>
+                            <button type="submit" class="btn btn-redPrimary px-4 rounded-pill">Tareas
+                                Pendientes</button>
+                        </form>
+                    </div>
+
                     <div th:each="proximoExamen : ${proximosExamenes}"
                         class="bg-light border rounded-3 p-3 mb-3 d-flex align-items-center shadow-sm">
 
