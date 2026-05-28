@@ -34,7 +34,7 @@
                     <div class="row mb-4 align-items-center">
                         <div class="col-9">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Buscar alumno..." >
+                                <input type="text" class="form-control" placeholder="Buscar alumno...">
                                 <select class="form-select">
                                     <option selected value="">Filtrar por Grupo </option>
                                     <option value="Primero">Primero </option>
@@ -44,7 +44,8 @@
                                 </select>
                                 <select class="form-select">
                                     <option selected>Mis Asignaturas</option>
-                                    <option th:each="especialidad : ${especialidades}" th:value="${especialidad}" th:text="${especialidad}" required></option>
+                                    <option th:each="especialidad : ${especialidades}" th:value="${especialidad}"
+                                        th:text="${especialidad}" required></option>
                                 </select>
                             </div>
                         </div>
@@ -62,7 +63,7 @@
                                     <div class="row align-items-center">
 
                                         <div class="col-md-1">
-                                            <a th:href="@{/perfil/alumno/{id}(id=${alumnos.dni})}"
+                                            <a th:href="@{/perfil/{id}(id=${alumnos.dni})}"
                                                 class="d-inline-block text-decoration-none">
                                                 <img th:src="${alumnos.fotoPerfil ?: 'https://imgs.search.brave.com/UV5h1t8kUzXcIO0GMsAQlWsqZq99iqtb2wwQREXGgDo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzJjLzNi/L2Y2LzJjM2JmNmRj/ZjY0MTk3YTMwZWUx/ZWZlYTdkMTk4ZGRk/LmpwZw'}"
                                                     class="rounded-circle object-fit-cover" width="50" height="50"

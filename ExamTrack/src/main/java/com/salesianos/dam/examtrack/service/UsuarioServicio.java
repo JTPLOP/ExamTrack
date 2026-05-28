@@ -1,5 +1,7 @@
 package com.salesianos.dam.examtrack.service;
 
+import java.util.Optional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,10 +33,16 @@ public class UsuarioServicio extends ServicioBaseImpl <Usuario, String, UsuarioR
         
     }
 
-    public UsuarioRol filtrarRol (String dni) {
+    public Optional< UsuarioRol> filtrarRol (String dni) {
         
-        Usuario user = userRepo.extraerUsuario(dni).orElseThrow();
-        return user.getRol();
+        Optional <Usuario> user = userRepo.extraerUsuario(dni);
+
+        if (user.isEmpty()) { 
+            return Optional.empty();
+        }else {
+            return Optional.of(user.get().getRol());
+        }
     }
+
 
 }
