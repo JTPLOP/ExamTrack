@@ -1,5 +1,7 @@
 package com.salesianos.dam.examtrack.controllers;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +25,12 @@ public class PerfilController {
     @GetMapping ("/perfil/{dni}")
     public String userPerfilBase (Model model, @PathVariable("dni") String dni) {
 
-        UsuarioRol rolExtraido = userServicio.filtrarRol(dni);
+        Optional <UsuarioRol> rol = userServicio.filtrarRol(dni);
+
+        if (rol.isEmpty())
+            return "redirect:/inicio";
+
+        UsuarioRol rolExtraido = rol.get();
 
         switch (rolExtraido) {
             case ADMIN:
@@ -41,7 +48,6 @@ public class PerfilController {
                     return "redirect:/inicio";
                 
         }
-        
         return "userPerfil";
     }
 
