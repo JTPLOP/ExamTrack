@@ -1,6 +1,7 @@
 package com.salesianos.dam.examtrack.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import com.salesianos.dam.examtrack.model.Examen;
@@ -26,6 +27,14 @@ public class ExamenServicio extends ServicioBaseImpl <Examen, Long, ExamenReposi
         } else {
             return false;
         }
+    }
+
+    public List<Examen> filtrarProximosExamenes (String dni) {
+
+        LocalDateTime fechaActual = LocalDateTime.now();
+
+        return examRepo.filtrarProximosExamenes(dni, fechaActual);
+
     }
 
 }
