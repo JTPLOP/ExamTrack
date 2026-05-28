@@ -45,6 +45,15 @@ p {
     background-color: rgb(210, 92, 92);
 }
 
+.btn-greyPrimary {
+    background-color: rgb(185, 185, 185);
+    font-weight: bold;
+}
+
+.btn-greyPrimary:hover {
+    background-color: rgb(141, 141, 141);
+}
+
 .background {
     background-image: url("../image/background.webp");
     background-size: cover;

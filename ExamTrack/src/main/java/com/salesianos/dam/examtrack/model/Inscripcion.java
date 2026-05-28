@@ -54,7 +54,7 @@ public class Inscripcion {
         this.alumno = null;
     }
 
-    private double calificacion;
+    private Double calificacion;
     private String estado;
     private String observaciones;
 

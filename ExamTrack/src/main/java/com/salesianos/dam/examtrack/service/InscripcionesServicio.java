@@ -1,5 +1,8 @@
 package com.salesianos.dam.examtrack.service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.salesianos.dam.examtrack.model.Alumno;
@@ -57,6 +60,13 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
      public int contarAlumnosInscritos (Long idExamen) {
 
         return inscripcionRepo.contarAlumnosInscritos(idExamen);
+    }
+
+    public List <Alumno> filtrarAlumnosSinNota () {
+
+        LocalDateTime actualidad = LocalDateTime.now();
+
+        return inscripcionRepo.filtrarAlumnosSinNotas(actualidad);
     }
 
 }
