@@ -40,11 +40,14 @@
 
                         <div class="flex-grow-1">
                             <h6 class="mb-1 fw-bold text-dark">
-                                <span >Examen Pendiente: <span th:text="${proximoExamen.nombre}" class="text-muted"></span> </span>
+                                <span>Examen Pendiente: <span th:text="${proximoExamen.nombre}"
+                                        class="text-muted"></span> </span>
                             </h6>
                             <p class="mb-0 text-secondary small">
-                                Fecha: <span
-                                    th:text="${proximoExamen.fecha}"></span>
+                                Fecha: <span th:text="${proximoExamen.fecha}"></span> || Alumnos Inscritos:
+                                <span
+                                    th:if="${contadorNumAlumnos != null and contadorNumAlumnos.containsKey(proximoExamen.idExamen)}"
+                                    th:text="${contadorNumAlumnos.get(proximoExamen.idExamen)}"></span>
                             </p>
                         </div>
 

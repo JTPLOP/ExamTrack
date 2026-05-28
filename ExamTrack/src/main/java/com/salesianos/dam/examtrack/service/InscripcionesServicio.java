@@ -54,4 +54,9 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
 
     }
 
+     public int contarAlumnosInscritos (Long idExamen) {
+
+        return inscripcionRepo.contarAlumnosInscritos(idExamen);
+    }
+
 }
