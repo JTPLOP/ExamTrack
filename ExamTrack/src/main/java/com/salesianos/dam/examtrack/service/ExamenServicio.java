@@ -37,6 +37,12 @@ public class ExamenServicio extends ServicioBaseImpl <Examen, Long, ExamenReposi
 
     }
 
+    public List<Examen> filtradorExamenes (String filtroBusqueda, int filtroEstado, String filtroAsignatura, String filtroFecha) {
+
+        return examRepo.filtradorExamen(filtroBusqueda, filtroEstado, filtroAsignatura, filtroFecha);
+
+    }
+
     
 
 }
