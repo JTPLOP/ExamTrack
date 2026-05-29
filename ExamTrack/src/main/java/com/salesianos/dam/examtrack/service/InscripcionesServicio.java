@@ -1,7 +1,11 @@
 package com.salesianos.dam.examtrack.service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -67,6 +71,16 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
         LocalDateTime actualidad = LocalDateTime.now();
 
         return inscripcionRepo.filtrarAlumnosSinNotas(actualidad);
+    }
+
+    public Map<Examen, List<Alumno>> filtrarAlumnosInscritos () {
+        
+        List <Inscripcion> lista = filtrarTodos();
+        
+        return lista.stream()
+                .collect(Collectors.groupingBy(Inscripcion::getExamen,
+                    Collectors.collectingAndThen(Collectors.toList(), list -> list.stream().map(Inscripcion::getAlumno).toList())));
+
     }
 
 }

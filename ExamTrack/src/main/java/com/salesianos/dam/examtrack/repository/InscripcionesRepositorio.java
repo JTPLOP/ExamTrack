@@ -38,4 +38,6 @@ public interface InscripcionesRepositorio extends JpaRepository <Inscripcion, In
     List <Alumno> filtrarAlumnosSinNotas (LocalDateTime actualidad);
 
 
+
+
 }

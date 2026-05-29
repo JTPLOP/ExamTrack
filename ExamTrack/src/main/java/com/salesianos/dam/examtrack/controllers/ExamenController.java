@@ -12,24 +12,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.salesianos.dam.examtrack.model.Examen;
 import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.service.ExamenServicio;
+import com.salesianos.dam.examtrack.service.InscripcionesServicio;
 import com.salesianos.dam.examtrack.service.ProfesorServicio;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 
-
+@Log
 @Controller
 @RequiredArgsConstructor
 public class ExamenController {
 
     private final ExamenServicio servicio;
     private final ProfesorServicio profeServicio;
+    private final InscripcionesServicio inscripcionesServicio;
     
     @GetMapping ("/examenes")
     public String misExamenesBase (Model model) {
         model.addAttribute("examen", servicio.filtrarTodos());
 
-        /*Este metodo no tiene sentido ya que mantendriamos todo el tiempo con la base de datos activas utilizar paginacion para traer datos 
-        predefinidos. Buscar solucion para los IDs */
-        //model.addAttribute("validacion", examService.comprobarLimFecha(id) );
+
+        model.addAttribute("alumnosInscritos", inscripcionesServicio.filtrarAlumnosInscritos());
+
+        inscripcionesServicio.filtrarAlumnosInscritos()
+            .forEach((k,v) -> log.info("Examen: " + k.getIdExamen() + "Alumnos" + v.toString()));
+
 
         return "examenes";
     } 
