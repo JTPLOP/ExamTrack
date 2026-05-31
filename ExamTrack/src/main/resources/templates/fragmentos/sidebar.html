@@ -16,168 +16,389 @@
     <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+
 </head>
 
 <body>
+
     <div class="container-fluid">
+
         <div class="row min-vh-100">
-            <div th:fragment="sidebarMenu" class="col-2 order-first " id="sidebar">
 
-                <nav class="sticky-top vh-100 d-flex flex-column ps-4">
+            <th:block th:fragment="sidebarMenu">
 
-                    <div>
-                        <a th:href="@{/perfil/{id}(id=${profesorLogueado?.dni})}"
-                            class="d-flex align-items-center py-4 pe-2 text-decoration-none text-dark rounded nav-link menu-link ">
-                            
-                            <img th:src="${profesorLogueado?.fotoPerfil}"
-                                 alt="Foto de perfil" class="rounded-circle me-3" width="50" height="50">
-                            
-                            <div class="d-flex flex-column lh-sm">
-                                <span class="fw-bold" th:text="${profesorLogueado?.nombre}">Nombre Profesor</span>
-                                <span class="text-muted" th:text="${profesorLogueado?.email}">Profesor@educacion</span>
-                                <span class="text-muted" th:text="${profesorLogueado?.departamento != null ? profesorLogueado.departamento.nombre : 'Sin departamento'}">Departamento ExamTrack</span>
+                <div class="col-lg-2 order-first d-none d-lg-block" id="sidebar">
+
+                    <nav class="sticky-top vh-100 d-flex flex-column ps-4">
+                        <div>
+
+                            <a th:href="@{/perfil/{id}(id=${profesorLogueado?.dni})}"
+                                class="d-flex align-items-center py-4 pe-2 text-decoration-none text-dark rounded nav-link menu-link ">
+
+                                <img th:src="${profesorLogueado?.fotoPerfil}" alt="Foto de perfil"
+                                    class="rounded-circle me-3" width="50" height="50">
+
+                                <div class="d-flex flex-column lh-sm">
+
+                                    <span class="fw-bold" th:text="${profesorLogueado?.nombre}">Nombre Profesor</span>
+
+                                    <span class="text-muted"
+                                        th:text="${profesorLogueado?.email}">Profesor@educacion</span>
+
+                                    <span class="text-muted"
+                                        th:text="${profesorLogueado?.departamento != null ? profesorLogueado.departamento.nombre : 'Sin departamento'}">Departamento
+                                        ExamTrack</span>
+
+                                </div>
+                            </a>
+
+                            <hr id="sidebarLine" class="me-4" />
+
+
+
+                            <div class="container m-0 p-0 fs-6">
+
+                                <ul class="row list-unstyled pe-4">
+
+                                    <li class="col-12 py-1"><a th:href="@{/inicio}"
+                                            class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
+                                                class="bi bi-house pe-3"></i>Inicio</a></li>
+
+
+
+                                    <li class="col-12 py-1"><a th:href="@{/notificaciones}" href="#"
+                                            class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex justify-content-between align-items-center w-100 sidebar-opciones">
+
+                                            <span><i class="bi bi-bell pe-3"></i>Notificaciones</span>
+
+                                        </a></li>
+
+                                    <li class="col-12 py-2 ">
+
+                                        <hr class="m-0 ms-2" style="width: 25px; border-width: 1px;">
+
+                                    </li>
+                                    <li class="col-12 py-1"><a th:href="@{/alumnos} "
+                                            class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
+                                                class="bi bi-people pe-3"></i>Alumnos</a></li>
+
+                                    <li class="col-12 py-1"><a th:href="@{/examenes}"
+                                            class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
+                                                class="bi bi-file-earmark-medical pe-3"></i>Exámenes</a></li>
+
+
+
+                                    <li class="col-12 py-1">
+
+                                        <a href="#submenuHerramientas" data-bs-toggle="collapse" role="button"
+                                            aria-expanded="false" aria-controls="submenuHerramientas"
+                                            class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex justify-content-between align-items-center w-100 sidebar-opciones ">
+
+                                            Herramientas del Profesor
+
+                                            <i class="bi bi-chevron-down fs-6"></i>
+                                        </a>
+                                        <ul class="collapse list-unstyled ps-4 mt-1 w-100" id="submenuHerramientas">
+
+                                            <li class="py-1">
+
+                                                <a th:href="@{/calendario}" href="#"
+                                                    class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
+                                                    <i class="bi bi-calendar pe-3"></i>Calendario
+                                                </a>
+                                            </li>
+                                            <li class="py-1">
+                                                <a th:href="@{/observaciones}" href="#"
+                                                    class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
+                                                    <i class="bi bi-chat-left-dots pe-3"></i>Observaciones
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                    </li>
+                                    <li class="col-12 py-1">
+
+                                        <a href="#herramientasAdmin" data-bs-toggle="collapse" role="button"
+                                            aria-expanded="false" aria-controls="herramientasAdmin"
+                                            class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex justify-content-between align-items-center w-100 sidebar-opciones ">
+
+                                            Administrador
+
+                                            <i class="bi bi-chevron-down fs-6"></i>
+
+                                        </a>
+                                        <ul class="collapse list-unstyled ps-4 mt-1 w-100" id="herramientasAdmin">
+
+                                            <li class="col-12 py-1"><a th:href="@{/profesor}"
+                                                    class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
+                                                        class="bi bi-file-earmark-medical pe-3"></i>Profesores</a></li>
+                                            <li class="py-1">
+
+                                                <a th:href="@{/departamentos}" href="#"
+                                                    class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
+                                                    <i class="bi bi-box pe-3"></i>Departamentos
+                                                </a>
+                                            </li>
+                                            <li class="py-1">
+
+                                                <a th:href="@{/especialidades}" href="#"
+                                                    class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
+
+                                                    <i class="bi bi-award pe-3"></i>Especialidades
+
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
                             </div>
-                        </a>
-                        <hr id="sidebarLine" class="me-4" />
+                        </div>
+                        <div class="mt-auto w-100 pe-4 mb-4">
 
-                        <div class="container m-0 p-0 fs-6">
-                            <ul class="row list-unstyled pe-4">
-                                <li class="col-12 py-1"><a th:href="@{/inicio}"
+
+
+                            <div class="dropup w-100 mb-4">
+
+
+
+                                <button type="button"
+                                    class=" btn-redPrimary border rounded-pill w-100 py-2 fw-bold shadow-sm d-flex justify-content-center align-items-center"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+
+                                    <i class="bi bi-plus-lg pe-3 fs-5"></i> Crear
+
+                                </button>
+
+
+
+                                <ul class="dropdown-menu w-100 shadow border-0 rounded-4 mb-2 p-2 ">
+
+                                    <li>
+
+                                        <a class="dropdown-item rounded py-2" th:href="@{/formAlumno}">
+
+                                            <i class="bi bi-person-plus pe-2"></i> Crear Alumno
+
+                                        </a>
+                                    </li>
+
+                                    <li>
+
+                                        <a class="dropdown-item rounded py-2" th:href="@{/formExamen}">
+
+                                            <i class="bi bi-file-earmark-plus pe-2"></i> Crear Examen
+
+                                        </a>
+
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item rounded py-2" th:href="@{/formProfesor}">
+
+                                            <i class="bi bi-person-plus pe-2"></i> Crear Profesor
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <hr />
+                            <ul class="list-unstyled m-0 fs-6 mt-3">
+
+                                <li class="py-1"><a th:href="@{/perfil/{id}(id=${profesorLogueado?.dni})}"
                                         class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
-                                            class="bi bi-house pe-3"></i>Inicio</a></li>
+                                            class="bi bi-person pe-3"></i>Mi Perfil</a></li>
 
-                                <li class="col-12 py-1"><a th:href="@{/notificaciones}" href="#"
-                                        class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex justify-content-between align-items-center w-100 sidebar-opciones">
-                                        <span><i class="bi bi-bell pe-3"></i>Notificaciones</span>
-                                    </a></li>
-
-                                <li class="col-12 py-2 ">
-                                    <hr class="m-0 ms-2" style="width: 25px; border-width: 1px;">
-                                </li>
-
-                                <li class="col-12 py-1"><a th:href="@{/alumnos} "
+                                <li class="py-1"><a th:href="@{/sobreNosotros}"
                                         class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
-                                            class="bi bi-people pe-3"></i>Alumnos</a></li>
-                                <li class="col-12 py-1"><a th:href="@{/examenes}"
-                                        class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
-                                            class="bi bi-file-earmark-medical pe-3"></i>Exámenes</a></li>
+                                            class="bi bi-info-circle pe-3"></i>Sobre nosotros</a></li>
 
-                                <li class="col-12 py-1">
-                                    <a href="#submenuHerramientas" data-bs-toggle="collapse" role="button"
-                                        aria-expanded="false" aria-controls="submenuHerramientas"
-                                        class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex justify-content-between align-items-center w-100 sidebar-opciones ">
-                                        Herramientas del Profesor
-                                        <i class="bi bi-chevron-down fs-6"></i>
-                                    </a>
+                                <li class="py-1">
 
-                                    <ul class="collapse list-unstyled ps-4 mt-1 w-100" id="submenuHerramientas">
-                                        <li class="py-1">
-                                            <a th:href="@{/calendario}" href="#"
-                                                class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
-                                                <i class="bi bi-calendar pe-3"></i>Calendario
-                                            </a>
-                                        </li>
+                                    <form method="post" th:action="@{/logout}"><button
+                                            class="text-dark text-decoration-none nav-link p-2 rounded logout-link d-flex align-items-center w-100 sidebar-opciones"><i
+                                                class="bi bi-box-arrow-left pe-3"></i>Logout</button></form>
 
-                                        <li class="py-1">
-                                            <a th:href="@{/observaciones}" href="#"
-                                                class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
-                                                <i class="bi bi-chat-left-dots pe-3"></i>Observaciones
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="col-12 py-1">
-                                    <a href="#herramientasAdmin" data-bs-toggle="collapse" role="button"
-                                        aria-expanded="false" aria-controls="herramientasAdmin"
-                                        class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex justify-content-between align-items-center w-100 sidebar-opciones ">
-                                        Administrador
-                                        <i class="bi bi-chevron-down fs-6"></i>
-                                    </a>
-
-                                    <ul class="collapse list-unstyled ps-4 mt-1 w-100" id="herramientasAdmin">
-                                        <li class="col-12 py-1"><a th:href="@{/profesor}"
-                                                class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
-                                                    class="bi bi-file-earmark-medical pe-3"></i>Profesores</a></li>
-
-                                        <li class="py-1">
-                                            <a th:href="@{/departamentos}" href="#"
-                                                class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
-                                                <i class="bi bi-box pe-3"></i>Departamentos
-                                            </a>
-                                        </li>
-
-                                        <li class="py-1">
-                                            <a th:href="@{/especialidades}" href="#"
-                                                class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
-                                                <i class="bi bi-award pe-3"></i>Especialidades
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </li>
                             </ul>
                         </div>
+                    </nav>
+                </div>
+
+
+                <button class="btn position-fixed d-lg-none z-3 p-2" style="top: 10px; left: 10px; width: auto;"
+                    type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas"
+                    aria-controls="sidebarOffcanvas" aria-label="Abrir menú">
+                    <i class="bi bi-list text-dark" style="font-size: 2.2rem;"></i>
+                </button>
+                <div class="offcanvas offcanvas-end d-lg-none" tabindex="-1" id="sidebarOffcanvas"
+                    aria-labelledby="sidebarOffcanvasLabel">
+
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">Menú</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                            aria-label="Cerrar"></button>
                     </div>
 
-                    <div class="mt-auto w-100 pe-4 mb-4">
+                    <div class="offcanvas-body d-flex flex-column">
 
-                        <div class="dropup w-100 mb-4">
+                        <div>
 
-                            <button type="button"
-                                class=" btn-redPrimary border rounded-pill w-100 py-2 fw-bold shadow-sm d-flex justify-content-center align-items-center"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-plus-lg pe-3 fs-5"></i> Crear
-                            </button>
+                            <a th:href="@{/perfil/{id}(id=${profesorLogueado?.dni})}"
+                                class="d-flex align-items-center py-3 pe-2 text-decoration-none text-dark rounded nav-link menu-link">
 
-                            <ul class="dropdown-menu w-100 shadow border-0 rounded-4 mb-2 p-2 ">
-                                <li>
-                                    <a class="dropdown-item rounded py-2" th:href="@{/formAlumno}">
-                                        <i class="bi bi-person-plus pe-2"></i> Crear Alumno
-                                    </a>
-                                </li>
+                                <img th:src="${profesorLogueado?.fotoPerfil}" alt="Foto de perfil"
+                                    class="rounded-circle me-3" width="50" height="50">
 
-                                <li>
-                                    <a class="dropdown-item rounded py-2" th:href="@{/formExamen}">
-                                        <i class="bi bi-file-earmark-plus pe-2"></i> Crear Examen
-                                    </a>
-                                </li>
+                                <div class="d-flex flex-column lh-sm">
+                                    <span class="fw-bold" th:text="${profesorLogueado?.nombre}">Nombre Profesor</span>
+                                    <span class="text-muted"
+                                        th:text="${profesorLogueado?.email}">Profesor@educacion</span>
+                                    <span class="text-muted"
+                                        th:text="${profesorLogueado?.departamento != null ? profesorLogueado.departamento.nombre : 'Sin departamento'}">Departamento
+                                        ExamTrack</span>
+                                </div>
 
-                                <li>
-                                    <a class="dropdown-item rounded py-2" th:href="@{/formProfesor}">
-                                        <i class="bi bi-person-plus pe-2"></i> Crear Profesor
-                                    </a>
-                                </li>
-                            </ul>
+                            </a>
+
+                            <hr />
+
+                            <div class="container m-0 p-0 fs-6">
+
+                                <ul class="list-unstyled">
+
+                                    <li class="py-1"><a th:href="@{/inicio}"
+                                            class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
+                                                class="bi bi-house pe-3"></i>Inicio</a></li>
+
+                                    <li class="py-1"><a th:href="@{/notificaciones}" href="#"
+                                            class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex justify-content-between align-items-center w-100 sidebar-opciones">
+                                            <span><i class="bi bi-bell pe-3"></i>Notificaciones</span>
+                                        </a></li>
+
+                                    <li class="py-2">
+                                        <hr class="m-0 ms-2" style="width: 25px; border-width: 1px;">
+                                    </li>
+
+                                    <li class="py-1"><a th:href="@{/alumnos} "
+                                            class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
+                                                class="bi bi-people pe-3"></i>Alumnos</a></li>
+
+                                    <li class="py-1"><a th:href="@{/examenes}"
+                                            class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
+                                                class="bi bi-file-earmark-medical pe-3"></i>Exámenes</a></li>
+
+                                    <li class="py-1">
+                                        <a href="#ocSubmenuHerramientas" data-bs-toggle="collapse" role="button"
+                                            aria-expanded="false" aria-controls="ocSubmenuHerramientas"
+                                            class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex justify-content-between align-items-center w-100 sidebar-opciones">
+                                            Herramientas del Profesor
+                                            <i class="bi bi-chevron-down fs-6"></i>
+                                        </a>
+
+                                        <ul class="collapse list-unstyled ps-4 mt-1 w-100" id="ocSubmenuHerramientas">
+                                            <li class="py-1">
+                                                <a th:href="@{/calendario}" href="#"
+                                                    class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
+                                                    <i class="bi bi-calendar pe-3"></i>Calendario
+                                                </a>
+                                            </li>
+                                            <li class="py-1">
+                                                <a th:href="@{/observaciones}" href="#"
+                                                    class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
+                                                    <i class="bi bi-chat-left-dots pe-3"></i>Observaciones
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="py-1">
+                                        <a href="#ocHerramientasAdmin" data-bs-toggle="collapse" role="button"
+                                            aria-expanded="false" aria-controls="ocHerramientasAdmin"
+                                            class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex justify-content-between align-items-center w-100 sidebar-opciones">
+                                            Administrador
+                                            <i class="bi bi-chevron-down fs-6"></i>
+                                        </a>
+
+                                        <ul class="collapse list-unstyled ps-4 mt-1 w-100" id="ocHerramientasAdmin">
+                                            <li class="py-1"><a th:href="@{/profesor}"
+                                                    class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
+                                                        class="bi bi-file-earmark-medical pe-3"></i>Profesores</a></li>
+                                            <li class="py-1">
+                                                <a th:href="@{/departamentos}" href="#"
+                                                    class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
+                                                    <i class="bi bi-box pe-3"></i>Departamentos
+                                                </a>
+                                            </li>
+                                            <li class="py-1">
+                                                <a th:href="@{/especialidades}" href="#"
+                                                    class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
+                                                    <i class="bi bi-award pe-3"></i>Especialidades
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
                         </div>
 
-                        <hr />
+                        <div class="mt-auto w-100 mb-4">
 
-                        <ul class="list-unstyled m-0 fs-6 mt-3">
-                            <li class="py-1"><a th:href="@{/perfil/{id}(id=${profesorLogueado?.dni})}"
-                                    class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
-                                        class="bi bi-person pe-3"></i>Mi Perfil</a></li>
-                            <li class="py-1"><a th:href="@{/sobreNosotros}"
-                                    class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
-                                        class="bi bi-info-circle pe-3"></i>Sobre nosotros</a></li>
-                            <li class="py-1">
-                                <form method="post" th:action="@{/logout}"><button
-                                        class="text-dark text-decoration-none nav-link p-2 rounded logout-link d-flex align-items-center w-100 sidebar-opciones"><i
-                                            class="bi bi-box-arrow-left pe-3"></i>Logout</button></form>
-                            </li>
-                        </ul>
+                            <div class="dropup w-100 mb-4">
+                                <button type="button"
+                                    class="btn-redPrimary border rounded-pill w-100 py-2 fw-bold shadow-sm d-flex justify-content-center align-items-center"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-plus-lg pe-3 fs-5"></i> Crear
+                                </button>
+
+                                <ul class="dropdown-menu w-100 shadow border-0 rounded-4 mb-2 p-2">
+                                    <li>
+                                        <a class="dropdown-item rounded py-2" th:href="@{/formAlumno}">
+                                            <i class="bi bi-person-plus pe-2"></i> Crear Alumno
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item rounded py-2" th:href="@{/formExamen}">
+                                            <i class="bi bi-file-earmark-plus pe-2"></i> Crear Examen
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item rounded py-2" th:href="@{/formProfesor}">
+                                            <i class="bi bi-person-plus pe-2"></i> Crear Profesor
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <hr />
+
+                            <ul class="list-unstyled m-0 fs-6 mt-3">
+                                <li class="py-1"><a th:href="@{/perfil/{id}(id=${profesorLogueado?.dni})}"
+                                        class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
+                                            class="bi bi-person pe-3"></i>Mi Perfil</a></li>
+                                <li class="py-1"><a th:href="@{/sobreNosotros}"
+                                        class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
+                                            class="bi bi-info-circle pe-3"></i>Sobre nosotros</a></li>
+                                <li class="py-1">
+                                    <form method="post" th:action="@{/logout}"><button
+                                            class="text-dark text-decoration-none nav-link p-2 rounded logout-link d-flex align-items-center w-100 sidebar-opciones"><i
+                                                class="bi bi-box-arrow-left pe-3"></i>Logout</button></form>
+                                </li>
+                            </ul>
+
+                        </div>
 
                     </div>
-
-                </nav>
-            </div>
-
-            <div class="col-10 bg-light m-0 ">
+                </div>
+                
+            </th:block>
+            <div class="col-12 col-lg-10 bg-light m-0 ">
                 <h1>Contenido Principal</h1>
             </div>
 
         </div>
     </div>
-
 </body>
 
 </html>
