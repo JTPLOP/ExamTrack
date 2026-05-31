@@ -6,9 +6,11 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import com.salesianos.dam.examtrack.model.Alumno;
 import com.salesianos.dam.examtrack.model.Examen;
+import com.salesianos.dam.examtrack.model.Profesor;
 
 public interface ExamenRepositorio extends JpaRepository<Examen, Long> {
 
@@ -46,5 +48,18 @@ public interface ExamenRepositorio extends JpaRepository<Examen, Long> {
         )
     List <Examen> filtradorExamen(String filtroBusqueda, int filtroEstado, String filtroAsignatura, String filtroFecha );
 
+    @Query("""
+             select e
+             from Examen e
+             where e.profesor.dni = :dni
+            """)
+    Optional <List<Examen>>  filtrarExamenesProfesor(String dni);
+
+    @Query("""
+             select e
+             from Examen e
+             where e.profesor.dni = :dni and MONTH(e.fecha) = :numMes
+            """)
+    Optional <List<Examen>>  filtrarExamenesMes(String dni, int numMes);
 
 }

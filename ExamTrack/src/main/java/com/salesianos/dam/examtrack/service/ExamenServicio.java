@@ -2,9 +2,12 @@ package com.salesianos.dam.examtrack.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import com.salesianos.dam.examtrack.model.Examen;
+import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.repository.ExamenRepositorio;
 import com.salesianos.dam.examtrack.service.base.ServicioBaseImpl;
 
@@ -43,6 +46,15 @@ public class ExamenServicio extends ServicioBaseImpl <Examen, Long, ExamenReposi
 
     }
 
+    public Optional <List<Examen>> filtrarExamenesProfesor (String dni) {
+        
+        return examRepo.filtrarExamenesProfesor(dni);
+    }
+
+    public Optional <List<Examen>> filtrarExamenesMes (String dni, int numMes) {
+        
+        return examRepo.filtrarExamenesMes(dni, numMes);
+    }
     
 
 }
