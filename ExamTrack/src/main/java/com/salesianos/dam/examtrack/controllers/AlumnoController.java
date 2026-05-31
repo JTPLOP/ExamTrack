@@ -18,6 +18,7 @@ import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.service.AlumnoServicio;
 import com.salesianos.dam.examtrack.service.ProfesorServicio;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
  
 @Controller
@@ -89,7 +90,7 @@ public class AlumnoController {
     }
 
     @GetMapping ("/alumno/asignatura/add/{dni}")
-    public String agregarAsignatura (@PathVariable ("dni") String dni , @RequestParam(name="nuevasAsignaturas", required=false, defaultValue="0") List <String> nuevasAsignaturas) {
+    public String agregarAsignatura (@PathVariable ("dni") String dni , @RequestParam(name="nuevasAsignaturas", required=false, defaultValue="0") List <String> nuevasAsignaturas, HttpServletRequest request) {
         
         System.out.println("AQUI RESULTADO DE NUEVAS ASIGNATURAS:\n\n\n" + nuevasAsignaturas.toString());
 
@@ -117,7 +118,7 @@ public class AlumnoController {
 
             servicio.modificar(alumno);
 
-            return "redirect:/alumnos";
+            return "redirect:" + request.getHeader("Referer");
         }
 
     }
