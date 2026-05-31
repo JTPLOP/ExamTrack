@@ -1,30 +1,18 @@
 package com.salesianos.dam.examtrack.controllers;
-
-import org.springframework.stereotype.Controller;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
-@Controller
+import com.salesianos.dam.examtrack.model.Profesor;
+import com.salesianos.dam.examtrack.model.Usuario;
+
+@ControllerAdvice
 public class SesionController {
     
-    /* ENDPOINTS PRINCIPALES */
-
-    @GetMapping ("/logout")
-    public String logoutBase (Model model) {
-
-        return "logout";
+    @ModelAttribute("profesorLogueado")
+    public Profesor aportarProfesorAlModelo(@AuthenticationPrincipal Profesor profesor) {
+        return profesor; 
     }
- 
-    /*LOGICA DEL LOGIN */
-    @PostMapping ("/loginForm")
-    public String formularioLogin (Model model) {
-
-
-        System.out.println("Hemos entrado aqui");
-
-        return "redirect:/inicio";
-    }
-
 
 }

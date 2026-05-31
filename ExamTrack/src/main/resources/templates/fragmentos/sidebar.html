@@ -16,8 +16,6 @@
     <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-
-
 </head>
 
 <body>
@@ -28,15 +26,16 @@
                 <nav class="sticky-top vh-100 d-flex flex-column ps-4">
 
                     <div>
-                        <a th:href="@{/perfil}"
+                        <a th:href="@{/perfil/{id}(id=${profesorLogueado?.dni})}"
                             class="d-flex align-items-center py-4 pe-2 text-decoration-none text-dark rounded nav-link menu-link ">
-                            <img th:src="@{url}"
-                                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F8a%2F1a%2F4b%2F8a1a4bb250096a39f05aad50bdeef23b.png&f=1&nofb=1&ipt=0d7ce6c642b393e9e39266439e937ba0c12b99c12d1a9cd27883782d41add391"
-                                alt="Foto de perfil" class="rounded-circle me-3" width="50" height="50">
+                            
+                            <img th:src="${profesorLogueado?.fotoPerfil}"
+                                 alt="Foto de perfil" class="rounded-circle me-3" width="50" height="50">
+                            
                             <div class="d-flex flex-column lh-sm">
-                                <span class="fw-bold" th:text="${nombre}">Nombre Profesor</span>
-                                <span class="text-muted" th:text="${email}">Profesor@educacion</span>
-                                <span class="text-muted" th:text="${departamento}">Departamento ExamTrack</span>
+                                <span class="fw-bold" th:text="${profesorLogueado?.nombre}">Nombre Profesor</span>
+                                <span class="text-muted" th:text="${profesorLogueado?.email}">Profesor@educacion</span>
+                                <span class="text-muted" th:text="${profesorLogueado?.departamento != null ? profesorLogueado.departamento.nombre : 'Sin departamento'}">Departamento ExamTrack</span>
                             </div>
                         </a>
                         <hr id="sidebarLine" class="me-4" />
@@ -62,8 +61,6 @@
                                 <li class="col-12 py-1"><a th:href="@{/examenes}"
                                         class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
                                             class="bi bi-file-earmark-medical pe-3"></i>Exámenes</a></li>
-
-
 
                                 <li class="col-12 py-1">
                                     <a href="#submenuHerramientas" data-bs-toggle="collapse" role="button"
@@ -156,7 +153,7 @@
                         <hr />
 
                         <ul class="list-unstyled m-0 fs-6 mt-3">
-                            <li class="py-1"><a th:href="@{/perfil}"
+                            <li class="py-1"><a th:href="@{/perfil/{id}(id=${profesorLogueado?.dni})}"
                                     class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
                                         class="bi bi-person pe-3"></i>Mi Perfil</a></li>
                             <li class="py-1"><a th:href="@{/sobreNosotros}"
