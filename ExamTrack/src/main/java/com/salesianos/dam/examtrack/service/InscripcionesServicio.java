@@ -1,6 +1,12 @@
 package com.salesianos.dam.examtrack.service;
 
 import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -73,8 +79,6 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
     public void inscripcionAusencia (Inscripcion inscripcion) {
 
         /* Valores por Default para cuando no se presenten */
-
-        inscripcion.setCalificacion(0);
         inscripcion.setObservaciones("No se presento.");
         inscripcion.getEstados().set(0, InscripcionEstados.AUSENTADO);
         inscripcion.getEstados().add(InscripcionEstados.SUSPENDIDO);
@@ -93,6 +97,25 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
         }else {
             inscripcion.getEstados().add(InscripcionEstados.SUSPENDIDO);
         }
+
+    }
+
+    
+    public List <Alumno> filtrarAlumnosSinNota () {
+
+        LocalDateTime actualidad = LocalDateTime.now();
+
+        return inscripcionRepo.filtrarAlumnosSinNotas(actualidad);
+    }
+
+    public Map<Examen, List<Alumno>> filtrarAlumnosInscritos () {
+        
+        List <Inscripcion> lista = filtrarTodos();
+        
+        return lista.stream()
+                .collect(Collectors.groupingBy(Inscripcion::getExamen,
+                    Collectors.collectingAndThen(Collectors.toList(), list -> list.stream().map(Inscripcion::getAlumno).toList())));
+
     }
 
 }

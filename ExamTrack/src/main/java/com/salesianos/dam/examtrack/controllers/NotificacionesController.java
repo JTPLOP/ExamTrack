@@ -36,21 +36,24 @@ public class NotificacionesController {
 
         log.info("Valor del filtro " +filtro);
 
+        model.addAttribute("profesor", profesor);
+        model.addAttribute("filtro", filtro);
+
         switch (filtro) {
             case 0,1:
                 model.addAttribute("proximosExamenes", proxExamenes);
-                model.addAttribute("profesor", profesor);
 
                 for (Examen examen : proxExamenes) {
                 contadorNumAlumnos.put(examen.getIdExamen(), inscrServicio.contarAlumnosInscritos(examen.getIdExamen()));
                 }
             
                 model.addAttribute("contadorNumAlumnos", contadorNumAlumnos);
+                model.addAttribute("alumnosSinNotas", inscrServicio.filtrarAlumnosSinNota());
+
                 break;
 
             case 2: 
                 model.addAttribute("proximosExamenes", proxExamenes);
-                model.addAttribute("profesor", profesor);
 
                 for (Examen examen : proxExamenes) {
                 contadorNumAlumnos.put(examen.getIdExamen(), inscrServicio.contarAlumnosInscritos(examen.getIdExamen()));
@@ -60,6 +63,7 @@ public class NotificacionesController {
                 break;
 
             case 3:
+                model.addAttribute("alumnosSinNotas", inscrServicio.filtrarAlumnosSinNota());
 
                 break;
         

@@ -57,7 +57,7 @@ public class Inscripcion {
         this.alumno = null;
     }
 
-    private double calificacion;
+    private Double calificacion;
 
     @Builder.Default
     private List <InscripcionEstados> estados = new ArrayList<>();

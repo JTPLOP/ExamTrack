@@ -33,56 +33,106 @@
 
                 <div class="container my-4">
                     <div class="d-flex gap-2 mb-4 justify-content-start">
+
                         <form th:action="@{/notificaciones}" method="get">
-                            <input type="hidden" name="filtro" value=1>
-                            <button type="submit" class="btn btn-redPrimary px-4 rounded-pill">Todos</button>
+                            <input type="hidden" name="filtro" value="1">
+                            <button type="submit"
+                                th:class="${filtro == 0 or filtro == 1} ? 'btn btn-greyPrimary px-4 rounded-pill' : 'btn btn-redPrimary px-4 rounded-pill'">
+                                Todos
+                            </button>
                         </form>
 
                         <form th:action="@{/notificaciones}" method="get">
-                            <input type="hidden" name="filtro" value=2>
-                            <button type="submit" class="btn btn-redPrimary px-4 rounded-pill">Próximos
-                                Exámenes</button>
+                            <input type="hidden" name="filtro" value="2">
+                            <button type="submit"
+                                th:class="${filtro == 2} ? 'btn btn-greyPrimary px-4 rounded-pill' : 'btn btn-redPrimary px-4 rounded-pill'">
+                                Próximos Exámenes
+                            </button>
                         </form>
 
                         <form th:action="@{/notificaciones}" method="get">
-                            <input type="hidden" name="filtro" value=3>
-                            <button type="submit" class="btn btn-redPrimary px-4 rounded-pill">Tareas
-                                Pendientes</button>
+                            <input type="hidden" name="filtro" value="3">
+                            <button type="submit"
+                                th:class="${filtro == 3} ? 'btn btn-greyPrimary px-4 rounded-pill' : 'btn btn-redPrimary px-4 rounded-pill'">
+                                Tareas Pendientes
+                            </button>
                         </form>
-                    </div>
-
-                    <div th:each="proximoExamen : ${proximosExamenes}"
-                        class="bg-light border rounded-3 p-3 mb-3 d-flex align-items-center shadow-sm">
-
-                        <img th:src="${profesor.fotoPerfil != null and !profesor.fotoPerfil.isEmpty() ? profesor.fotoPerfil : 'https://ui-avatars.com/api/?name=' + profesor.nombre + '&background=random'}"
-                            th:alt="'Avatar de ' + ${profesor.nombre}" class="rounded-circle me-3"
-                            style="width: 50px; height: 50px; object-fit: cover;">
-
-                        <div class="flex-grow-1">
-                            <h6 class="mb-1 fw-bold text-dark">
-                                <span>Examen Pendiente: <span th:text="${proximoExamen.nombre}"
-                                        class="text-muted"></span> </span>
-                            </h6>
-                            <p class="mb-0 text-secondary small">
-                                Fecha: <span th:text="${proximoExamen.fecha}"></span> || Alumnos Inscritos:
-                                <span
-                                    th:if="${contadorNumAlumnos != null and contadorNumAlumnos.containsKey(proximoExamen.idExamen)}"
-                                    th:text="${contadorNumAlumnos.get(proximoExamen.idExamen)}"></span>
-                            </p>
-                        </div>
-
-                        <div class="ms-3">
-                            <button class="btn btn-redPrimary btn-sm px-4 rounded-pill me-5">Acción</button>
-                        </div>
 
                     </div>
+                    <div th:if="${filtro == 1 or filtro == 2 or filtro == 0}" class="mb-3">
+
+                        <div th:each="proximoExamen : ${proximosExamenes}"
+                            class="bg-light border rounded-3 p-3 mb-3 d-flex align-items-center shadow-sm">
+
+                            <img th:src="${profesor.fotoPerfil != null and !profesor.fotoPerfil.isEmpty() ? profesor.fotoPerfil : 'https://ui-avatars.com/api/?name=' + profesor.nombre + '&background=random'}"
+                                th:alt="'Avatar de ' + ${profesor.nombre}" class="rounded-circle me-3"
+                                style="width: 50px; height: 50px; object-fit: cover;">
+
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1 fw-bold text-dark">
+                                    <span>Examen Pendiente: <span th:text="${proximoExamen.nombre}"
+                                            class="text-muted"></span> </span>
+                                </h6>
+                                <p class="mb-0 text-secondary small">
+                                    Fecha: <span th:text="${proximoExamen.fecha}"></span> || Alumnos Inscritos:
+                                    <span
+                                        th:if="${contadorNumAlumnos != null and contadorNumAlumnos.containsKey(proximoExamen.idExamen)}"
+                                        th:text="${contadorNumAlumnos.get(proximoExamen.idExamen)}"></span>
+                                </p>
+                            </div>
+
+                            <div class="ms-3">
+                                <button class="btn btn-redPrimary btn-sm px-4 rounded-pill me-5">Acción</button>
+                            </div>
+                        </div>
+
+                        <div th:if="${filtro == 2 and #lists.isEmpty(proximosExamenes)}"
+                            class="text-center my-4 text-muted">
+                            <p>No hay próximos exámenes registrados.</p>
+                        </div>
+                    </div>
+
+
+                    <div th:if="${filtro == 1 or filtro == 3 or filtro == 0}" class="mb-3">
+
+                        <div th:each="alumno : ${alumnosSinNotas}"
+                            class="bg-light border rounded-3 p-3 mb-3 d-flex align-items-center shadow-sm">
+
+                            <img th:src="${alumno.fotoPerfil != null and !alumno.fotoPerfil.isEmpty() ? alumno.fotoPerfil : 'https://ui-avatars.com/api/?name=' + alumno.nombre + '+' + alumno.primerApellido + '&background=random'}"
+                                th:alt="'Avatar de ' + ${alumno.nombre}" class="rounded-circle me-3"
+                                style="width: 50px; height: 50px; object-fit: cover;">
+
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1 fw-bold text-dark">
+                                    <span>Calificación Pendiente: <span
+                                            th:text="${alumno.nombre} + ' ' + ${alumno.primerApellido}"
+                                            class="text-muted"></span></span>
+                                </h6>
+                                <p class="mb-0 text-secondary small">
+                                    Grupo: <span th:text="${alumno.grupo}"></span> || Email: <span
+                                        th:text="${alumno.email}"></span>
+                                </p>
+                            </div>
+
+                            <div class="ms-3">
+                                <button class="btn btn-redPrimary btn-sm px-4 rounded-pill me-5">Acción</button>
+                            </div>
+                        </div>
+
+                        <div th:if="${filtro == 3 and #lists.isEmpty(alumnosSinNotas)}"
+                            class="text-center my-4 text-muted">
+                            <p>¡Buen trabajo! No quedan alumnos pendientes de calificación.</p>
+                        </div>
+                    </div>
+
+                    <div th:if="${filtro == 1 and #lists.isEmpty(proximosExamenes) and #lists.isEmpty(alumnosSinNotas)}"
+                        class="text-center my-5 text-muted">
+                        <p>No tienes ninguna notificación ni tareas pendientes en este momento.</p>
+                    </div>
+
                 </div>
 
             </div>
-
-        </div>
-
-    </div>
 
 </body>
 

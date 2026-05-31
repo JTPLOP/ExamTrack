@@ -1,7 +1,10 @@
 package com.salesianos.dam.examtrack.controllers;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.springframework.cglib.core.Local;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,27 +12,40 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.salesianos.dam.examtrack.model.Examen;
 import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.service.ExamenServicio;
+import com.salesianos.dam.examtrack.service.InscripcionesServicio;
 import com.salesianos.dam.examtrack.service.ProfesorServicio;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 
-
+@Log
 @Controller
 @RequiredArgsConstructor
 public class ExamenController {
 
     private final ExamenServicio servicio;
     private final ProfesorServicio profeServicio;
+    private final InscripcionesServicio inscripcionesServicio;
     
     @GetMapping ("/examenes")
-    public String misExamenesBase (Model model) {
-        model.addAttribute("examen", servicio.filtrarTodos());
+    public String misExamenesBase (Model model, @AuthenticationPrincipal Profesor profesores ,
+        @RequestParam(name="filtroBuscar", required=false, defaultValue="0") String filtroBuscar,
+        @RequestParam(name="filtroEstado", required=false, defaultValue="0") int filtroEstado,
+        @RequestParam(name="filtroAsignatura", required=false, defaultValue="0") String filtroAsignatura,
+        @RequestParam(name="filtroFecha", required=false, defaultValue="0") String filtroFecha) {
 
-        /*Este metodo no tiene sentido ya que mantendriamos todo el tiempo con la base de datos activas utilizar paginacion para traer datos 
-        predefinidos. Buscar solucion para los IDs */
-        //model.addAttribute("validacion", examService.comprobarLimFecha(id) );
+        LocalDateTime actualidad = LocalDateTime.now();
+
+        model.addAttribute("actualidad", actualidad);
+        
+        model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesores.getDni()));
+        model.addAttribute("alumnosInscritos", inscripcionesServicio.filtrarAlumnosInscritos());
+
+        model.addAttribute("examen", servicio.filtradorExamenes(filtroBuscar, filtroEstado, filtroAsignatura, filtroFecha));
 
         return "examenes";
     } 

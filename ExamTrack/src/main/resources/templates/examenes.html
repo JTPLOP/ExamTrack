@@ -28,68 +28,117 @@
 
             <div class="col-10">
                 <div class="my-4 ms-5 ps-3">
-                    <h1 class="display-5 fw-semibold">Examenes</h1>
+                    <h1 class="display-5 fw-semibold">Exámenes</h1>
                 </div>
                 <div class="container my-4">
 
                     <div class="row g-3 mb-5 align-items-center bg-white p-3 rounded shadow-sm">
+
+                        <form th:action="@{/examenes}" method="get" id="formFiltros"></form>
+
                         <div class="col-6 col-md-3">
-                            <input type="text" class="form-control" placeholder="Buscar examen...">
+                            <input type="text" name="filtroBuscar" form="formFiltros" class="form-control"
+                                placeholder="Buscar examen...">
                         </div>
-                        <div class="col-6 col-md-2">
-                            <select class="form-select">
-                                <option selected>Estado (Todos)</option>
-                                <option>Borrador</option>
-                                <option>Activo</option>
-                                <option>Finalizado</option>
+
+                        <div class="col-4 col-md-2">
+                            <select name="filtroEstado" form="formFiltros" class="form-select">
+                                <option value="" selected>Estado (Todos)</option>
+                                <option value="1">Activo</option>
+                                <option value="2">Finalizado</option>
                             </select>
                         </div>
-                        <div class="col-6 col-md-3">
-                            <select class="form-select">
-                                <option selected>Ordenar por...</option>
-                                <option>Fecha más reciente</option>
-                                <option>Nombre</option>
+
+                        <div class="col-4 col-md-2">
+                            <select class="form-select form-select-md" form="formFiltros" aria-label="Small select example"
+                                name="filtroAsignatura">
+                                <option value="">Asignaturas (Todas)</option>
+                                <option th:each="especialidad : ${especialidades}" th:value="${especialidad}"
+                                    th:text="${especialidad}" required></option>
                             </select>
                         </div>
-                        <div class="col-12 col-md-2 text-md-end">
-                            <a th:href="@{/examenes}" class="btn btn-redPrimary w-100">Filtrar</a>
+
+
+                        <div class="col-auto position-relative p-2">
+                            <i class="bi bi-calendar3 fs-5 text-muted"></i>
+
+                            <input type="date" name="filtroFecha" form="formFiltros"
+                                class="position-absolute top-0 start-0 w-100 h-100 opacity-0">
                         </div>
 
                         <div class="col-12 col-md-2 text-md-end">
-                            <a th:href="@{/formExamen}" class="btn btn-redPrimary w-100">Crear Examen</a>
+                            <button type="submit" form="formFiltros"
+                                class="btn btn-redPrimary text-light w-100">Filtrar</button>
+                        </div>
+
+                        <div class="col-12 col-md-2 text-md-end">
+                            <a th:href="@{/formExamen}" class="btn btn-redPrimary text-light w-100">Crear Examen</a>
                         </div>
                     </div>
 
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
                         <div class="col" th:each="examenes : ${examen}">
-                            <div class="card h-100 p-3 shadow-sm bg-white border-2 border-light-subtle rounded-3">
+                            <div
+                                class="card h-100 shadow-sm bg-white border-2 border-light-subtle rounded-3 card-examen overflow-hidden position-relative">
 
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="small fw-semibold">
-                                        ID: <span th:text="${examenes.idExamen}"></span>
-                                    </span>
-                                    
+                                <img src="https://picsum.photos/400/150" class="w-100"
+                                    style="height: 120px; object-fit: cover;" alt="Banner Examen">
+
+                                <div class="position-absolute top-0 start-0 m-3 d-flex gap-2" th:if="${examenes.fecha >= actualidad}">
+                                    <p class="btn btn-success py-0 px-2 text-light fw-bold " style="font-size: 11px;"
+                                    th:text="${#temporals.format(examenes.fecha, 'dd-MM-yyyy')}"></p>
                                 </div>
 
-                                <h6 class="fw-bold text-dark mb-1 text-truncate" th:text="${examenes.nombre}"></h6>
-                                <p class="small text-muted mb-4 text-truncate" th:text="${examenes.descripcion}"></p>
+                                <div class="position-absolute top-0 start-0 m-3 d-flex gap-2" th:if="${actualidad > examenes.fecha}">
+                                    <p class="btn btn-danger py-0 px-2  text-light fw-bold " style="font-size: 11px;"
+                                    th:text="${#temporals.format(examenes.fecha, 'dd-MM-yyyy')}"></p>
+                                </div>
 
-                                <div class="btn-group btn-group-sm w-100 mt-auto" role="group">
+                                <div class="position-absolute top-0 end-0 m-3 d-flex gap-2">
                                     <a th:href="@{/editar/examen/{id}(id=${examenes.idExamen})}"
-                                        class="btn btn-outline-primary" title="Editar">
-                                        <i class="bi bi-pencil-square"></i> Editar
+                                        class="btn btn-light btn-sm rounded-circle shadow-sm d-flex align-items-center justify-content-center"
+                                        style="width: 34px; height: 34px;" title="Editar">
+                                        <i class="bi bi-pencil text-primary"></i>
                                     </a>
-
                                     <a th:href="@{/eliminar/examen/{id}(id=${examenes.idExamen})}"
-                                        class="btn btn-outline-primary" title="Eliminar">
-                                        <i class="bi bi-pencil-square"></i> Borrar
+                                        class="btn btn-light btn-sm rounded-circle shadow-sm d-flex align-items-center justify-content-center"
+                                        style="width: 34px; height: 34px;" title="Eliminar">
+                                        <i class="bi bi-trash text-danger"></i>
                                     </a>
+                                </div>
 
-                                    <a th:href="@{/examen/inscripciones/{id}(id=${examenes.idExamen})}"
-                                        class="btn btn-outline-primary" title="Inscripciones">
-                                        <i class="bi bi-people-fill"></i> Ver
-                                    </a>
+                                <div class="position-absolute end-0 translate-middle-y d-flex align-items-center gap-1 me-4 "
+                                    style="top: 120px;"
+                                    th:with="listaAlumnos=${alumnosInscritos?.get(examenes)?.toArray()}">
+
+                                    <img th:src="${listaAlumnos != null && listaAlumnos.length > 0 ? listaAlumnos[0].fotoPerfil : '/image/default-avatar.webp'}"
+                                        class="rounded-circle border border-2 border-white shadow-sm"
+                                        style="width: 50px; height: 50px; object-fit: cover;">
+
+                                    <img th:src="${listaAlumnos != null && listaAlumnos.length > 1 ? listaAlumnos[1].fotoPerfil : '/image/default-avatar.webp'}"
+                                        class="rounded-circle border border-2 border-white shadow-sm"
+                                        style="width: 40px; height: 40px; object-fit: cover;">
+
+                                    <img th:src="${listaAlumnos != null && listaAlumnos.length > 2 ? listaAlumnos[2].fotoPerfil : '/image/default-avatar.webp'}"
+                                        class="rounded-circle border border-2 border-white shadow-sm"
+                                        style="width: 30px; height: 30px; object-fit: cover;">
+                                </div>
+
+                                <div class="p-4 pt-5 d-flex flex-column flex-grow-1">
+
+                                    <h5 class="fw-bold text-dark text-uppercase mb-2 text-truncate"
+                                        th:text="${examenes.nombre}"></h5>
+                                    <p class="small text-muted mb-4 text-truncate" th:text="${examenes.descripcion}">
+                                    </p>
+
+                                    <div class="mt-auto">
+                                        <a th:href="@{/examen/inscripciones/{id}(id=${examenes.idExamen})}"
+                                            class="btn btn-redPrimary w-100 text-light" title="Inscripciones">
+                                            <i class="bi bi-people-fill me-1"></i> Ver Inscripciones
+                                        </a>
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -98,14 +147,11 @@
                     </div>
                 </div>
 
-
-
             </div>
 
         </div>
 
     </div>
-
 
 </body>
 
