@@ -99,75 +99,142 @@
                                 <h5 class="fw-semibold mb-0">
                                     Alumnos (<span th:text="${examen.asignatura}">Por definir</span>)
                                 </h5>
-                                <a th:href="@{#}" class="btn btn-redPrimary fw-medium px-4 me-4 text-nowrap">
-                                    Filtrar Todos
-                                </a>
+                                
                             </div>
                             <hr class="text-muted my-2">
                         </div>
 
-                        <div class="list-group-item px-0 py-3 bg-transparent" th:each="alumnos : ${alumno}">
-                            <div class="row align-items-center  mx-auto g-3">
+                        <div th:each="alumnos : ${alumno}">
 
-                                <div class="col-1 text-center">
-                                    <a th:href="@{/perfil/alumno/{id}(id=${alumnos.dni})}"
-                                        class="d-inline-block text-decoration-none">
-                                        <img th:src="${alumnos.fotoPerfil ?: 'https://imgs.search.brave.com/UV5h1t8kUzXcIO0GMsAQlWsqZq99iqtb2wwQREXGgDo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzJjLzNi/L2Y2LzJjM2JmNmRj/ZjY0MTk3YTMwZWUx/ZWZlYTdkMTk4ZGRk/LmpwZw'}"
-                                            class="rounded-circle object-fit-cover" width="50" height="50" alt="Foto">
-                                    </a>
-                                </div>
+                            <div class="list-group-item px-0 py-3 bg-transparent"
+                                th:if="${validacion or #lists.contains(dniInscritos, alumnos.dni)}">
 
-                                <div class="col-md-2 text-center text-md-start">
-                                    <h6 class="mb-0 fw-semibold text-dark"
-                                        th:text="${alumnos.nombre + ' ' + alumnos.primerApellido}">
-                                        Nombre Apellido
-                                    </h6>
-                                </div>
+                                <div class="row align-items-center mx-auto g-3">
 
-                                <div class="col-md-2 text-center text-md-start">
-                                    <h6 class="badge bg-danger  text-light rounded-pill px-2.5 py-1.5"
-                                        th:text="${alumnos.email}">
-                                        Email
-                                    </h6>
-                                </div>
+                                    <div class="col-1 text-center">
+                                        <a th:href="@{/perfil/alumno/{id}(id=${alumnos.dni})}"
+                                            class="d-inline-block text-decoration-none">
+                                            <img th:src="${alumnos.fotoPerfil ?: 'https://imgs.search.brave.com/UV5h1t8kUzXcIO0GMsAQlWsqZq99iqtb2wwQREXGgDo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzJjLzNi/L2Y2LzJjM2JmNmRj/ZjY0MTk3YTMwZWUx/ZWZlYTdkMTk4ZGRk/LmpwZw'}"
+                                                class="rounded-circle object-fit-cover" width="50" height="50"
+                                                alt="Foto">
+                                        </a>
+                                    </div>
 
-                                <div class="col-2 text-center">
-                                    <span
-                                        class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-2.5 py-1.5"
-                                        th:text="${alumnos.grupo}">Grupo</span>
-                                </div>
+                                    <div class="col-md-2 text-center text-md-start">
+                                        <h6 class="mb-0 fw-semibold text-dark"
+                                            th:text="${alumnos.nombre + ' ' + alumnos.primerApellido}">
+                                            Nombre Apellido
+                                        </h6>
+                                    </div>
 
-                                <div class="col-3 text-center">
-                                    <span
-                                        class="badge bg-secondary-subtle text-secondary-emphasis text-wrap text-start fw-normal"
-                                        th:text="${alumnos.asignaturas != null and alumnos.asignaturas != '' ? alumnos.asignaturas : 'Sin asignaturas'}">
-                                        Asignaturas
-                                    </span>
-                                </div>
+                                    <div class="col-md-2 text-center text-md-start">
+                                        <h6 class="badge bg-danger text-light rounded-pill px-2.5 py-1.5"
+                                            th:text="${alumnos.email}">
+                                            Email
+                                        </h6>
+                                    </div>
 
-                                <div class="col-auto d-flex gap-2 justify-content-center">
-                                    <form
-                                        th:action="@{/examen/inscripciones/{idInscripcion}/{idAlumno}(idInscripcion=${examen.idExamen}, idAlumno=${alumnos.dni})}"
-                                        th:method="post">
-                                        <button th:if="${#lists.contains(dniInscritos, alumnos.dni)}" type="submit"
-                                            class="btn btn-sm btn-danger fw-medium px-3 text-nowrap">
-                                            Desasignar
+                                    <div class="col-2 text-center">
+                                        <span
+                                            class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-2.5 py-1.5"
+                                            th:text="${alumnos.grupo}">Grupo</span>
+                                    </div>
+
+                                    <div class="col-3 text-center">
+                                        <button type="button" class="btn btn-sm btn-primary fw-medium px-3 text-nowrap"
+                                            th:disabled="${validacion}" data-bs-toggle="modal"
+                                            th:data-bs-target="'#evaluarModal-' + ${alumnos.dni}">
+                                            Evaluar Alumno
                                         </button>
+                                    </div>
 
-                                        <button th:unless="${#lists.contains(dniInscritos, alumnos.dni)}" type="submit"
-                                            class="btn btn-sm btn-success fw-medium px-3 text-nowrap">
-                                            Asignar
-                                        </button>
-                                    </form>
+                                    <div class="col-auto d-flex gap-2 justify-content-center">
+                                        <form
+                                            th:action="@{/examen/inscripciones/{idInscripcion}/{idAlumno}(idInscripcion=${examen.idExamen}, idAlumno=${alumnos.dni})}"
+                                            th:method="post">
+
+                                            <button th:if="${#lists.contains(dniInscritos, alumnos.dni)}" type="submit"
+                                                class="btn btn-sm btn-danger fw-medium px-3 text-nowrap"
+                                                th:disabled="${!validacion}">
+                                                Desasignar
+                                            </button>
+
+                                            <button th:unless="${#lists.contains(dniInscritos, alumnos.dni)}"
+                                                type="submit" class="btn btn-sm btn-success fw-medium px-3 text-nowrap"
+                                                th:disabled="${!validacion}">
+                                                Asignar
+                                            </button>
+                                        </form>
+                                    </div>
+
                                 </div>
-
                             </div>
-                        </div>
 
+                            <div class="modal fade" th:id="'evaluarModal-' + ${alumnos.dni}" tabindex="-1"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-3 shadow">
+
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-semibold text-dark">
+                    Evaluando al alumno: <span
+                        th:text="${alumnos.nombre + ' ' + alumnos.primerApellido}"
+                        class="text-primary">Nombre</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+
+            <div class="px-3">
+                <hr class="text-muted my-2">
+            </div>
+
+            <div class="modal-body pt-2">
+                <form th:action="@{/examen/inscripciones/{idExamen}/evaluar/{idAlumno}(idExamen=${examen.idExamen}, idAlumno=${alumnos.dni})}"
+                    method="get"
+                    th:each="inscrip : ${alumnos.inscripcion}"
+                    th:if="${inscrip.examen.idExamen == examen.idExamen}">
+
+                    <div class="mb-3">
+                        <label class="form-label fw-medium text-secondary">
+                            Nota del alumno (Máx: <span th:text="${examen.puntuacionMax}">10</span>)
+                        </label>
+                        <input type="number" step="0.1" min="0"
+                            th:max="${examen.puntuacionMax}" name="nota"
+                            class="form-control" placeholder="Introducir calificación"
+                            th:value="${inscrip.calificacion}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-medium text-secondary">Observación</label>
+                        <textarea name="observacion" class="form-control" rows="3"
+                            maxlength="255" style="resize: none;"
+                            placeholder="Escribe los comentarios o detalles aquí..."
+                            th:text="${inscrip.observaciones}"></textarea>
+                    </div>
+
+                    <hr class="text-muted my-3">
+
+                    <div class="d-flex justify-content-between gap-2">
+                        <button type="submit" name="accion" value="1"
+                            class="btn btn-outline-danger fw-medium px-3">
+                            No se presentó
+                        </button>
+
+                        <button type="submit" name="accion" value="2"
+                            class="btn btn-success fw-medium px-4">
+                            Enviar evaluación
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+                        </div>
                     </div>
                 </div>
-
-                
 
             </div>
         </div>

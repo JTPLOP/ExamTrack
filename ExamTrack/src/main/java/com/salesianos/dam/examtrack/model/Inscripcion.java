@@ -1,5 +1,8 @@
 package com.salesianos.dam.examtrack.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -55,7 +58,10 @@ public class Inscripcion {
     }
 
     private double calificacion;
-    private String estado;
+
+    @Builder.Default
+    private List <InscripcionEstados> estados = new ArrayList<>();
+    
     private String observaciones;
 
     

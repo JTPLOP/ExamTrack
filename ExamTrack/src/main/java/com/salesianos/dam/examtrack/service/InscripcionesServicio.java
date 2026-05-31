@@ -1,10 +1,13 @@
 package com.salesianos.dam.examtrack.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.salesianos.dam.examtrack.model.Alumno;
 import com.salesianos.dam.examtrack.model.Examen;
 import com.salesianos.dam.examtrack.model.Inscripcion;
+import com.salesianos.dam.examtrack.model.InscripcionEstados;
 import com.salesianos.dam.examtrack.model.InscripcionPK;
 import com.salesianos.dam.examtrack.repository.InscripcionesRepositorio;
 import com.salesianos.dam.examtrack.service.base.ServicioBaseImpl;
@@ -29,6 +32,8 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
             Inscripcion nuevaInscripcion = new Inscripcion();
             nuevaInscripcion.addToExamen(examen);
             nuevaInscripcion.addToAlumno(alumno);
+
+            nuevaInscripcion.getEstados().add(InscripcionEstados.INSCRITO);
 
             inscripcionRepo.save(nuevaInscripcion);
 
@@ -57,6 +62,37 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
      public int contarAlumnosInscritos (Long idExamen) {
 
         return inscripcionRepo.contarAlumnosInscritos(idExamen);
+    }
+
+    public Optional <Inscripcion> filtrarInscripcionAlumno (String dni, Long idExamen) {
+
+        return inscripcionRepo.filtrarInscripcion(dni, idExamen);
+
+    }
+
+    public void inscripcionAusencia (Inscripcion inscripcion) {
+
+        /* Valores por Default para cuando no se presenten */
+
+        inscripcion.setCalificacion(0);
+        inscripcion.setObservaciones("No se presento.");
+        inscripcion.getEstados().set(0, InscripcionEstados.AUSENTADO);
+        inscripcion.getEstados().add(InscripcionEstados.SUSPENDIDO);
+
+        
+    }
+
+    public void inscripcionPresente (Inscripcion inscripcion, Double nota, String observacion, double calificacionMax) {
+
+        inscripcion.setCalificacion(nota);
+        inscripcion.setObservaciones(observacion);
+        inscripcion.getEstados().set(0, InscripcionEstados.PRESENTADO);
+
+        if (nota > (calificacionMax/2)) {
+            inscripcion.getEstados().add(InscripcionEstados.APROBADO);
+        }else {
+            inscripcion.getEstados().add(InscripcionEstados.SUSPENDIDO);
+        }
     }
 
 }

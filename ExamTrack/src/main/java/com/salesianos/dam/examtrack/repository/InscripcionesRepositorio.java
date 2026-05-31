@@ -27,4 +27,12 @@ public interface InscripcionesRepositorio extends JpaRepository <Inscripcion, In
        """)
     int contarAlumnosInscritos (@Param("idExamen") Long idExamen);
 
+    @Query("""
+        select i
+        from Inscripcion i
+        where i.inscripcionPK.idExamen = :idExamen and i.inscripcionPK.dni = :dni
+       """)
+    Optional <Inscripcion> filtrarInscripcion (String dni, Long idExamen);
+
+
 }
