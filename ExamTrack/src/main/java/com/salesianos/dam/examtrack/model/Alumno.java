@@ -3,6 +3,7 @@ package com.salesianos.dam.examtrack.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
@@ -15,7 +16,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,6 +26,7 @@ public class Alumno extends Usuario {
     private String grupo;
 
     @Builder.Default
+    @ElementCollection
     private List <String> asignaturas = new ArrayList<>();
 
 

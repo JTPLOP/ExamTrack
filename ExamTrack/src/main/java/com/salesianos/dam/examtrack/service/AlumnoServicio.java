@@ -1,5 +1,7 @@
 package com.salesianos.dam.examtrack.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import com.salesianos.dam.examtrack.model.Alumno;
 import com.salesianos.dam.examtrack.repository.AlumnoRepositorio;
@@ -8,8 +10,19 @@ import com.salesianos.dam.examtrack.service.base.ServicioBaseImpl;
 @Service
 public class AlumnoServicio extends ServicioBaseImpl <Alumno, String, AlumnoRepositorio> {
 
-    public AlumnoServicio(AlumnoRepositorio repositorio) {
+    private final AlumnoRepositorio alumRepo;
+
+    public AlumnoServicio(AlumnoRepositorio repositorio, AlumnoRepositorio alumRepo) {
         super(repositorio);
+        this.alumRepo = alumRepo;
     }
+
+    public List <Alumno> filtrarPorAsignatura (String asignatura) {
+
+        return alumRepo.filtrarPorAsignatura("%" + asignatura + "%");
+        
+    }
+
+
 
 }

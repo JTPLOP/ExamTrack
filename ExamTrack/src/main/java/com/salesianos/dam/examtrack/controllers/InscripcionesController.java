@@ -33,7 +33,8 @@ public class InscripcionesController {
         
         if (examen.isPresent()) {
             model.addAttribute("examen", examen.get());
-            model.addAttribute("alumno", alumServicio.filtrarTodos());
+
+            model.addAttribute("alumno", alumServicio.filtrarPorAsignatura(examen.get().getAsignatura()));
             model.addAttribute("validacion", examService.comprobarLimFecha(id) );
 
             List <String> dniInscritos = examen.get().getInscripcion().stream()
