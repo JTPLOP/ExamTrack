@@ -24,7 +24,9 @@ import lombok.experimental.SuperBuilder;
 public class Alumno extends Usuario {
     
     private String grupo;
-    private List <String> asignaturas;
+
+    @Builder.Default
+    private List <String> asignaturas = new ArrayList<>();
 
 
     // Relacion tabla Intermedia

@@ -59,69 +59,155 @@
                         <div class="col-12">
                             <div class="list-group list-group-flush">
 
-                                <div class="list-group-item px-0 py-3 bg-transparent" th:each="alumnos : ${alumno}">
+                                <div class="list-group-item px-0 py-3 bg-transparent border-bottom"
+                                    th:each="alumnos : ${alumno}">
                                     <div class="row align-items-center">
 
-                                        <div class="col-md-1">
+                                        <div class="col-auto col-md-1 mb-3 mb-md-0">
                                             <a th:href="@{/perfil/{id}(id=${alumnos.dni})}"
                                                 class="d-inline-block text-decoration-none">
                                                 <img th:src="${alumnos.fotoPerfil ?: 'https://imgs.search.brave.com/UV5h1t8kUzXcIO0GMsAQlWsqZq99iqtb2wwQREXGgDo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzJjLzNi/L2Y2LzJjM2JmNmRj/ZjY0MTk3YTMwZWUx/ZWZlYTdkMTk4ZGRk/LmpwZw'}"
-                                                    class="rounded-circle object-fit-cover" width="50" height="50"
-                                                    alt="Foto">
+                                                    class="rounded-circle object-fit-cover shadow-sm" width="50"
+                                                    height="50" alt="Foto">
                                             </a>
                                         </div>
 
-                                        <div class="col-md-2">
-                                            <h6 class="mb-0 fw-semibold text-dark"
+                                        <div class="col col-md-3 mb-3 mb-md-0">
+                                            <h6 class="mb-0 fw-semibold text-dark text-truncate"
                                                 th:text="${alumnos.nombre + ' ' + alumnos.primerApellido}">Nombre
                                                 Apellido</h6>
-                                            <small class="text-muted"
+                                            <small class="text-muted text-truncate d-block"
                                                 th:text="${alumnos.email}">email@ejemplo.com</small>
                                         </div>
 
-                                        <div class="col-md-2">
+                                        <div class="col-6 col-md-2 mb-3 mb-md-0">
                                             <small
                                                 class="text-muted d-block mb-1 text-uppercase fs-7 fw-medium tracking-wider">Nacimiento</small>
-                                            <span class="text-secondary small"
+                                            <span class="text-secondary small fw-medium"
                                                 th:text="${alumnos.fechaNacimiento}">12/05/2000</span>
                                         </div>
 
-                                        <div class="col-md-2">
+                                        <div class="col-6 col-md-2 mb-3 mb-md-0">
                                             <small
                                                 class="text-muted d-block mb-1 text-uppercase fs-7 fw-medium tracking-wider">Curso</small>
                                             <span
-                                                class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-2.5 py-1.5"
+                                                class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-3 py-1"
                                                 th:text="${alumnos.grupo}">Grupo</span>
                                         </div>
 
-                                        <div class="col-md-2">
-                                            <small
-                                                class="text-muted d-block mb-1 text-uppercase fs-7 fw-medium tracking-wider">Asignaturas</small>
-                                            <span
-                                                class="badge bg-secondary-subtle text-secondary-emphasis text-wrap text-start fw-normal"
-                                                th:text="${alumnos.asignaturas != null and alumnos.asignaturas != '' ? alumnos.asignaturas : 'Sin asignaturas'}">
-                                                Asignaturas
-                                            </span>
+                                        <div class="col-12 col-md-2 mb-3 mb-md-0">
+
+                                            <div class="d-flex align-items-center mb-1">
+                                                <small
+                                                    class="text-muted text-uppercase fs-7 fw-medium me-2">Asignaturas</small>
+
+                                                <i th:if="${!#lists.containsAll(alumnos.asignaturas, especialidades)}"
+                                                    class="bi bi-exclamation-circle-fill text-warning fs-6"
+                                                    style="cursor: pointer;" data-bs-toggle="modal"
+                                                    th:data-bs-target="'#modalAsignaturas-' + ${alumnos.dni}"></i>
+                                            </div>
+
+                                            <div class="d-flex flex-wrap gap-1">
+
+                                                <span
+                                                    th:if="${alumnos.asignaturas == null or #lists.isEmpty(alumnos.asignaturas)}"
+                                                    class="badge bg-secondary fw-normal">
+                                                    Sin asignaturas
+                                                </span>
+
+                                                <span th:each="asignatura, asignatBucle : ${alumnos.asignaturas}"
+                                                    th:if="${asignatBucle.index < 2}" class="badge bg-success fw-normal"
+                                                    th:text="${asignatura}">
+                                                </span>
+
+                                                <span
+                                                    th:if="${alumnos.asignaturas != null and #lists.size(alumnos.asignaturas) > 2}"
+                                                    class="badge bg-secondary fw-normal"
+                                                    th:text="'Más asignaturas: +' + (${#lists.size(alumnos.asignaturas)} - 2)">
+                                                </span>
+
+                                            </div>
+
+                                            <div class="modal fade" th:id="'modalAsignaturas-' + ${alumnos.dni}"
+                                                tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Gestionar Asignaturas: <span
+                                                                    th:text="(${alumnos.nombre}) + ' ' + (${alumnos.primerApellido})"></span>
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+
+                                                        <form
+                                                            th:action="@{/alumno/asignatura/add/{id}(id=${alumnos.dni})}"
+                                                            method="get">
+
+                                                            <div class="modal-body">
+                                                                <p class="mb-3 text-muted fs-6"><span
+                                                                        th:text="${alumnos.nombre}"> </span> no esta
+                                                                    inscrito es
+                                                                    algunas de tus asignaturas. Seleccione abajo si
+                                                                    quieres agregarle a alguna de tus
+                                                                    asignaturas:</span>
+                                                                </p>
+
+                                                                <div th:each="especialidad : ${especialidades}"
+                                                                    th:if="${ !#lists.contains(alumnos.asignaturas, especialidad)}"
+                                                                    class="form-check mb-2">
+
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        name="nuevasAsignaturas"
+                                                                        th:value="${especialidad}">
+
+                                                                    <label class="form-check-label"
+                                                                        th:text="${especialidad}">
+                                                                        Nombre de la Asignatura
+                                                                    </label>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Cerrar</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-redPrimary text-light">Guardar
+                                                                    cambios</button>
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <div class="col-md-3 d-flex gap-2 justify-content-end">
+                                        <div
+                                            class="col-12 col-md-2 d-flex gap-2 justify-content-start justify-content-md-end align-items-center">
+
                                             <a th:href="@{/perfil/{id}(id=${alumnos.dni})}"
-                                                class="btn btn-sm btn-secondary fw-medium px-3 text-nowrap">
-                                                Perfil
+                                                class="btn btn-secondary text-white btn-sm px-2 py-1" title="Ver Perfil">
+                                                <i class="bi bi-eye-fill fs-6"></i>
                                             </a>
+
                                             <a th:href="@{/editar/alumno/{id}(id=${alumnos.dni})}"
-                                                class="btn btn-sm btn-secondary fw-medium px-3 text-nowrap">
-                                                Editar
+                                                class="btn btn-secondary btn-sm px-2 py-1" title="Editar Alumno">
+                                                <i class="bi bi-pencil-fill fs-6"></i>
                                             </a>
+
                                             <a th:href="@{/eliminar/alumno/{id}(id=${alumnos.dni})}"
-                                                class="btn btn-sm text-white bg-danger bg-opacity-75 fw-medium px-3 text-nowrap">
-                                                Eliminar
+                                                class="btn text-white bg-danger bg-opacity-75 btn-sm px-2 py-1"
+                                                title="Eliminar Alumno">
+                                                <i class="bi bi-person-x-fill fs-6"></i>
                                             </a>
+
                                         </div>
 
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>

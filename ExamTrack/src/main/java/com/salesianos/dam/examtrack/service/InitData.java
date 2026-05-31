@@ -96,7 +96,7 @@ public class InitData {
 				.rol(UsuarioRol.ALUMNO)
 				.fotoPerfil("https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos")
 				.grupo("1º DAM")
-				.asignaturas(List.of("Programación", "Bases de Datos", "Sistemas Informáticos"))
+				.asignaturas(List.of("Programacion", "Ingles", "Sistemas Informáticos"))
 				.build();
 		repo.save(alumnoCarlos);
 
@@ -113,7 +113,7 @@ public class InitData {
 				.rol(UsuarioRol.ALUMNO)
 				.fotoPerfil("https://api.dicebear.com/7.x/avataaars/svg?seed=Ana")
 				.grupo("1º DAM")
-				.asignaturas(List.of("Programación", "Lenguajes de Marcas", "Entornos de Desarrollo"))
+				.asignaturas(List.of("Programacion", "Ingles", "Entornos de Desarrollo"))
 				.build();
 		repo.save(alumnoAna);
 
@@ -130,7 +130,7 @@ public class InitData {
 				.rol(UsuarioRol.ALUMNO)
 				.fotoPerfil("https://api.dicebear.com/7.x/avataaars/svg?seed=Lucas")
 				.grupo("2º DAM")
-				.asignaturas(List.of("Acceso a Datos", "Desarrollo Interfaces", "Sistemas de Gestión"))
+				.asignaturas(List.of("Programacion", "Desarrollo Interfaces", "Sistemas de Gestión"))
 				.build();
 		repo.save(alumnoLucas);
 

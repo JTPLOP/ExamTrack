@@ -1,5 +1,6 @@
 package com.salesianos.dam.examtrack.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.salesianos.dam.examtrack.model.Alumno;
 import com.salesianos.dam.examtrack.model.Examen;
 import com.salesianos.dam.examtrack.model.Profesor;
@@ -67,7 +70,7 @@ public class AlumnoController {
 	}
 
     @PostMapping ("/editAlumno")
-    public String editorAlumno (@ModelAttribute("examen") Alumno alumno) {
+    public String editorAlumno (@ModelAttribute("alumno") Alumno alumno) {
         
         servicio.modificar(alumno);
 
@@ -75,7 +78,7 @@ public class AlumnoController {
     }
 
     @GetMapping ("/eliminar/alumno/{dni}")
-    public String borradorExamen (@PathVariable ("dni") String dni) {
+    public String borradorAlumnos (@PathVariable ("dni") String dni) {
 
         Optional <Alumno> alumno = servicio.filtrarPorId(dni);
 
@@ -83,6 +86,40 @@ public class AlumnoController {
             servicio.eliminar(alumno.get());
 
         return "redirect:/alumnos";
+    }
+
+    @GetMapping ("/alumno/asignatura/add/{dni}")
+    public String agregarAsignatura (@PathVariable ("dni") String dni , @RequestParam(name="nuevasAsignaturas", required=false, defaultValue="0") List <String> nuevasAsignaturas) {
+        
+        System.out.println("AQUI RESULTADO DE NUEVAS ASIGNATURAS:\n\n\n" + nuevasAsignaturas.toString());
+
+
+        if (nuevasAsignaturas.contains("0")) {
+            return "redirect:/alumnos";
+        } else {
+            Optional <Alumno> alumBuscado = servicio.filtrarPorId(dni);
+
+            if (!alumBuscado.isPresent()) {
+                System.out.println("Me fui");
+                return "redirect:/alumnos";
+            }
+
+            Alumno alumno = alumBuscado.get();
+
+
+            System.out.println("Agregando asignaturas");
+            for (String asignatura : nuevasAsignaturas) {
+                alumno.getAsignaturas().add(asignatura);
+
+                System.out.println("MOSTRAR ASIGNATURA\n\n\n"+ asignatura);
+                alumno.getAsignaturas().toString();
+            }
+
+            servicio.modificar(alumno);
+
+            return "redirect:/alumnos";
+        }
+
     }
 
 }
