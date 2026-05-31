@@ -37,7 +37,7 @@
                         <form th:action="@{/notificaciones}" method="get">
                             <input type="hidden" name="filtro" value="1">
                             <button type="submit"
-                                th:class="${filtro == 0 or filtro == 1} ? 'btn btn-greyPrimary px-4 rounded-pill' : 'btn btn-redPrimary px-4 rounded-pill'">
+                                th:class="${filtro == 0 or filtro == 1} ? 'btn btn-redPrimary px-4 rounded-pill' : 'btn btn-greyPrimary px-4 rounded-pill'">
                                 Todos
                             </button>
                         </form>
@@ -45,7 +45,7 @@
                         <form th:action="@{/notificaciones}" method="get">
                             <input type="hidden" name="filtro" value="2">
                             <button type="submit"
-                                th:class="${filtro == 2} ? 'btn btn-greyPrimary px-4 rounded-pill' : 'btn btn-redPrimary px-4 rounded-pill'">
+                                th:class="${filtro == 2} ? 'btn btn-redPrimary px-4 rounded-pill' : 'btn btn-greyPrimary px-4 rounded-pill'">
                                 Próximos Exámenes
                             </button>
                         </form>
@@ -53,7 +53,7 @@
                         <form th:action="@{/notificaciones}" method="get">
                             <input type="hidden" name="filtro" value="3">
                             <button type="submit"
-                                th:class="${filtro == 3} ? 'btn btn-greyPrimary px-4 rounded-pill' : 'btn btn-redPrimary px-4 rounded-pill'">
+                                th:class="${filtro == 3} ? 'btn btn-redPrimary px-4 rounded-pill' : 'btn btn-greyPrimary px-4 rounded-pill'">
                                 Tareas Pendientes
                             </button>
                         </form>

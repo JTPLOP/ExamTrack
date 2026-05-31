@@ -25,81 +25,71 @@
 
             <div th:replace="~{fragmentos/sidebar :: sidebarMenu}"></div>
 
-                <div class="col-10">
+            <div class="col-10">
 
-                    <div class="my-4 ms-5 ps-3 border-bottom border-2 pb-3">
-                        <h1 class="display-5 fw-bold">Calendario</h1>
+                <div class="my-4 ms-5 ps-3 border-bottom border-2 pb-3">
+                    <h1 class="display-5 fw-bold">Calendario</h1>
+                </div>
+
+                <div class="w-75 mx-auto mt-5">
+
+                    <div class="d-flex justify-content-center mb-4">
+
+                        <form th:action="@{/calendario}" method="get" class="d-flex align-items-center gap-4">
+
+                            <h3 class="fw-bold m-0 display-6 fs-3 text-dark text-nowrap mx-4" th:text="${nombreMes}">
+                                Mayo
+                            </h3>
+
+                        </form>
                     </div>
 
-                    <div class="w-75 mx-auto mt-5">
+                    <table class="table table-bordered border-dark border-3 align-top" style="table-layout: fixed;">
+                        <tbody>
+                            <tr th:each="row : ${#numbers.sequence(0, (diasMes - 1) / 7)}">
+                                <td th:each="col : ${#numbers.sequence(1, 7)}" th:with="dia=${row * 7 + col}"
+                                    class="p-2 text-start" th:classappend="${dia > diasMes} ? 'table-light' : ''">
 
-                        <div class="d-flex justify-content-center mb-4">
+                                    <div th:if="${dia <= diasMes}" class="overflow-hidden"
+                                        style="height: 120px; max-height: 120px;">
+                                        <span class="fs-6 fw-bold mb-1 d-block" th:text="${dia}">1</span>
 
-                            <form th:action="@{/calendario}" method="get" class="d-flex align-items-center gap-4">
+                                        <div th:with="examenesDia=${examenes.?[fecha.getDayOfMonth() == __${dia}__]}"
+                                            class="mt-1">
+                                            <div class="row g-1">
 
-                                <button type="submit"
-                                    class="btn btn-danger btn-sm rounded-pill px-4 py-1 d-flex align-items-center justify-content-center shadow-sm">
-                                    <i class="bi bi-arrow-left fs-6 fw-bold"></i>
-                                </button>
+                                                <div th:each="examen, iterStat : ${examenesDia}"
+                                                    th:if="${iterStat.index < 5}" class="col-6">
 
-                                <h3 class="fw-bold m-0 display-6 fs-3 text-dark text-nowrap mx-4"
-                                    th:text="${nombreMes}">Mayo
-                                </h3>
-
-                                <button type="submit"
-                                    class="btn btn-danger btn-sm rounded-pill px-4 py-1 d-flex align-items-center justify-content-center shadow-sm">
-                                    <i class="bi bi-arrow-right fs-6 fw-bold"></i>
-                                </button>
-
-                            </form>
-                        </div>
-
-                        <table class="table table-bordered border-dark border-3 align-top" style="table-layout: fixed;">
-                            <tbody>
-                                <tr th:each="row : ${#numbers.sequence(0, (diasMes - 1) / 7)}">
-                                    <td th:each="col : ${#numbers.sequence(1, 7)}" th:with="dia=${row * 7 + col}"
-                                        class="p-2 text-start"
-                                        th:classappend="${dia > diasMes} ? 'border-0 bg-transparent' : ''">
-
-                                        <div th:if="${dia <= diasMes}" class="overflow-hidden"
-                                            style="height: 130px; max-height: 130px;">
-                                            <span class="fs-6 fw-bold" th:text="${dia}">1</span>
-
-                                            <div th:with="examenesDia=${examenes.?[fecha.dayOfMonth == #dia]}"
-                                                class="mt-2">
-                                                <div class="row g-1">
-
-                                                    <div th:each="examen, numExamenes : ${examenesDia}"
-                                                        th:if="${numExamenes.index < 5}" class="col-6">
-                                                        <a th:href="@{/examen/inscripciones/{id}(id=${examen.idExamen})}"
-                                                            class="badge bg-danger text-start text-nowrap text-truncate p-1 d-block text-decoration-none shadow-sm fs-7 fw-semibold text-white">
-                                                            <i class="bi bi-file-earmark-text-fill small"></i>
-                                                            <span th:text="${examen.nombre}">Examen</span>
-                                                        </a>
-                                                    </div>
-
-                                                    <div th:if="${examenesDia.size() > 5}" class="col-6">
-                                                        <span
-                                                            class="badge bg-secondary p-1 d-block text-center fw-bold fs-7 shadow-sm text-white">+</span>
-                                                    </div>
-
+                                                    <a th:href="@{/examen/inscripciones/{id}(id=${examen.idExamen})}"
+                                                        class="badge bg-danger text-start text-nowrap text-truncate p-1 d-block text-decoration-none text-white fs-7 shadow-sm">
+                                                        <i class="bi bi-file-earmark-text-fill small"></i>
+                                                        <span th:text="${examen.nombre}">Examen</span>
+                                                    </a>
                                                 </div>
+
+                                                <div th:if="${examenesDia.size() > 5}" class="col-6">
+                                                    <span
+                                                        class="badge bg-secondary p-1 d-block text-center fw-bold fs-7 shadow-sm text-white">+</span>
+                                                </div>
+
                                             </div>
-
                                         </div>
-                                    </td>
-                                </tr>
-                            </tbody>
 
-                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
 
-                    </div>
+                    </table>
 
                 </div>
 
             </div>
 
         </div>
+
+    </div>
 
 </body>
 

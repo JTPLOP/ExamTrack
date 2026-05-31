@@ -36,7 +36,7 @@ public class CalendarioController {
         model.addAttribute("nombreMes", nombreMes[mesSeleccionado-1]);
         model.addAttribute("examenes", examServicio.filtrarExamenesMes(profesor.getDni(), mesSeleccionado).orElse(List.of()));
 
-
+        
         return "calendario";
     }
     
