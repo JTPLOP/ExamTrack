@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario de Exámenes</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+
+            <div th:replace="~{fragmentos/sidebar :: sidebarMenu}"></div>
+
+            <div class="col-10">
+
+                <div class="my-4 ms-5 ps-3 border-bottom border-2 pb-3">
+                    <h1 class="display-5 fw-bold">Calendario</h1>
+                </div>
+
+                <div class="w-75 mx-auto mt-5">
+
+                    <div class="d-flex justify-content-center mb-4">
+
+                        <form th:action="@{/calendario}" method="get" class="d-flex align-items-center gap-4">
+
+                            <button type="submit"
+                                class="btn btn-danger btn-sm rounded-pill px-4 py-1 d-flex align-items-center justify-content-center shadow-sm">
+                                <i class="bi bi-arrow-left fs-6 fw-bold"></i>
+                            </button>
+
+                            <h3 class="fw-bold m-0 display-6 fs-3 text-dark text-nowrap mx-4" th:text="${nombreMes}">Mayo
+                            </h3>
+
+                            <button type="submit"
+                                class="btn btn-danger btn-sm rounded-pill px-4 py-1 d-flex align-items-center justify-content-center shadow-sm">
+                                <i class="bi bi-arrow-right fs-6 fw-bold"></i>
+                            </button>
+
+                        </form>
+                    </div>
+
+                    <table class="table table-bordered border-dark border-3 align-top">
+                        <tbody>
+                            <tr th:each="row : ${#numbers.sequence(0, (diasMes - 1) / 7)}">
+                                <td th:each="col : ${#numbers.sequence(1, 7)}" th:with="dia=${row * 7 + col}"
+                                    class="p-3 pb-5 text-start" th:classappend="${dia > diasMes} ? 'table-light' : ''">
+                                    <div th:if="${dia <= diasMes}">
+                                        <span class="fw-bold fs-6" th:text="${dia}">1</span>
+                                        <div class="mt-4">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

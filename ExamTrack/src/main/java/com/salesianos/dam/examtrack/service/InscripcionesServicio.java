@@ -79,6 +79,7 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
     public void inscripcionAusencia (Inscripcion inscripcion) {
 
         /* Valores por Default para cuando no se presenten */
+        inscripcion.setCalificacion(0.0);
         inscripcion.setObservaciones("No se presento.");
         inscripcion.getEstados().set(0, InscripcionEstados.AUSENTADO);
         inscripcion.getEstados().add(InscripcionEstados.SUSPENDIDO);
@@ -100,7 +101,7 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
 
     }
 
-    
+
     public List <Alumno> filtrarAlumnosSinNota () {
 
         LocalDateTime actualidad = LocalDateTime.now();
