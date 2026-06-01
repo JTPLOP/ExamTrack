@@ -13,7 +13,7 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css" >
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
@@ -47,18 +47,24 @@
                                         <h1 class="fw-bold">examTrack</h1>
                                     </div>
 
+                                    <div th:if="${param.error}" class="alert alert-danger text-center "> Hubo un problema al iniciar sesión, comprueba que la contraseña o correo son correctos.
+                                    </div>
+
+                                    <div th:if="${param.logout}" class="alert alert-success text-center "> ¡Se cerro
+                                        sesión correctamente!
+                                    </div>
+
                                     <div
                                         class="w-100 flex-grow-1 d-flex flex-column justify-content-center align-items-center pb-5">
                                         <form class="w-75 d-flex flex-column align-items-center pb-5 needs-validation"
                                             method="post" th:action=@{/login} novalidate>
-                                            
+
                                             <div class="mb-3 w-75 py-3">
                                                 <label for="emailLabel" class="form-label col-form-label-lg">Correo
                                                     Electronico</label>
-                                                <input type="text" class="form-control" id="emailLabel"
-                                                    name="username">
+                                                <input type="text" class="form-control" id="emailLabel" name="username">
 
-                                            </div> 
+                                            </div>
                                             <div class="mb-3 w-75 py-3">
                                                 <label for="contraLabel"
                                                     class="form-label col-form-label-lg">Contraseña</label>

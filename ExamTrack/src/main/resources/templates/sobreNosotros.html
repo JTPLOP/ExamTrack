@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nosotros - ExamTrack</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+
+            <div th:replace="~{fragmentos/sidebar :: sidebarMenu}"></div>
+
+            <div class="col-12 col-lg-10">
+                <div class="container py-4">
+
+                    <!-- Cabecera -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h1 class="fw-bold">Sobre Nosotros</h1>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <!-- Historia y objetivo -->
+                    <div class="row mb-5">
+                        <div class="col-12 col-lg-10">
+
+                            <h2 class="h4 fw-semibold mb-3">¿Qué es ExamTrack?</h2>
+                            <p class="text-secondary">
+                                ExamTrack nació de la necesidad real de los centros educativos de contar con una
+                                herramienta centralizada para la gestión de exámenes. Antes de su desarrollo, la
+                                coordinación entre profesores, alumnos y departamentos se realizaba de manera dispersa,
+                                generando errores, duplicidades y pérdida de información valiosa.
+                            </p>
+
+                            <h2 class="h4 fw-semibold mb-3 mt-4">¿Por qué nace?</h2>
+                            <p class="text-secondary">
+                                La plataforma surge como proyecto final de ciclo superior con el objetivo de digitalizar
+                                y simplificar los procesos administrativos relacionados con las convocatorias de
+                                exámenes. La idea principal era ofrecer a los profesores un panel de control intuitivo
+                                desde el que pudieran gestionar todos sus exámenes, alumnos e inscripciones en un mismo
+                                lugar.
+                            </p>
+
+                            <h2 class="h4 fw-semibold mb-3 mt-4">Nuestro objetivo</h2>
+                            <p class="text-secondary">
+                                ExamTrack tiene como objetivo principal reducir la carga administrativa del profesorado,
+                                facilitando la creación de exámenes, la gestión de inscripciones y el seguimiento de
+                                alumnos por especialidades y departamentos. Todo ello a través de una interfaz web
+                                accesible, segura y fácil de usar.
+                            </p>
+
+                            <p class="text-secondary">
+                                Actualmente, la plataforma permite crear y gestionar alumnos, profesores, exámenes,
+                                departamentos y especialidades; inscribir alumnos a convocatorias; consultar un
+                                calendario de exámenes programados; recibir notificaciones relevantes; y administrar el
+                                perfil de usuario de forma personalizada.
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 col-lg-10">
+
+                            <h2 class="h4 fw-semibold mb-3">
+                                <i class="bi bi-question-circle me-2"></i>Preguntas Frecuentes
+                            </h2>
+
+                            <div class="accordion" id="faqAccordion">
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="faq1">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                            ¿Cómo puedo crear un nuevo examen?
+                                        </button>
+                                    </h2>
+                                    <div id="collapse1" class="accordion-collapse collapse "
+                                        aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body text-secondary">
+                                            Desde el menú lateral, haz clic en el botón Crear y
+                                            selecciona Crear Examen. Rellena el formulario con los datos del
+                                            examen (nombre, fecha, duración, asignatura y convocatoria) y guarda los
+                                            cambios.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="faq2">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapse2"
+                                            aria-expanded="false" aria-controls="collapse2">
+                                            ¿Cómo inscribir a un alumno en un examen?
+                                        </button>
+                                    </h2>
+                                    <div id="collapse2" class="accordion-collapse collapse"
+                                        aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body text-secondary">
+                                            Accede a la sección Exámenes, localiza el examen deseado y
+                                            utiliza la opción de inscripción. También puedes gestionar inscripciones
+                                            directamente desde el apartado Inscripciones, donde
+                                            podrás ver y administrar todas las matrículas activas.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="faq3">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapse3"
+                                            aria-expanded="false" aria-controls="collapse3">
+                                            ¿Cómo gestionar alumnos?
+                                        </button>
+                                    </h2>
+                                    <div id="collapse3" class="accordion-collapse collapse"
+                                        aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body text-secondary">
+                                            Desde la sección Alumnos puedes ver el listado completo,
+                                            crear nuevos alumnos mediante el botón Crear Alumno, editarlos o
+                                            eliminarlos. Además, es posible asignarles asignaturas directamente desde
+                                            su ficha.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="faq4">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapse4"
+                                            aria-expanded="false" aria-controls="collapse4">
+                                            ¿Para qué sirve el Calendario?
+                                        </button>
+                                    </h2>
+                                    <div id="collapse4" class="accordion-collapse collapse"
+                                        aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body text-secondary">
+                                            El Calendario, disponible en el menú
+                                            Herramientas del Profesor, muestra de forma visual todos los
+                                            exámenes programados. Permite tener una visión rápida de las fechas de
+                                            convocatoria sin necesidad de revisar el listado completo de exámenes.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="faq5">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapse5"
+                                            aria-expanded="false" aria-controls="collapse5">
+                                            ¿Cómo funcionan las Notificaciones?
+                                        </button>
+                                    </h2>
+                                    <div id="collapse5" class="accordion-collapse collapse"
+                                        aria-labelledby="faq5" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body text-secondary">
+                                            La sección Notificaciones recoge los avisos relevantes
+                                            para el profesor, como nuevas inscripciones, cambios en exámenes o
+                                            comunicaciones del sistema. Puedes acceder a ella desde el menú lateral en
+                                            cualquier momento.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="faq6">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapse6"
+                                            aria-expanded="false" aria-controls="collapse6">
+                                            ¿Qué puede gestionar un Administrador?
+                                        </button>
+                                    </h2>
+                                    <div id="collapse6" class="accordion-collapse collapse"
+                                        aria-labelledby="faq6" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body text-secondary">
+                                            Los usuarios con rol de Administrador tienen acceso al
+                                            submenú Administrador desde la barra lateral. Desde ahí pueden
+                                            gestionar Profesores, Departamentos y
+                                            Especialidades, creando, editando o eliminando registros
+                                            según sea necesario.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="faq7">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapse7"
+                                            aria-expanded="false" aria-controls="collapse7">
+                                            ¿Cómo editar mi perfil de usuario?
+                                        </button>
+                                    </h2>
+                                    <div id="collapse7" class="accordion-collapse collapse"
+                                        aria-labelledby="faq7" data-bs-parent="#faqAccordion">
+                                        <div class="accordion-body text-secondary">
+                                            Puedes acceder a tu perfil desde la parte inferior del menú lateral
+                                            haciendo clic en Mi Perfil, o directamente en tu foto y
+                                            nombre que aparecen en la parte superior del sidebar. Desde ahí podrás
+                                            actualizar tus datos personales y foto de perfil.
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

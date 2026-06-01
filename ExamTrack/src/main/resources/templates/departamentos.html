@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departamentos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+
+            <div th:replace="~{fragmentos/sidebar :: sidebarMenu}"></div>
+
+            <div class="col-12 col-lg-10">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <h1>LISTA DE DEPARTAMENTOS</h1>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Nº Profesores</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="departamentos : ${departamento}">
+                                        <th scope="row" th:text="${departamentos.idDepartamento}"></th>
+                                        <td th:text="${departamentos.nombre}"></td>
+                                        <td th:text="${departamentos.listaProfesores.size()}"></td>
+                                        <td class="btn-group btn-group-sm" role="group">
+                                            <a th:href="@{/editar/departamento/{id}(id=${departamentos.idDepartamento})}"
+                                                class="btn btn-outline-primary">
+                                                <i class="bi bi-pencil-square"></i> Editar
+                                            </a>
+                                            <a th:href="@{/eliminar/departamento/{id}(id=${departamentos.idDepartamento})}"
+                                                class="btn btn-outline-danger">
+                                                <i class="bi bi-trash"></i> Eliminar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
