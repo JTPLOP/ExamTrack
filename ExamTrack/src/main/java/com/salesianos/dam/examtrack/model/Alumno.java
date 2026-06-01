@@ -3,6 +3,7 @@ package com.salesianos.dam.examtrack.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -23,6 +24,7 @@ import lombok.experimental.SuperBuilder;
 @Getter @Setter @ToString
 public class Alumno extends Usuario {
     
+    @Column(nullable = false)
     private String grupo;
 
     @Builder.Default
