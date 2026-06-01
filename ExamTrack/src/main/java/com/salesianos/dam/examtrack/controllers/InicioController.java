@@ -44,9 +44,16 @@ public class InicioController {
 
 
         model.addAttribute("nombreMes", nombreMes[mesSeleccionado-1]);
-
         model.addAttribute("estadisticasBase", estadisticasBase);
-        
+
+        /*Mejores Datos */
+        model.addAttribute("topExamenes", inscripServicio.filtrarExamenesMasInscripciones(profesor.getDni()));
+        model.addAttribute("topAsignaturas", inscripServicio.filtrarAsignaturasMasInscripciones(profesor.getDni()));
+        model.addAttribute("topAlumnos", inscripServicio.filtrarAlumnosConMasInscripciones(profesor.getDni()));
+
+
+
+
         return "inicio";
     }
 

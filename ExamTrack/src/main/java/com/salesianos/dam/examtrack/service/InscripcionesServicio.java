@@ -213,4 +213,18 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
         return resultado;
     }
 
+    public List <Examen> filtrarExamenesMasInscripciones (String dni) {
+        return inscripcionRepo.filtrarExamenesMasInscripciones(dni);
+    }
+
+    public List <String> filtrarAsignaturasMasInscripciones (String dni) {
+        return inscripcionRepo.filtrarAsignaturasMasInscripciones(dni);
+    }
+
+    public List <Alumno> filtrarAlumnosConMasInscripciones (String dni) {
+
+        return inscripcionRepo.filtrarAlumnosConMasInscripciones(dni);
+
+    }
+
 }

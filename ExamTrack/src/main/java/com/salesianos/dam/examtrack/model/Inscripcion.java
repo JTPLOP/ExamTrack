@@ -3,6 +3,7 @@ package com.salesianos.dam.examtrack.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -44,7 +45,7 @@ public class Inscripcion {
 
     @ManyToOne
     @MapsId ("dni")
-    @JoinColumn (name = "dni_Alumno")
+    @JoinColumn (name = "dni_alumno")
     private Alumno alumno;
 
     /*Metodos helpers para la asociacion bidireccional */
@@ -62,6 +63,7 @@ public class Inscripcion {
     private Double calificacion;
 
     @Builder.Default
+    @ElementCollection 
     @Enumerated(EnumType.STRING)
     private List <InscripcionEstados> estados = new ArrayList<>();
     
