@@ -71,6 +71,10 @@ public class EspecialidadController {
         return "redirect:/especialidades";
     }
 
-    
+    @GetMapping("/eliminar/especialidad/{id}")
+    public String eliminarEspecialidad(@PathVariable("id") Long id) {
+        servicio.eliminarPorId(id);
+        return "redirect:/especialidades";
+    }
 
 }
