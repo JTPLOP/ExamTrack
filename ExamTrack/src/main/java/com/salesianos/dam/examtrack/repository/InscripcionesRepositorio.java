@@ -114,4 +114,11 @@ public interface InscripcionesRepositorio extends JpaRepository<Inscripcion, Ins
                         """)
         List<Alumno> filtrarAlumnosConMasInscripciones(String dni);
 
+        @Query("""
+                         select count(i)
+                         from Inscripcion i join i.examen e
+                         where e.profesor.dni = :dni and i.observaciones is not null
+                        """)
+        int contarAlumnosEvaluados(String dni);
+
 }

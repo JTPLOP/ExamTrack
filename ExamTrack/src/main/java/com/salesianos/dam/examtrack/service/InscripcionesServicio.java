@@ -227,4 +227,8 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
 
     }
 
+    public int contarAlumnosEvaluados (String dni) {
+        return inscripcionRepo.contarAlumnosEvaluados(dni);
+    }
+
 }

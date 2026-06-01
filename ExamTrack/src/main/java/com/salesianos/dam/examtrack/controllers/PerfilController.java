@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.model.UsuarioRol;
 import com.salesianos.dam.examtrack.service.AlumnoServicio;
+import com.salesianos.dam.examtrack.service.InscripcionesServicio;
 import com.salesianos.dam.examtrack.service.ProfesorServicio;
 import com.salesianos.dam.examtrack.service.UsuarioServicio;
 
@@ -23,6 +24,7 @@ public class PerfilController {
     private final AlumnoServicio alumService;
     private final UsuarioServicio userServicio;
     private final ProfesorServicio profeServicio;
+    private final InscripcionesServicio inscripServicio;
 
     @GetMapping("/perfil/{dni}")
     public String userPerfilBase(Model model, @PathVariable("dni") String dni, @AuthenticationPrincipal Profesor profesor) {
@@ -40,7 +42,9 @@ public class PerfilController {
                 break;
             case PROFESOR:
                 model.addAttribute("usuario", profeServicio.filtrarPorId(dni).get());
-                
+                model.addAttribute("topExamenesProfesor", inscripServicio.filtrarExamenesMasInscripciones(dni));
+                model.addAttribute("totalAlumnosProfesor", inscripServicio.contarAllAlumnos(dni));
+                model.addAttribute("numEvaluados", inscripServicio.contarAlumnosEvaluados(dni));
                 break;
             case ALUMNO:
                 model.addAttribute("usuario", alumService.filtrarPorId(dni).get());
