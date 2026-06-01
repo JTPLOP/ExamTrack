@@ -8,6 +8,7 @@ import org.springframework.cglib.core.Local;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,8 @@ import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.service.ExamenServicio;
 import com.salesianos.dam.examtrack.service.InscripcionesServicio;
 import com.salesianos.dam.examtrack.service.ProfesorServicio;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 
@@ -63,7 +66,12 @@ public class ExamenController {
     }
 
     @PostMapping ("/crearExamen") 
-    public String creadorExamen (@ModelAttribute("examen") Examen examen, Model model, @AuthenticationPrincipal Profesor profesores) {
+    public String creadorExamen (@Valid @ModelAttribute("examen") Examen examen, BindingResult bindingResult, Model model, @AuthenticationPrincipal Profesor profesores) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesores.getDni()));
+            return "formExamenes";
+        }
 
         examen.setProfesor(profesores);
         servicio.agregar(examen);

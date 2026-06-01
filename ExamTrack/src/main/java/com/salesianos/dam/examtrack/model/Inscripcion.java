@@ -23,6 +23,7 @@ import lombok.NoArgsConstructor;
 public class Inscripcion {
     
     @EmbeddedId
+    @Builder.Default
     private InscripcionPK inscripcionPK = new InscripcionPK();
 
     @ManyToOne

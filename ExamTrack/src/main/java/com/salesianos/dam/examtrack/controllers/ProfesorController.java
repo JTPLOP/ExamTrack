@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.salesianos.dam.examtrack.service.EspecialidadServicio;
 import com.salesianos.dam.examtrack.service.ProfesorServicio;
 import com.salesianos.dam.examtrack.service.UsuarioServicio;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -48,7 +50,13 @@ public class ProfesorController {
     }
 
     @PostMapping("/crearProfesor")
-    public String creadorProfesor(@ModelAttribute("datosForm") Profesor datosForm, Model model) {
+    public String creadorProfesor(@Valid @ModelAttribute("profesor") Profesor datosForm, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("listaDepartamento", depaServicio.filtrarTodos());
+            model.addAttribute("listaEspecialidad", especiServicio.filtrarTodos());
+            return "formProfesor";
+        }
 
         datosForm.setPassword(userServicio.encriptadorPasswords(datosForm.getPassword()));
         datosForm.setRol(UsuarioRol.PROFESOR);
@@ -57,7 +65,7 @@ public class ProfesorController {
         servicio.agregar(datosForm);
         datosForm.depurarDatos();
 
-        return "redirect:/formProfesor";
+        return "redirect:/profesor";
     }
 
     @GetMapping("/editar/profesor/{dni}")

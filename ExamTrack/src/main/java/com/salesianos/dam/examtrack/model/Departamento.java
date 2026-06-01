@@ -9,6 +9,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +29,8 @@ public class Departamento {
     @Column(nullable = false) 
     private Long idDepartamento;
 
+    @Size(min = 4, max = 100)
+    @Column(nullable = false, length = 100)
     private String nombre;
 
     @OneToMany (mappedBy = "departamento", fetch = FetchType.EAGER)

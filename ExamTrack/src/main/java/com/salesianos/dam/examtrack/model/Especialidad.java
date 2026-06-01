@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,8 +26,11 @@ public class Especialidad {
 
     @Id
     @GeneratedValue
-    @Column(name = "especialidad_id") 
+    @Column(nullable = false, name = "especialidad_id") 
     private Long idEspecialidad;
+
+    @Size(min = 4, max = 100)
+    @Column(nullable = true, length = 100)
     private String nombre;
 
     @ManyToMany (mappedBy = "especialidades",fetch = FetchType.EAGER)
