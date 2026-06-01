@@ -49,6 +49,8 @@ public class PerfilController {
             case ALUMNO:
                 model.addAttribute("usuario", alumService.filtrarPorId(dni).get());
                 model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesor.getDni()));
+                model.addAttribute("proximosExamenes", alumService.filtrarProximosExamenes(dni));
+                model.addAttribute("porcentajeAprobado", alumService.porcentajeAprobado(dni));
                 break;
             default:
                 return "redirect:/inicio";
