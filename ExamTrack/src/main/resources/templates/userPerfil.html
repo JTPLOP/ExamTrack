@@ -37,17 +37,17 @@
                         <div class="col-12 col-md-auto ms-md-auto text-end" th:switch="${usuario.rol.name()}">
 
                             <a th:case="'ALUMNO'" th:href="@{/alumnos}"
-                                class="btn btn-redPrimary rounded-pill px-4 py-2 fw-semibold shadow-sm fs-6">
+                                class="btn btn-redPrimary text-light rounded-pill px-4 py-2 fw-semibold shadow-sm fs-6">
                                 <i class="bi me-2"></i>Volver atrás
                             </a>
 
-                            <a th:case="'PROFESOR'" th:href="@{/}"
-                                class="btn btn-redPrimary rounded-pill px-4 py-2 fw-semibold shadow-sm fs-6">
+                            <a th:case="'PROFESOR'" th:href="@{/inicio}"
+                                class="btn btn-redPrimary text-light rounded-pill px-4 py-2 fw-semibold shadow-sm fs-6">
                                 <i class="bi me-2"></i>Volver atrás
                             </a>
 
-                            <a th:case="ADMIN" th:href="@{/}"
-                                class="btn btn-redPrimary rounded-pill px-4 py-2 fw-semibold shadow-sm fs-6">
+                            <a th:case="ADMIN" th:href="@{/inicio}"
+                                class="btn btn-redPrimary text-light rounded-pill px-4 py-2 fw-semibold shadow-sm fs-6">
                                 <i class="bi me-2"></i>Volver atrás
                             </a>
 

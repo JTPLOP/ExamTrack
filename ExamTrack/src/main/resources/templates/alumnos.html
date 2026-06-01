@@ -87,7 +87,7 @@
                                                     class="text-muted text-uppercase fs-7 fw-medium me-2">Asignaturas</small>
 
                                                 <i th:if="${!#lists.containsAll(alumnos.asignaturas, especialidades)}"
-                                                    class="bi bi-exclamation-circle-fill text-warning fs-6"
+                                                    class="bi bi-exclamation-circle-fill text-danger fs-6"
                                                     style="cursor: pointer;" data-bs-toggle="modal"
                                                     th:data-bs-target="'#modalAsignaturas-' + ${alumnos.dni}"></i>
                                             </div>
@@ -101,7 +101,7 @@
                                                 </span>
 
                                                 <span th:each="asignatura, asignatBucle : ${alumnos.asignaturas}"
-                                                    th:if="${asignatBucle.index < 2}" class="badge bg-success fw-normal"
+                                                    th:if="${asignatBucle.index < 2}" class="badge bg-dark fw-normal"
                                                     th:text="${asignatura}">
                                                 </span>
 
