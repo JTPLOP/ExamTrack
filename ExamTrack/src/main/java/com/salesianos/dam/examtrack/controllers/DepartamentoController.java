@@ -71,4 +71,10 @@ public class DepartamentoController {
         return "redirect:/departamentos";
     }
 
+    @GetMapping("/eliminar/departamento/{id}")
+    public String eliminarDepartamento(@PathVariable("id") Long id) {
+        servicio.eliminarPorId(id);
+        return "redirect:/departamentos";
+    }
+
 }
