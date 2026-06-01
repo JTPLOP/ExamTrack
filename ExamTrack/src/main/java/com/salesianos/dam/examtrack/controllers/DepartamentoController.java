@@ -19,6 +19,12 @@ public class DepartamentoController {
 
     private final DepartamentoServicio servicio;
 
+    @GetMapping("/departamentos")
+    public String departamentosBase(Model model) {
+        model.addAttribute("departamento", servicio.filtrarTodos());
+        return "departamentos";
+    }
+
     @GetMapping("/formDepartamento")
     public String formularioDepartamento(Model model) {
         model.addAttribute("departamento", new Departamento());
