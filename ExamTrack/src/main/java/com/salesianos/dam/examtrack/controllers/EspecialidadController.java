@@ -22,6 +22,12 @@ public class EspecialidadController {
 
     private final EspecialidadServicio servicio;
 
+    @GetMapping("/especialidades")
+    public String especialidadesBase(Model model) {
+        model.addAttribute("especialidad", servicio.filtrarTodos());
+        return "especialidades";
+    }
+
     @GetMapping("/formEspecialidad")
     public String formularioEspecialidad(Model model) {
         model.addAttribute("especialidad", new Especialidad());
