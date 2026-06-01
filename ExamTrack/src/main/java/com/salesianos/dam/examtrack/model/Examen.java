@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -45,7 +46,7 @@ public class Examen {
     private String asignatura;
     
     // Relacion Tabla intermedia
-    @OneToMany (mappedBy = "examen", fetch = FetchType.EAGER)
+    @OneToMany (mappedBy = "examen", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

@@ -3,8 +3,11 @@ package com.salesianos.dam.examtrack.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
@@ -60,6 +63,8 @@ public class Inscripcion {
     private Double calificacion;
 
     @Builder.Default
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
     private List <InscripcionEstados> estados = new ArrayList<>();
     
     private String observaciones;

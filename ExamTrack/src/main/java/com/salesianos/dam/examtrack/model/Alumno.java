@@ -3,6 +3,7 @@ package com.salesianos.dam.examtrack.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,7 +32,7 @@ public class Alumno extends Usuario {
 
 
     // Relacion tabla Intermedia
-    @OneToMany (mappedBy = "alumno", fetch = FetchType.EAGER)
+    @OneToMany (mappedBy = "alumno", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
