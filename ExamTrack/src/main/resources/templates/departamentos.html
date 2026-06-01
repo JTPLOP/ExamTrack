@@ -26,43 +26,54 @@
             <div th:replace="~{fragmentos/sidebar :: sidebarMenu}"></div>
 
             <div class="col-12 col-lg-10">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
+                <div class="my-4 ms-5 ps-3">
+                    <h1 class="display-5 fw-semibold">Departamentos</h1>
+                </div>
+                <div class="container my-4">
 
-                            <h1>LISTA DE DEPARTAMENTOS</h1>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Nº Profesores</th>
-                                        <th scope="col">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="departamentos : ${departamento}">
-                                        <th scope="row" th:text="${departamentos.idDepartamento}"></th>
-                                        <td th:text="${departamentos.nombre}"></td>
-                                        <td th:text="${departamentos.listaProfesores.size()}"></td>
-                                        <td class="btn-group btn-group-sm" role="group">
-                                            <a th:href="@{/editar/departamento/{id}(id=${departamentos.idDepartamento})}"
-                                                class="btn btn-outline-primary">
-                                                <i class="bi bi-pencil-square"></i> Editar
-                                            </a>
-                                            <a th:href="@{/eliminar/departamento/{id}(id=${departamentos.idDepartamento})}"
-                                                class="btn btn-outline-danger">
-                                                <i class="bi bi-trash"></i> Eliminar
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="row g-3 mb-4 align-items-start bg-white p-3 rounded shadow-sm w-50">
+                        <div class="col-12 pb-2 w-100">
+                            <a th:href="@{/formDepartamento}" class="btn btn-redPrimary text-light w-100">Crear Departamento</a>
+                        </div>
+                    </div>
+
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 px-3">
+                        
+                        <div class="col" th:each="departamentos : ${departamento}">
+                            <div class="card h-100 shadow-sm bg-white border-2 border-light-subtle rounded-3 overflow-hidden position-relative">
+                                
+                                <div class="position-absolute top-0 start-0 m-3 d-flex gap-2">
+                                    <p class="btn btn-secondary py-0 px-2 text-light fw-bold m-0" style="font-size: 11px;">
+                                        <i class="bi bi-people-fill me-1"></i><span th:text="${departamentos.listaProfesores.size()}"></span> Prof.
+                                    </p>
+                                </div>
+
+                                <div class="position-absolute top-0 end-0 m-3 d-flex gap-2">
+                                    <a th:href="@{/editar/departamento/{id}(id=${departamentos.idDepartamento})}"
+                                        class="btn btn-light btn-sm rounded-circle shadow-sm d-flex align-items-center justify-content-center"
+                                        style="width: 34px; height: 34px;" title="Editar">
+                                        <i class="bi bi-pencil text-secondary"></i>
+                                    </a>
+                                    <a th:href="@{/eliminar/departamento/{id}(id=${departamentos.idDepartamento})}"
+                                        class="btn btn-light btn-sm rounded-circle shadow-sm d-flex align-items-center justify-content-center"
+                                        style="width: 34px; height: 34px;" title="Eliminar">
+                                        <i class="bi bi-trash text-secondary"></i>
+                                    </a>
+                                </div>
+
+                                <div class="bg-danger text-center mt-0 w-100 d-flex justify-content-center align-items-center" style="height: 120px;">
+                                    <i class="bi bi-buildings-fill text-white opacity-75 display-4"></i>
+                                </div>
+                                
+                                <div class="card-body text-center d-flex flex-column justify-content-center align-items-center pt-4 pb-4">
+                                    <h5 class="card-title fw-bold text-dark mb-0 text-truncate w-100" th:text="${departamentos.nombre}">Nombre Dept</h5>
+                                </div>
+                                
+                            </div>
                         </div>
 
                     </div>
                 </div>
-
             </div>
 
         </div>
