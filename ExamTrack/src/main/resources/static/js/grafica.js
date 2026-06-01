@@ -1,5 +1,4 @@
-// grafica.js - Gráfico de evolución de aprobados y suspensos por mes
-// Los datos se obtienen del endpoint /api/grafica/datos
+
 
 document.addEventListener("DOMContentLoaded", function () {
 
