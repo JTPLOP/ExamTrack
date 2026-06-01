@@ -26,56 +26,116 @@
             <div th:replace="~{fragmentos/sidebar :: sidebarMenu}"></div>
 
             <div class="col-12 col-lg-10">
+                <div class="my-4 ms-5 ps-3">
+                    <h1 class="display-5 fw-semibold">Profesores</h1>
+                </div>
                 <div class="container">
+
+                    <div class="row g-3 mb-4 align-items-start bg-white p-3 rounded shadow-sm w-50">
+                        <div class="col-12 pb-2">
+                            <a th:href="@{/formProfesor}" class="btn btn-redPrimary text-light w-100">Crear Profesor</a>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-12">
+                            <div class="list-group list-group-flush">
 
-                            <h1>LISTA DE PROFESORES</h1>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">DNI</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Primer Apellido</th>
-                                        <th scope="col">Segundo Apellido</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Direccion</th>
-                                        <th scope="col">Fecha Nacimiento</th>
-                                        <th scope="col">Departamento</th>
-                                        <th scope="col">Especialidad</th>
-                                        <th scope="col">Examenes</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="profesores : ${profesor}">
-                                        <th scope="row" th:text="${profesores.dni}"></th>
-                                        <td th:text="${profesores.nombre}"></td>
-                                        <td th:text="${profesores.primerApellido}"></td>
-                                        <td th:text="${profesores.segundoApellido}"></td>
-                                        <td th:text="${profesores.email}"></td>
-                                        <td th:text="${profesores.direccion}"></td>
-                                        <td th:text="${profesores.fechaNacimiento}"></td>
-                                        <td th:text="${profesores.departamento}"></td>
-                                        <td th:text="${profesores.especialidades}"></td>
-                                        <td th:text="${profesores.examen}"></td>
-                                        <td class="btn-group btn-group-sm" role="group">
+                                <div class="list-group-item px-0 py-3 bg-transparent border-bottom"
+                                    th:each="profesores : ${profesor}">
+                                    <div class="row align-items-center">
+
+                                        <div class="col-auto col-md-1 mb-3 mb-md-0">
+                                            <a th:href="@{/perfil/{id}(id=${profesores.dni})}"
+                                                class="d-inline-block text-decoration-none">
+                                                <img th:src="${profesores.fotoPerfil ?: 'https://imgs.search.brave.com/UV5h1t8kUzXcIO0GMsAQlWsqZq99iqtb2wwQREXGgDo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzJjLzNi/L2Y2LzJjM2JmNmRj/ZjY0MTk3YTMwZWUx/ZWZlYTdkMTk4ZGRk/LmpwZw'}"
+                                                    class="rounded-circle object-fit-cover shadow-sm" width="50"
+                                                    height="50" alt="Foto">
+                                            </a>
+                                        </div>
+
+                                        <div class="col col-md-3 mb-3 mb-md-0">
+                                            <h6 class="mb-0 fw-semibold text-dark text-truncate"
+                                                th:text="${profesores.nombre + ' ' + profesores.primerApellido}">Nombre
+                                                Apellido</h6>
+                                            <small class="text-muted text-truncate d-block"
+                                                th:text="${profesores.email}">email@ejemplo.com</small>
+                                        </div>
+
+                                        <div class="col-6 col-md-2 mb-3 mb-md-0">
+                                            <small
+                                                class="text-muted d-block mb-1 text-uppercase fs-7 fw-medium tracking-wider">Nacimiento</small>
+                                            <span class="text-secondary small fw-medium"
+                                                th:text="${profesores.fechaNacimiento}">12/05/2000</span>
+                                        </div>
+
+                                        <div class="col-6 col-md-2 mb-3 mb-md-0">
+                                            <small
+                                                class="text-muted d-block mb-1 text-uppercase fs-7 fw-medium tracking-wider">Departamento</small>
+                                            <span
+                                                class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-3 py-1"
+                                                th:if="${profesores.departamento != null}"
+                                                th:text="${profesores.departamento.nombre}">Departamento</span>
+                                            <span
+                                                class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill px-3 py-1"
+                                                th:if="${profesores.departamento == null}">Sin dpto.</span>
+                                        </div>
+
+                                        <div class="col-12 col-md-2 mb-3 mb-md-0">
+                                            <div class="d-flex align-items-center mb-1">
+                                                <small
+                                                    class="text-muted text-uppercase fs-7 fw-medium me-2">Especialidades</small>
+                                            </div>
+
+                                            <div class="d-flex flex-wrap gap-1">
+                                                <span
+                                                    th:if="${profesores.especialidades == null or #lists.isEmpty(profesores.especialidades)}"
+                                                    class="badge bg-secondary fw-normal">
+                                                    Sin especialidades
+                                                </span>
+
+                                                <span th:each="esp, espBucle : ${profesores.especialidades}"
+                                                    th:if="${espBucle.index < 2}" class="badge bg-dark fw-normal"
+                                                    th:text="${esp.nombre}">
+                                                </span>
+
+                                                <span
+                                                    th:if="${profesores.especialidades != null and #lists.size(profesores.especialidades) > 2}"
+                                                    class="badge bg-secondary fw-normal"
+                                                    th:text="'Más especialidades: +' + (${#lists.size(profesores.especialidades)} - 2)">
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="col-12 col-md-2 d-flex gap-2 justify-content-start justify-content-md-end align-items-center">
+
+                                            <a th:href="@{/perfil/{id}(id=${profesores.dni})}"
+                                                class="btn btn-secondary text-white btn-sm px-2 py-1"
+                                                title="Ver Perfil">
+                                                <i class="bi bi-eye-fill fs-6"></i>
+                                            </a>
+
                                             <a th:href="@{/editar/profesor/{id}(id=${profesores.dni})}"
-                                                class="btn btn-outline-primary">
-                                                <i class="bi bi-pencil-square"></i> Editar
+                                                class="btn btn-secondary btn-sm px-2 py-1" title="Editar Profesor">
+                                                <i class="bi bi-pencil-fill fs-6"></i>
                                             </a>
+
                                             <a th:href="@{/eliminar/profesor/{id}(id=${profesores.dni})}"
-                                                class="btn btn-outline-primary">
-                                                <i class="bi bi-pencil-square"></i> Eliminar
+                                                class="btn text-white bg-danger bg-opacity-75 btn-sm px-2 py-1"
+                                                title="Eliminar Profesor">
+                                                <i class="bi bi-person-x-fill fs-6"></i>
                                             </a>
 
-                                    </tr>
-                                </tbody>
-                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
-                </div>
 
+                </div>
             </div>
 
         </div>
