@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +28,8 @@ public class Especialidad {
     @GeneratedValue
     @Column(name = "especialidad_id") 
     private Long idEspecialidad;
+    
+    @NotBlank(message = "El nombre de la especialidad es obligatorio")
     private String nombre;
 
     @ManyToMany (mappedBy = "especialidades",fetch = FetchType.EAGER)
