@@ -22,4 +22,6 @@ public interface AlumnoRepositorio extends JpaRepository<Alumno, String> {
              where asig like :asignatura
             """)
     List<Alumno> filtrarPorAsignatura(String asignatura);
+
+    
 }

@@ -44,5 +44,11 @@ public interface InscripcionesRepositorio extends JpaRepository <Inscripcion, In
        """)
     List <Alumno> filtrarAlumnosSinNotas (LocalDateTime actualidad);
 
-
+    @Query("""
+        select count(a.dni)
+        from Inscripcion i join i.alumno a join i.examen e
+        where e.profesor.dni = :dni and e.fecha > :actualidad
+       """)
+    int contarAllAlumnos (LocalDateTime actualidad, String dni);
+    
 }
