@@ -1,5 +1,6 @@
 package com.salesianos.dam.examtrack.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -54,6 +55,13 @@ public class ExamenServicio extends ServicioBaseImpl <Examen, Long, ExamenReposi
     public Optional <List<Examen>> filtrarExamenesMes (String dni, int numMes) {
         
         return examRepo.filtrarExamenesMes(dni, numMes);
+    }
+
+    public double contarExamenesMes () {
+        LocalDate fecha = LocalDate.now();
+        int numMes = fecha.getMonthValue();
+
+        return examRepo.contarExamenesMes(numMes);
     }
     
 
