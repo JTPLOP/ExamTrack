@@ -32,11 +32,7 @@ public class ExamenController {
     private final InscripcionesServicio inscripcionesServicio;
     
     @GetMapping ("/examenes")
-    public String misExamenesBase (Model model, @AuthenticationPrincipal Profesor profesores ,
-        @RequestParam(name="filtroBuscar", required=false, defaultValue="0") String filtroBuscar,
-        @RequestParam(name="filtroEstado", required=false, defaultValue="0") int filtroEstado,
-        @RequestParam(name="filtroAsignatura", required=false, defaultValue="0") String filtroAsignatura,
-        @RequestParam(name="filtroFecha", required=false, defaultValue="0") String filtroFecha) {
+    public String misExamenesBase (Model model, @AuthenticationPrincipal Profesor profesores) {
 
         LocalDateTime actualidad = LocalDateTime.now();
 
@@ -45,7 +41,7 @@ public class ExamenController {
         model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesores.getDni()));
         model.addAttribute("alumnosInscritos", inscripcionesServicio.filtrarAlumnosInscritos());
 
-        model.addAttribute("examen", servicio.filtradorExamenes(filtroBuscar, filtroEstado, filtroAsignatura, filtroFecha));
+        model.addAttribute("examen", servicio.filtrarTodos());
 
         return "examenes";
     } 

@@ -35,19 +35,6 @@ public interface ExamenRepositorio extends JpaRepository<Examen, Long> {
             """)
     Optional < List<Examen> >  filtrarPorNombres(String nombre);
 
-    @Query(
-        value = """
-        select *
-        from Examen 
-        where ((:filtroBusqueda = '0' or nombre = :filtroBusqueda)
-                and (:filtroEstado = 0 or (CASE WHEN :filtroEstado = 1 THEN fecha >= CURRENT_DATE  ELSE fecha < CURRENT_DATE END ))
-                and (:filtroAsignatura = '0' or asignatura = :filtroAsignatura)
-                and (:filtroFecha = '0' or fecha = :filtroFecha));
-        """, 
-        nativeQuery = true
-        )
-    List <Examen> filtradorExamen(String filtroBusqueda, int filtroEstado, String filtroAsignatura, String filtroFecha );
-
     @Query("""
              select e
              from Examen e
