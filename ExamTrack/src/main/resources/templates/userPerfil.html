@@ -210,6 +210,78 @@
                         </div>
                     </div>
 
+                    <div class="container-fluid mt-5 p-0" th:if="${usuario.rol.name() == 'PROFESOR'}">
+                        <h3 class="mb-4 fw-bold text-dark">Estadísticas del Profesor</h3>
+                        
+                        <div class="row g-4 align-items-stretch" style="min-height: 380px;">
+                            
+                            <div class="col-12 col-lg-3 d-flex flex-column gap-3">
+                                <div class="card bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center justify-content-center p-3 text-center flex-grow-1">
+                                    <i class="bi bi-building-fill text-secondary fs-2 mb-2"></i>
+                                    <span class="text-muted small fw-bold text-uppercase mb-2">Departamento</span>
+                                    <h5 class="fw-bold text-dark mb-0" th:text="${usuario.departamento != null ? usuario.departamento.nombre : 'Sin asignar'}">Informática</h5>
+                                </div>
+                                
+                                <div class="card bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center justify-content-center p-3 text-center flex-grow-1">
+                                    <i class="bi bi-tags-fill text-secondary fs-2 mb-2"></i>
+                                    <span class="text-muted small fw-bold text-uppercase mb-2">Especialidades</span>
+                                    <div class="d-flex flex-wrap gap-2 justify-content-center mt-1">
+                                        <div th:if="${usuario.especialidades == null or #lists.isEmpty(usuario.especialidades)}" class="text-muted small">
+                                            Sin especialidades
+                                        </div>
+                                        <span th:each="especialidad : ${usuario.especialidades}" 
+                                              class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary-subtle fw-medium px-2 py-1"
+                                              th:text="${especialidad.nombre}">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-3">
+                                <div class="card h-100 bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center justify-content-center p-3 text-center">
+                                    <i class="bi bi-journal-check text-secondary fs-1 mb-3"></i>
+                                    <span class="text-muted small fw-bold text-uppercase mb-2">Exámenes Creados</span>
+                                    <h2 class="display-4 fw-bolder text-dark mb-0" th:text="${usuario.examen != null ? usuario.examen.size() : 0}">
+                                        0
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-3">
+                                <div class="card h-100 bg-light border border-4 border-white shadow rounded-4 p-3">
+                                    <div class="text-center mb-3">
+                                        <i class="bi bi-people-fill text-secondary fs-3 mb-1 d-block"></i>
+                                        <span class="text-muted small fw-bold text-uppercase">Top Exámenes</span>
+                                    </div>
+                                    <div class="gap-2 overflow-auto" style="max-height: 250px;">
+                                        <a th:each="examen : ${topExamenesProfesor}" 
+                                           th:href="@{/examen/inscripciones/{id}(id=${examen.idExamen})}"
+                                           class="list-group-item list-group-item-action rounded-3 border-0 shadow-sm d-flex justify-content-between align-items-center px-3 py-2 my-1 bg-white">
+                                            <div class="text-truncate fw-semibold text-dark" style="max-width: 75%;" th:text="${examen.nombre}">
+                                                Examen de prueba
+                                            </div>
+                                            <span class="badge bg-secondary rounded-pill" th:text="${examen.inscripcion != null ? examen.inscripcion.size() : 0}">
+                                                0
+                                            </span>
+                                        </a>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-3">
+                                <div class="card h-100 bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center justify-content-center p-3 text-center">
+                                    <i class="bi bi-person-badge-fill text-secondary fs-1 mb-3"></i>
+                                    <span class="text-muted small fw-bold text-uppercase mb-2">Total Alumnos Evaluados</span>
+                                    <h2 class="display-4 fw-bolder text-dark mb-0" th:text="${totalAlumnosProfesor != null ? totalAlumnosProfesor : 0}">
+                                        0
+                                    </h2>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
