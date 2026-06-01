@@ -127,4 +127,22 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
         return (double)inscripcionRepo.contarAllAlumnos(actualidad, dni);
     }
 
+    public double extraerPorcentajePresentados (String dni) {
+        int valor1, valor2;
+        double resultado;
+        
+        InscripcionEstados estado = InscripcionEstados.PRESENTADO;
+        LocalDateTime fecha = LocalDateTime.now();
+
+        valor1 = inscripcionRepo.contarAlumnosInscritoMesPasado(fecha, dni);
+        valor2 = inscripcionRepo.contarAlumnosPresentadoMesPasado(fecha,dni,estado);
+
+        /*Extraer Porcentaje */
+        
+        resultado = (valor2/valor1 *100);
+
+        return (double)resultado;
+    }
+    
+
 }

@@ -36,7 +36,8 @@ public class InicioController {
         estadisticasBase.put(1, inscripServicio.contarAllAlumnos(profesor.getDni()));
         estadisticasBase.put(3, examServicio.contarExamenesMes());
 
-        
+        //estadisticasBase.put(2, inscripServicio.extraerPorcentajePresentados(profesor.getDni()));
+
 
 
         model.addAttribute("nombreMes", nombreMes[mesSeleccionado-1]);
