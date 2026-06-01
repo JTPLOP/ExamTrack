@@ -63,6 +63,22 @@ public interface InscripcionesRepositorio extends JpaRepository<Inscripcion, Ins
              where e.profesor.dni = :dni and e.fecha > :actualidad 
             """)
     int contarAlumnosPresentadoMesPasado(LocalDateTime actualidad, String dni, InscripcionEstados presente);
-    
+
+
+    /* Cuenta cuantas inscripciones de un mes concreto tienen ese estado (APROBADO o SUSPENDIDO) */
+    @Query("""
+             select count(i)
+             from Inscripcion i join i.examen e join i.estados est
+             where est = :estado and MONTH(e.fecha) = :numMes
+            """)
+    int contarPorEstadoYMes(@Param("estado") InscripcionEstados estado, @Param("numMes") int numMes);
+
+    /* Cuenta el total de inscripciones de un mes concreto */
+    @Query("""
+             select count(i)
+             from Inscripcion i join i.examen e
+             where MONTH(e.fecha) = :numMes
+            """)
+    int contarTotalPorMes(@Param("numMes") int numMes);
     
 }

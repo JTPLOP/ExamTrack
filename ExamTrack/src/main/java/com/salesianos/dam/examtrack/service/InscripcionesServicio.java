@@ -3,6 +3,7 @@ package com.salesianos.dam.examtrack.service;
 import java.util.Optional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,6 +144,73 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
 
         return (double)resultado;
     }
-    
+
+    public double porcentajeAsistenciaMes (int numMes) {
+
+        int total = inscripcionRepo.contarTotalPorMes(numMes);
+        int presentados = inscripcionRepo.contarPorEstadoYMes(InscripcionEstados.PRESENTADO, numMes);
+        double resultado;
+
+        if (total == 0) {
+            return 0.0;
+        }
+        
+        resultado = (presentados * 100) / total;
+        return resultado;
+    }
+
+    public double porcentajeAprobadosMes (int numMes) {
+
+        int total = inscripcionRepo.contarTotalPorMes(numMes);
+        int aprobados = inscripcionRepo.contarPorEstadoYMes(InscripcionEstados.APROBADO, numMes);
+        double resultado;
+
+        if (total == 0) {
+            return 0.0;
+        }
+
+        resultado = (aprobados * 100) / total;
+        return resultado;
+    }
+
+    public List<Double> porcentajeAprobadosPorMes() {
+
+        List<Double> resultado = new ArrayList<>();
+
+        for (int mes = 1; mes <= 12; mes++) {
+
+            int total = inscripcionRepo.contarTotalPorMes(mes);
+            int aprobados = inscripcionRepo.contarPorEstadoYMes(InscripcionEstados.APROBADO, mes);
+
+            if (total == 0) {
+                resultado.add(0.0);
+            } else {
+                double porcentaje = (aprobados * 100) / total;
+                resultado.add(porcentaje);
+            }
+        }
+
+        return resultado;
+    }
+
+    public List<Double> porcentajeSuspensosPorMes() {
+
+        List<Double> resultado = new ArrayList<>();
+
+        for (int mes = 1; mes <= 12; mes++) {
+
+            int total = inscripcionRepo.contarTotalPorMes(mes);
+            int suspensos = inscripcionRepo.contarPorEstadoYMes(InscripcionEstados.SUSPENDIDO, mes);
+
+            if (total == 0) {
+                resultado.add(0.0);
+            } else {
+                double porcentaje = (suspensos * 100) / total;
+                resultado.add(porcentaje);
+            }
+        }
+
+        return resultado;
+    }
 
 }
