@@ -26,43 +26,59 @@
             <div th:replace="~{fragmentos/sidebar :: sidebarMenu}"></div>
 
             <div class="col-12 col-lg-10">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
+                <div class="my-4 ms-5 ps-3">
+                    <h1 class="display-5 fw-semibold">Especialidades</h1>
+                </div>
+                <div class="container my-4">
 
-                            <h1>LISTA DE ESPECIALIDADES</h1>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Nº Profesores</th>
-                                        <th scope="col">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="especialidades : ${especialidad}">
-                                        <th scope="row" th:text="${especialidades.idEspecialidad}"></th>
-                                        <td th:text="${especialidades.nombre}"></td>
-                                        <td th:text="${especialidades.profesores.size()}"></td>
-                                        <td class="btn-group btn-group-sm" role="group">
-                                            <a th:href="@{/editar/especialidad/{id}(id=${especialidades.idEspecialidad})}"
-                                                class="btn btn-outline-primary">
-                                                <i class="bi bi-pencil-square"></i> Editar
-                                            </a>
-                                            <a th:href="@{/eliminar/especialidad/{id}(id=${especialidades.idEspecialidad})}"
-                                                class="btn btn-outline-danger">
-                                                <i class="bi bi-trash"></i> Eliminar
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <!-- Mismo bloque de creacion que en todas las entidades -->
+                    <div class="row g-3 mb-4 align-items-start bg-white p-3 rounded shadow-sm w-50">
+                        <div class="col-12 pb-2 w-100">
+                            <a th:href="@{/formEspecialidad}" class="btn btn-redPrimary text-light w-100">Crear Especialidad</a>
+                        </div>
+                    </div>
+
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 px-3">
+                        
+                        <div class="col" th:each="especialidades : ${especialidad}">
+                            <div class="card h-100 shadow-sm bg-white border-2 border-light-subtle rounded-3 overflow-hidden position-relative">
+                                
+                                <!-- Arriba a la izquierda: Numero de profesores como la fecha (color secondary) -->
+                                <div class="position-absolute top-0 start-0 m-3 d-flex gap-2">
+                                    <p class="btn btn-secondary py-0 px-2 text-light fw-bold m-0" style="font-size: 11px;">
+                                        <i class="bi bi-people-fill me-1"></i><span th:text="${especialidades.profesores.size()}"></span> Prof.
+                                    </p>
+                                </div>
+
+                                <!-- Arriba a la derecha: Editar y borrar (color secondary) -->
+                                <div class="position-absolute top-0 end-0 m-3 d-flex gap-2">
+                                    <a th:href="@{/editar/especialidad/{id}(id=${especialidades.idEspecialidad})}"
+                                        class="btn btn-light btn-sm rounded-circle shadow-sm d-flex align-items-center justify-content-center"
+                                        style="width: 34px; height: 34px;" title="Editar">
+                                        <i class="bi bi-pencil text-secondary"></i>
+                                    </a>
+                                    <a th:href="@{/eliminar/especialidad/{id}(id=${especialidades.idEspecialidad})}"
+                                        class="btn btn-light btn-sm rounded-circle shadow-sm d-flex align-items-center justify-content-center"
+                                        style="width: 34px; height: 34px;" title="Eliminar">
+                                        <i class="bi bi-trash text-secondary"></i>
+                                    </a>
+                                </div>
+
+                                <!-- Bloque color secondary con icono relacionado a especialidad -->
+                                <div class="bg-secondary text-center mt-0 w-100 d-flex justify-content-center align-items-center" style="height: 120px;">
+                                    <i class="bi bi-journal-bookmark-fill text-white opacity-75 display-4"></i>
+                                </div>
+                                
+                                <!-- Contenido de la tarjeta -->
+                                <div class="card-body text-center d-flex flex-column justify-content-center align-items-center pt-4 pb-4">
+                                    <h5 class="card-title fw-bold text-dark mb-0 text-truncate w-100" th:text="${especialidades.nombre}">Nombre Esp</h5>
+                                </div>
+                                
+                            </div>
                         </div>
 
                     </div>
                 </div>
-
             </div>
 
         </div>
