@@ -31,10 +31,10 @@
 
                 <div class="w-100 p-4" style="max-width: 650px;">
 
-                    <h2 class="fw-bold mb-3">Crear nuevo Departamento</h2>
+                    <h2 class="fw-bold mb-3" th:text="${departamento.idDepartamento != null} ? 'Editar Departamento' : 'Crear nuevo Departamento'">Crear nuevo Departamento</h2>
                     <hr class="mb-4" />
 
-                    <form method="post" class="needs-validation" th:action="@{/crearDepartamento}" th:object="${departamento}" novalidate>
+                    <form method="post" class="needs-validation" th:action="${departamento.idDepartamento != null} ? @{/editDepartamento} : @{/crearDepartamento}" th:object="${departamento}" novalidate>
 
                         <input type="hidden" th:field="*{idDepartamento}">
 
@@ -46,7 +46,8 @@
                             <div class="invalid-feedback"><span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span></div>
                         </div>
 
-                        <button type="submit" class="btn btn-redPrimary btn-lg w-100 rounded-pill mt-2">Crear
+                        <button type="submit" class="btn btn-redPrimary btn-lg w-100 rounded-pill mt-2"
+                            th:text="${departamento.idDepartamento != null} ? 'Guardar cambios' : 'Crear Departamento'">Crear
                             Departamento</button>
                     </form>
 
