@@ -9,6 +9,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +30,8 @@ public class Departamento {
     @Column(nullable = false) 
     private Long idDepartamento;
 
+    @NotBlank(message = "El nombre del departamento es obligatorio")
+    @Size (min = 5, max = 100)
     private String nombre;
 
     @OneToMany (mappedBy = "departamento", fetch = FetchType.EAGER)
