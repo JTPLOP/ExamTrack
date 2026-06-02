@@ -63,11 +63,6 @@ public interface ExamenRepositorio extends JpaRepository<Examen, Long> {
             """)
     Optional <List<Examen>>  filtrarExamenesMesAdmin(int numMes);
 
-    @Query("""
-             select count(e.idExamen)
-             from Examen e
-             where MONTH(e.fecha) = :numMes
-            """)
-    int contarExamenesMes(int numMes);
+    
 
 }

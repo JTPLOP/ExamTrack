@@ -43,7 +43,7 @@ public class InicioController {
                 
                 /*Estadisticas basicas  */
                 estadisticasBase.put(1, inscripServicio.contarAllAlumnosAdmin());
-                estadisticasBase.put(3, examServicio.contarExamenesMes());
+                estadisticasBase.put(3, inscripServicio.contarExamenesMes());
 
                 estadisticasBase.put(2, inscripServicio.porcentajeAsistenciaMes(mesSeleccionado));
                 estadisticasBase.put(4, inscripServicio.porcentajeAprobadosMes(mesSeleccionado));
@@ -60,14 +60,14 @@ public class InicioController {
 
                 /*Estadisticas basicas  */
                 estadisticasBase.put(1, inscripServicio.contarAllAlumnos(profesor.getDni()));
-                estadisticasBase.put(3, examServicio.contarExamenesMes());
+                estadisticasBase.put(3, inscripServicio.contarExamenesMesMaestro(profesor.getDni()));
 
                 estadisticasBase.put(2, inscripServicio.porcentajeAsistenciaMes(mesSeleccionado));
                 estadisticasBase.put(4, inscripServicio.porcentajeAprobadosMes(mesSeleccionado));
                 model.addAttribute("estadisticasBase", estadisticasBase);
 
                 /*Mejores Datos */
-                model.addAttribute("topExamenes", inscripServicio.filtrarExamenesMasInscripciones(profesor.getDni()));
+                model.addAttribute("topExamenes",   inscripServicio.filtrarExamenesMasInscripciones(profesor.getDni()));
                 model.addAttribute("topAsignaturas", inscripServicio.filtrarAsignaturasMasInscripciones(profesor.getDni()));
                 model.addAttribute("topAlumnos", inscripServicio.filtrarAlumnosConMasInscripciones(profesor.getDni()));
                 

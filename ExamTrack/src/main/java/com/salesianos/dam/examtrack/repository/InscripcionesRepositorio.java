@@ -154,5 +154,19 @@ public interface InscripcionesRepositorio extends JpaRepository<Inscripcion, Ins
                          where e.profesor.dni = :dni and i.observaciones is not null
                         """)
         int contarAlumnosEvaluados(String dni);
+        
+        @Query("""
+             select count(e.idExamen)
+             from Inscripcion i join i.examen e
+             where MONTH(e.fecha) = :numMes 
+            """)
+    int contarExamenesMes(int numMes);
+
+     @Query("""
+             select count(e.idExamen)
+             from Inscripcion i join i.examen e
+             where MONTH(e.fecha) = :numMes and e.profesor.dni = :dni
+            """)
+    int contarExamenesMesMaestro(int numMes, String dni);
 
 }

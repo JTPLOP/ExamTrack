@@ -46,16 +46,17 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
             nuevaInscripcion.getEstados().add(InscripcionEstados.INSCRITO);
 
             Inscripcion savedInscripcion = inscripcionRepo.save(nuevaInscripcion);
-            
+
             examen.getInscripcion().add(savedInscripcion);
             alumno.getInscripcion().add(savedInscripcion);
 
             System.out.println("Agregado excelente");
             savedInscripcion.toString();
-            
-            return true; 
-        }else {
-            Inscripcion inscripcion = inscripcionRepo.filtrarInscripcionPorDNI(alumno.getDni(), examen.getIdExamen()).orElseThrow();
+
+            return true;
+        } else {
+            Inscripcion inscripcion = inscripcionRepo.filtrarInscripcionPorDNI(alumno.getDni(), examen.getIdExamen())
+                    .orElseThrow();
 
             inscripcion.removeToAlumno(alumno);
             inscripcion.removeToExamen(examen);
@@ -66,24 +67,28 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
 
             return false;
 
-            /*A mejorar para el futuro podriamos poner que se pueda desasignar un alumno pero que el examen siga registrado y mediante
-            un filtro si hay una inscripcion sin alumno pero si con examen que se le asigne */
+            /*
+             * A mejorar para el futuro podriamos poner que se pueda desasignar un alumno
+             * pero que el examen siga registrado y mediante
+             * un filtro si hay una inscripcion sin alumno pero si con examen que se le
+             * asigne
+             */
         }
 
     }
 
-     public int contarAlumnosInscritos (Long idExamen) {
+    public int contarAlumnosInscritos(Long idExamen) {
 
         return inscripcionRepo.contarAlumnosInscritos(idExamen);
     }
 
-    public Optional <Inscripcion> filtrarInscripcionAlumno (String dni, Long idExamen) {
+    public Optional<Inscripcion> filtrarInscripcionAlumno(String dni, Long idExamen) {
 
         return inscripcionRepo.filtrarInscripcion(dni, idExamen);
 
     }
 
-    public void inscripcionAusencia (Inscripcion inscripcion) {
+    public void inscripcionAusencia(Inscripcion inscripcion) {
 
         /* Valores por Default para cuando no se presenten */
         inscripcion.setCalificacion(0.0);
@@ -91,65 +96,64 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
         inscripcion.getEstados().set(0, InscripcionEstados.AUSENTADO);
         inscripcion.getEstados().add(InscripcionEstados.SUSPENDIDO);
 
-        
     }
 
-    public void inscripcionPresente (Inscripcion inscripcion, Double nota, String observacion, double calificacionMax) {
+    public void inscripcionPresente(Inscripcion inscripcion, Double nota, String observacion, double calificacionMax) {
 
         inscripcion.setCalificacion(nota);
         inscripcion.setObservaciones(observacion);
         inscripcion.getEstados().set(0, InscripcionEstados.PRESENTADO);
 
-        if (nota > (calificacionMax/2)) {
+        if (nota > (calificacionMax / 2)) {
             inscripcion.getEstados().add(InscripcionEstados.APROBADO);
-        }else {
+        } else {
             inscripcion.getEstados().add(InscripcionEstados.SUSPENDIDO);
         }
 
     }
 
-
-    public List <Alumno> filtrarAlumnosSinNota () {
+    public List<Alumno> filtrarAlumnosSinNota() {
 
         LocalDateTime actualidad = LocalDateTime.now();
 
         return inscripcionRepo.filtrarAlumnosSinNotas(actualidad);
     }
 
-    public Map<Examen, List<Alumno>> filtrarAlumnosInscritos () {
-        
-        List <Inscripcion> lista = filtrarTodos();
-        
+    public Map<Examen, List<Alumno>> filtrarAlumnosInscritos() {
+
+        List<Inscripcion> lista = filtrarTodos();
+
         return lista.stream()
                 .collect(Collectors.groupingBy(Inscripcion::getExamen,
-                    Collectors.collectingAndThen(Collectors.toList(), list -> list.stream().map(Inscripcion::getAlumno).toList())));
+                        Collectors.collectingAndThen(Collectors.toList(),
+                                list -> list.stream().map(Inscripcion::getAlumno).toList())));
 
     }
 
-    public double contarAllAlumnos (String dni) {
+    public double contarAllAlumnos(String dni) {
         LocalDateTime actualidad = LocalDateTime.now();
 
-        return (double)inscripcionRepo.contarAllAlumnos(actualidad, dni);
+        return (double) inscripcionRepo.contarAllAlumnos(actualidad, dni);
     }
 
-    public double extraerPorcentajePresentados (String dni) {
+    public double extraerPorcentajePresentados(String dni) {
         int valor1, valor2;
         double resultado;
-        
+
         InscripcionEstados estado = InscripcionEstados.PRESENTADO;
         LocalDateTime fecha = LocalDateTime.now();
 
         valor1 = inscripcionRepo.contarAlumnosInscritoMesPasado(fecha, dni);
-        valor2 = inscripcionRepo.contarAlumnosPresentadoMesPasado(fecha,dni,estado);
+        valor2 = inscripcionRepo.contarAlumnosPresentadoMesPasado(fecha, dni, estado);
 
-        /*Extraer Porcentaje */
-        
-        resultado = (valor2/valor1 *100);
+        /* Extraer Porcentaje */
 
-        return (double)resultado;
+        resultado = (valor2 / valor1 * 100);
+
+        return (double) resultado;
     }
 
-    public double porcentajeAsistenciaMes (int numMes) {
+    public double porcentajeAsistenciaMes(int numMes) {
 
         int total = inscripcionRepo.contarTotalPorMes(numMes);
         int presentados = inscripcionRepo.contarPorEstadoYMes(InscripcionEstados.PRESENTADO, numMes);
@@ -158,12 +162,12 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
         if (total == 0) {
             return 0.0;
         }
-        
+
         resultado = (presentados * 100) / total;
         return resultado;
     }
 
-    public double porcentajeAprobadosMes (int numMes) {
+    public double porcentajeAprobadosMes(int numMes) {
 
         int total = inscripcionRepo.contarTotalPorMes(numMes);
         int aprobados = inscripcionRepo.contarPorEstadoYMes(InscripcionEstados.APROBADO, numMes);
@@ -217,40 +221,53 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
         return resultado;
     }
 
-    public List <Examen> filtrarExamenesMasInscripciones (String dni) {
+    public List<Examen> filtrarExamenesMasInscripciones(String dni) {
         return inscripcionRepo.filtrarExamenesMasInscripciones(dni);
     }
 
-    public List <String> filtrarAsignaturasMasInscripciones (String dni) {
+    public List<String> filtrarAsignaturasMasInscripciones(String dni) {
         return inscripcionRepo.filtrarAsignaturasMasInscripciones(dni);
     }
 
-    public List <Alumno> filtrarAlumnosConMasInscripciones (String dni) {
+    public List<Alumno> filtrarAlumnosConMasInscripciones(String dni) {
 
         return inscripcionRepo.filtrarAlumnosConMasInscripciones(dni);
 
     }
 
-    public double contarAllAlumnosAdmin () {
+    public double contarAllAlumnosAdmin() {
         LocalDateTime actualidad = LocalDateTime.now();
 
-        return (double)inscripcionRepo.contarAllAlumnosAdmin(actualidad);
+        return (double) inscripcionRepo.contarAllAlumnosAdmin(actualidad);
     }
 
-    public List <Examen> filtrarExamenesMasInscripcionesAdmin () {
+    public List<Examen> filtrarExamenesMasInscripcionesAdmin() {
         return inscripcionRepo.filtrarExamenesMasInscripcionesAdmin();
     }
 
-    public List <String> filtrarAsignaturasMasInscripcionesAdmin () {
+    public List<String> filtrarAsignaturasMasInscripcionesAdmin() {
         return inscripcionRepo.filtrarAsignaturasMasInscripcionesAdmin();
     }
 
-    public List <Alumno> filtrarAlumnosConMasInscripcionesAdmin () {
+    public List<Alumno> filtrarAlumnosConMasInscripcionesAdmin() {
         return inscripcionRepo.filtrarAlumnosConMasInscripcionesAdmin();
     }
 
-    public int contarAlumnosEvaluados (String dni) {
+    public int contarAlumnosEvaluados(String dni) {
         return inscripcionRepo.contarAlumnosEvaluados(dni);
     }
 
+    public double contarExamenesMes() {
+        LocalDate fecha = LocalDate.now();
+        int numMes = fecha.getMonthValue();
+
+        return (double)inscripcionRepo.contarExamenesMes(numMes);
+    }
+
+    public double contarExamenesMesMaestro(String dni) {
+        LocalDate fecha = LocalDate.now();
+        int numMes = fecha.getMonthValue();
+
+        return (double)inscripcionRepo.contarExamenesMesMaestro(numMes,dni);
+    }
 }

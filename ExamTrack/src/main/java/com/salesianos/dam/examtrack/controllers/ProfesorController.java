@@ -95,7 +95,7 @@ public class ProfesorController {
             return "redirect:/inicio?errorAccion=true";
         }
 
-        
+        profesor.setRol(UsuarioRol.PROFESOR);
         servicio.modificar(profesor);
         profesor.creadorUsername();
 

@@ -29,27 +29,36 @@
 
             <div th:replace="~{fragmentos/sidebar :: sidebarMenu}"></div>
 
-            <div class="col-12 col-lg-10 d-flex flex-column align-items-center"> 
+            <div class="col-12 col-lg-10 d-flex flex-column align-items-center">
 
                 <div class="w-100 p-4" style="max-width: 650px;">
 
-                    <h2 class="fw-bold mb-3" th:text="${alumno.dni != null and alumno.dni != ''} ? 'Editar alumno' : 'Crear nuevo alumno'">Crear nuevo alumno</h2>
+                    <h2 class="fw-bold mb-3"
+                        th:text="${alumno.dni != null and alumno.dni != ''} ? 'Editar alumno' : 'Crear nuevo alumno'">
+                        Crear nuevo alumno</h2>
                     <hr class="mb-4" />
 
-                    <form method="post" class="needs-validation" th:action="${alumno.dni != null} ? @{/editAlumno} : @{/crearAlumno}" th:object="${alumno}" novalidate>
+                    <form method="post" class="needs-validation"
+                        th:action="${alumno.dni != null} ? @{/editAlumno} : @{/crearAlumno}" th:object="${alumno}"
+                        novalidate>
 
                         <div class="row g-3">
                             <div class="col-md-6 mb-4">
                                 <label for="exampleInputEmail1" class="form-label fw-semibold">Nombre</label>
-                                <input type="text" class="form-control form-control-lg fs-6" name="nombre"
-                                    th:field="*{nombre}" th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid'" required minlength="2" maxlength="75">
-                                <div class="invalid-feedback"><span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span></div>
+                                <input type="text" class="form-control form-control-lg fs-6" name="dni"
+                                    th:field="*{dni}" th:classappend="${#fields.hasErrors('dni')} ? 'is-invalid'"
+                                    required minlength="9" maxlength="9" pattern="[0-9]{8}[A-Za-z]"
+                                    title="El DNI debe contener 8 números seguidos de una letra">
+                                <div class="invalid-feedback"><span th:if="${#fields.hasErrors('nombre')}"
+                                        th:errors="*{nombre}"></span></div>
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="exampleInputEmail1" class="form-label fw-semibold">DNI</label>
                                 <input type="text" class="form-control form-control-lg fs-6" name="dni"
-                                    th:field="*{dni}" th:classappend="${#fields.hasErrors('dni')} ? 'is-invalid'" required minlength="9" maxlength="9">
-                                <div class="invalid-feedback"><span th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></span></div>
+                                    th:field="*{dni}" th:classappend="${#fields.hasErrors('dni')} ? 'is-invalid'"
+                                    required minlength="9" maxlength="9">
+                                <div class="invalid-feedback"><span th:if="${#fields.hasErrors('dni')}"
+                                        th:errors="*{dni}"></span></div>
                             </div>
                         </div>
 
@@ -58,10 +67,14 @@
                             <div class="input-group">
                                 <span class="input-group-text">Introduzca aquí:</span>
                                 <input type="text" aria-label="First name" class="form-control"
-                                    placeholder="Primer Apellido" name="primerApellido" th:field="*{primerApellido}" th:classappend="${#fields.hasErrors('primerApellido')} ? 'is-invalid'" required minlength="2" maxlength="75" >
+                                    placeholder="Primer Apellido" name="primerApellido" th:field="*{primerApellido}"
+                                    th:classappend="${#fields.hasErrors('primerApellido')} ? 'is-invalid'" required
+                                    minlength="2" maxlength="75">
                                 <input type="text" aria-label="Last name" class="form-control"
-                                    placeholder="Segundo Apellido" name="segundoApellido" th:field="*{segundoApellido}" minlength="2" maxlength="75">
-                                <div class="invalid-feedback"><span th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}"></span></div>
+                                    placeholder="Segundo Apellido" name="segundoApellido" th:field="*{segundoApellido}"
+                                    minlength="2" maxlength="75">
+                                <div class="invalid-feedback"><span th:if="${#fields.hasErrors('primerApellido')}"
+                                        th:errors="*{primerApellido}"></span></div>
                             </div>
                         </div>
 
@@ -69,29 +82,36 @@
                         <div class="mb-4">
                             <label for="exampleInputEmail1" class="form-label fw-semibold">Email</label>
                             <input type="email" class="form-control form-control-lg fs-6" name="email"
-                                th:field="*{email}" th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'" placeholder="usuario@ejemplo.com" minlength="15" maxlength="100" required>
-                            <div class="invalid-feedback"><span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></div>
+                                th:field="*{email}" th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'"
+                                placeholder="usuario@ejemplo.com" minlength="15" maxlength="100" required>
+                            <div class="invalid-feedback"><span th:if="${#fields.hasErrors('email')}"
+                                    th:errors="*{email}"></span></div>
                         </div>
 
                         <div class="mb-4">
                             <label for="exampleInputEmail1" class="form-label fw-semibold">Dirección</label>
                             <input type="text" class="form-control form-control-lg fs-6" name="direccion"
-                                th:field="*{direccion}" th:classappend="${#fields.hasErrors('direccion')} ? 'is-invalid'" minlength="4" maxlength="100" required>
-                            <div class="invalid-feedback"><span th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></span></div>
+                                th:field="*{direccion}"
+                                th:classappend="${#fields.hasErrors('direccion')} ? 'is-invalid'" minlength="4"
+                                maxlength="100" required>
+                            <div class="invalid-feedback"><span th:if="${#fields.hasErrors('direccion')}"
+                                    th:errors="*{direccion}"></span></div>
                         </div>
 
 
                         <div class="row g-3">
                             <div class="col-md-6 mb-4">
                                 <label for="exampleInputEmail1" class="form-label fw-semibold">Grupo Asignado</label>
-                                <select id="inputState" class="form-select" name="grupo" th:field="*{grupo}" th:classappend="${#fields.hasErrors('grupo')} ? 'is-invalid'" required>
+                                <select id="inputState" class="form-select" name="grupo" th:field="*{grupo}"
+                                    th:classappend="${#fields.hasErrors('grupo')} ? 'is-invalid'" required>
                                     <option value="">Escoger opción</option>
                                     <option value="Primero">Primero</option>
                                     <option value="Segundo">Segundo</option>
                                     <option value="Tercero">Tercero</option>
                                     <option value="Cuarto">Cuarto</option>
                                 </select>
-                                <div class="invalid-feedback"><span th:if="${#fields.hasErrors('grupo')}" th:errors="*{grupo}"></span></div>
+                                <div class="invalid-feedback"><span th:if="${#fields.hasErrors('grupo')}"
+                                        th:errors="*{grupo}"></span></div>
                             </div>
                         </div>
 
@@ -109,8 +129,10 @@
                                 <label for="exampleInputEmail1" class="form-label fw-semibold">Fecha de
                                     nacimiento</label>
                                 <input type="date" class="form-control form-control-lg fs-6" name="fechaNacimiento"
-                                    th:field="*{fechaNacimiento}" th:classappend="${#fields.hasErrors('fechaNacimiento')} ? 'is-invalid'" required>
-                                <div class="invalid-feedback"><span th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></span></div>
+                                    th:field="*{fechaNacimiento}"
+                                    th:classappend="${#fields.hasErrors('fechaNacimiento')} ? 'is-invalid'" required>
+                                <div class="invalid-feedback"><span th:if="${#fields.hasErrors('fechaNacimiento')}"
+                                        th:errors="*{fechaNacimiento}"></span></div>
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="exampleInputEmail1" class="form-label fw-semibold">Foto de perfil </label>
@@ -119,7 +141,9 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-redPrimary btn-lg w-100 rounded-pill mt-2" th:text="${alumno.dni != null and alumno.dni != ''} ? 'Editar alumno' : 'Crear alumno'">Crear alumno</button>
+                        <button type="submit" class="btn btn-redPrimary btn-lg w-100 rounded-pill mt-2"
+                            th:text="${alumno.dni != null and alumno.dni != ''} ? 'Editar alumno' : 'Crear alumno'">Crear
+                            alumno</button>
                     </form>
 
                 </div>

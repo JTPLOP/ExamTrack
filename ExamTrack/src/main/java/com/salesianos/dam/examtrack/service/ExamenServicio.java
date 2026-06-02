@@ -14,26 +14,25 @@ import com.salesianos.dam.examtrack.service.base.ServicioBaseImpl;
 
 @Service
 
-public class ExamenServicio extends ServicioBaseImpl <Examen, Long, ExamenRepositorio> {
+public class ExamenServicio extends ServicioBaseImpl<Examen, Long, ExamenRepositorio> {
 
     private final ExamenRepositorio examRepo;
-
 
     public ExamenServicio(ExamenRepositorio repositorio, ExamenRepositorio examRepo) {
         super(repositorio);
         this.examRepo = examRepo;
     }
 
-    public boolean comprobarLimFecha (Long id) {
-        
-        if (LocalDateTime.now().isBefore(examRepo.extraerFechas(id)) ) {
+    public boolean comprobarLimFecha(Long id) {
+
+        if (LocalDateTime.now().isBefore(examRepo.extraerFechas(id))) {
             return true;
         } else {
             return false;
         }
     }
 
-    public List<Examen> filtrarProximosExamenes (String dni) {
+    public List<Examen> filtrarProximosExamenes(String dni) {
 
         LocalDateTime fechaActual = LocalDateTime.now();
 
@@ -41,32 +40,26 @@ public class ExamenServicio extends ServicioBaseImpl <Examen, Long, ExamenReposi
 
     }
 
-    public List<Examen> filtrarProximosExamenesAdmin () {
+    public List<Examen> filtrarProximosExamenesAdmin() {
         LocalDateTime fechaActual = LocalDateTime.now();
         return examRepo.filtrarProximosExamenesAdmin(fechaActual);
     }
 
-    public Optional <List<Examen>> filtrarExamenesProfesor (String dni) {
-        
+    public Optional<List<Examen>> filtrarExamenesProfesor(String dni) {
+
         return examRepo.filtrarExamenesProfesor(dni);
     }
 
-    public Optional <List<Examen>> filtrarExamenesMes (String dni, int numMes) {
-        
+    public Optional<List<Examen>> filtrarExamenesMes(String dni, int numMes) {
+
         return examRepo.filtrarExamenesMes(dni, numMes);
     }
 
-    public Optional <List<Examen>> filtrarExamenesMesAdmin (int numMes) {
-        
+    public Optional<List<Examen>> filtrarExamenesMesAdmin(int numMes) {
+
         return examRepo.filtrarExamenesMesAdmin(numMes);
     }
 
-    public double contarExamenesMes () {
-        LocalDate fecha = LocalDate.now();
-        int numMes = fecha.getMonthValue();
-
-        return examRepo.contarExamenesMes(numMes);
-    }
     
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,8 +36,7 @@ import lombok.experimental.SuperBuilder;
 public class Usuario implements UserDetails {
 
     @Id
-    @Column(nullable = false, unique = true)
-    @NotBlank(message = "El DNI es obligatorio")
+    @Column(nullable = false, unique = true )
     @Size(min = 9, max = 9, message = "El DNI debe tener 9 caracteres")
     private String dni;
 
@@ -69,6 +69,7 @@ public class Usuario implements UserDetails {
     @NotNull(message = "La fecha de nacimiento es obligatoria")
     @Column(nullable = false)
     @Past (message = "La fecha debe ser anterior a la actualidad.")
+    @DateTimeFormat (pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
 
     @NotNull(message = "El rol es obligatorio")
