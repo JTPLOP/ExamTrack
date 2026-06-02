@@ -1,3 +1,10 @@
+Entendido. En lugar de usar las etiquetas de Spring Security (sec:authorize), he eliminado ese espacio de nombres y he aplicado el atributo estándar de Thymeleaf th:if consultando directamente el rol sobre tu objeto profesorLogueado, tal y como haces en userPerfil.html.
+
+He utilizado la condición th:if="${profesorLogueado?.rol?.name() == 'ADMIN'}". (Nota: si tu clase Profesor tiene el rol anidado dentro de un objeto Usuario, simplemente cámbialo a th:if="${profesorLogueado?.usuario?.rol?.name() == 'ADMIN'}" para que coincida exactamente con tu modelo).
+
+Aquí tienes el código completo con este ajuste aplicado tanto a la sección de administrador como a los botones de "Crear" exclusivos de ese rol en las versiones de escritorio y móvil:
+
+HTML
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
@@ -113,7 +120,7 @@
                                         </ul>
 
                                     </li>
-                                    <li class="col-12 py-1">
+                                    <li class="col-12 py-1" th:if="${profesorLogueado?.rol?.name() == 'ADMIN'}">
 
                                         <a href="#herramientasAdmin" data-bs-toggle="collapse" role="button"
                                             aria-expanded="false" aria-controls="herramientasAdmin"
@@ -188,18 +195,18 @@
                                         </a>
 
                                     </li>
-                                    <li>
+                                    <li th:if="${profesorLogueado?.rol?.name() == 'ADMIN'}">
                                         <a class="dropdown-item rounded py-2" th:href="@{/formProfesor}">
 
                                             <i class="bi bi-person-plus pe-2"></i> Crear Profesor
                                         </a>
                                     </li>
-                                    <li>
+                                    <li th:if="${profesorLogueado?.rol?.name() == 'ADMIN'}">
                                         <a class="dropdown-item rounded py-2" th:href="@{/formDepartamento}">
                                             <i class="bi bi-box pe-2"></i> Crear Departamento
                                         </a>
                                     </li>
-                                    <li>
+                                    <li th:if="${profesorLogueado?.rol?.name() == 'ADMIN'}">
                                         <a class="dropdown-item rounded py-2" th:href="@{/formEspecialidad}">
                                             <i class="bi bi-award pe-2"></i> Crear Especialidad
                                         </a>
@@ -310,8 +317,7 @@
                                             
                                         </ul>
                                     </li>
-
-                                    <li class="py-1">
+                                    <li class="py-1" th:if="${profesorLogueado?.rol?.name() == 'ADMIN'}">
                                         <a href="#ocHerramientasAdmin" data-bs-toggle="collapse" role="button"
                                             aria-expanded="false" aria-controls="ocHerramientasAdmin"
                                             class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex justify-content-between align-items-center w-100 sidebar-opciones">
@@ -364,18 +370,17 @@
                                             <i class="bi bi-file-earmark-plus pe-2"></i> Crear Examen
                                         </a>
                                     </li>
-                                    <li>
+                                    <li th:if="${profesorLogueado?.rol?.name() == 'ADMIN'}">
                                         <a class="dropdown-item rounded py-2" th:href="@{/formProfesor}">
                                             <i class="bi bi-person-plus pe-2"></i> Crear Profesor
                                         </a>
                                     </li>
-                                    <li>
-                                    <li>
+                                    <li th:if="${profesorLogueado?.rol?.name() == 'ADMIN'}">
                                         <a class="dropdown-item rounded py-2" th:href="@{/formDepartamento}">
                                             <i class="bi bi-box pe-2"></i> Crear Departamento
                                         </a>
                                     </li>
-                                    <li>
+                                    <li th:if="${profesorLogueado?.rol?.name() == 'ADMIN'}">
                                         <a class="dropdown-item rounded py-2" th:href="@{/formEspecialidad}">
                                             <i class="bi bi-award pe-2"></i> Crear Especialidad
                                         </a>
