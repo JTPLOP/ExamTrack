@@ -73,7 +73,14 @@ public class DepartamentoController {
 
     @GetMapping("/admin/eliminar/departamento/{id}")
     public String eliminarDepartamento(@PathVariable("id") Long id) {
-        servicio.eliminarPorId(id);
+        Optional<Departamento> departamentoOpt = servicio.filtrarPorId(id);
+        if (departamentoOpt.isPresent()) {
+            Departamento departamento = departamentoOpt.get();
+            if (!departamento.getListaProfesores().isEmpty()) {
+                throw new IllegalArgumentException("No se puede eliminar el departamento porque tiene profesores asociados.");
+            }
+            servicio.eliminarPorId(id);
+        }
         return "redirect:/admin/departamentos";
     }
 

@@ -14,4 +14,5 @@ public class DepartamentoServicio extends ServicioBaseImpl <Departamento, Long, 
     }
     
     
+    
 }

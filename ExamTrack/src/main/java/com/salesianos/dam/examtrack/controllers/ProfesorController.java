@@ -91,8 +91,12 @@ public class ProfesorController {
 
         Optional<Profesor> profesor = servicio.filtrarPorId(dni);
 
-        if (profesor.isPresent())
+        if (profesor.isPresent()) {
+            if (!profesor.get().getExamen().isEmpty()) {
+                throw new IllegalArgumentException("No se puede eliminar el profesor porque tiene exámenes asociados.");
+            }
             servicio.eliminar(profesor.get());
+        }
 
         return "redirect:/admin/profesor";
     }

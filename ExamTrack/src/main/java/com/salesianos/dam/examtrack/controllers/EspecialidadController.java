@@ -73,7 +73,14 @@ public class EspecialidadController {
 
     @GetMapping("/admin/eliminar/especialidad/{id}")
     public String eliminarEspecialidad(@PathVariable("id") Long id) {
-        servicio.eliminarPorId(id);
+        Optional<Especialidad> especialidadOpt = servicio.filtrarPorId(id);
+        if (especialidadOpt.isPresent()) {
+            Especialidad especialidad = especialidadOpt.get();
+            if (!especialidad.getProfesores().isEmpty()) {
+                throw new IllegalArgumentException("No se puede eliminar la especialidad porque tiene profesores asociados.");
+            }
+            servicio.eliminarPorId(id);
+        }
         return "redirect:/admin/especialidades";
     }
 
