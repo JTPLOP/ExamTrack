@@ -41,6 +41,11 @@ public class ExamenServicio extends ServicioBaseImpl <Examen, Long, ExamenReposi
 
     }
 
+    public List<Examen> filtrarProximosExamenesAdmin () {
+        LocalDateTime fechaActual = LocalDateTime.now();
+        return examRepo.filtrarProximosExamenesAdmin(fechaActual);
+    }
+
     public Optional <List<Examen>> filtrarExamenesProfesor (String dni) {
         
         return examRepo.filtrarExamenesProfesor(dni);

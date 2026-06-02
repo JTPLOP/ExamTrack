@@ -31,6 +31,13 @@ public interface ExamenRepositorio extends JpaRepository<Examen, Long> {
     @Query("""
              select e
              from Examen e
+             where e.fecha > :actualidad
+            """)
+    List<Examen> filtrarProximosExamenesAdmin(LocalDateTime actualidad);
+
+    @Query("""
+             select e
+             from Examen e
              where e.nombre = :nombre
             """)
     Optional < List<Examen> >  filtrarPorNombres(String nombre);

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salesianos.dam.examtrack.model.Examen;
 import com.salesianos.dam.examtrack.model.Profesor;
+import com.salesianos.dam.examtrack.model.UsuarioRol;
 import com.salesianos.dam.examtrack.service.ExamenServicio;
 import com.salesianos.dam.examtrack.service.InscripcionesServicio;
 
@@ -32,7 +33,22 @@ public class NotificacionesController {
     public String notificacionesBase(Model model, @AuthenticationPrincipal Profesor profesor, @RequestParam(name="filtro", required=false, defaultValue="0") int filtro) {
 
         Map <Long, Integer> contadorNumAlumnos = new HashMap<>();
-        List <Examen> proxExamenes = examServicio.filtrarProximosExamenes(profesor.getDni());
+        List <Examen> proxExamenes = null;
+
+        UsuarioRol rol = profesor.getRol();
+
+        switch (rol) {
+            case ADMIN:
+                proxExamenes = examServicio.filtrarProximosExamenesAdmin();
+                break;
+
+            case PROFESOR:
+                proxExamenes = examServicio.filtrarProximosExamenes(profesor.getDni());
+                break;
+        
+            default:
+                break;
+        }
 
         log.info("Valor del filtro " +filtro);
 
