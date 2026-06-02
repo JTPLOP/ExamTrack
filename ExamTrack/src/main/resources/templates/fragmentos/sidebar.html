@@ -133,19 +133,19 @@ HTML
                                         </a>
                                         <ul class="collapse list-unstyled ps-4 mt-1 w-100" id="herramientasAdmin">
 
-                                            <li class="col-12 py-1"><a th:href="@{/profesor}"
+                                            <li class="col-12 py-1"><a th:href="@{/admin/profesor}"
                                                     class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
                                                         class="bi bi-file-earmark-medical pe-3"></i>Profesores</a></li>
                                             <li class="py-1">
 
-                                                <a th:href="@{/departamentos}" href="#"
+                                                <a th:href="@{/admin/departamentos}" href="#"
                                                     class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
                                                     <i class="bi bi-box pe-3"></i>Departamentos
                                                 </a>
                                             </li>
                                             <li class="py-1">
 
-                                                <a th:href="@{/especialidades}" href="#"
+                                                <a th:href="@{/admin/especialidades}" href="#"
                                                     class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
 
                                                     <i class="bi bi-award pe-3"></i>Especialidades
@@ -196,18 +196,18 @@ HTML
 
                                     </li>
                                     <li th:if="${profesorLogueado?.rol?.name() == 'ADMIN'}">
-                                        <a class="dropdown-item rounded py-2" th:href="@{/formProfesor}">
+                                        <a class="dropdown-item rounded py-2" th:href="@{/admin/formProfesor}">
 
                                             <i class="bi bi-person-plus pe-2"></i> Crear Profesor
                                         </a>
                                     </li>
                                     <li th:if="${profesorLogueado?.rol?.name() == 'ADMIN'}">
-                                        <a class="dropdown-item rounded py-2" th:href="@{/formDepartamento}">
+                                        <a class="dropdown-item rounded py-2" th:href="@{/admin/formDepartamento}">
                                             <i class="bi bi-box pe-2"></i> Crear Departamento
                                         </a>
                                     </li>
                                     <li th:if="${profesorLogueado?.rol?.name() == 'ADMIN'}">
-                                        <a class="dropdown-item rounded py-2" th:href="@{/formEspecialidad}">
+                                        <a class="dropdown-item rounded py-2" th:href="@{/admin/formEspecialidad}">
                                             <i class="bi bi-award pe-2"></i> Crear Especialidad
                                         </a>
                                     </li>
@@ -326,17 +326,17 @@ HTML
                                         </a>
 
                                         <ul class="collapse list-unstyled ps-4 mt-1 w-100" id="ocHerramientasAdmin">
-                                            <li class="py-1"><a th:href="@{/profesor}"
+                                            <li class="py-1"><a th:href="@{/admin/profesor}"
                                                     class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones"><i
                                                         class="bi bi-file-earmark-medical pe-3"></i>Profesores</a></li>
                                             <li class="py-1">
-                                                <a th:href="@{/departamentos}" href="#"
+                                                <a th:href="@{/admin/departamentos}" href="#"
                                                     class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
                                                     <i class="bi bi-box pe-3"></i>Departamentos
                                                 </a>
                                             </li>
                                             <li class="py-1">
-                                                <a th:href="@{/especialidades}" href="#"
+                                                <a th:href="@{/admin/especialidades}" href="#"
                                                     class="text-dark text-decoration-none nav-link p-2 rounded menu-link d-flex align-items-center w-100 sidebar-opciones">
                                                     <i class="bi bi-award pe-3"></i>Especialidades
                                                 </a>
@@ -371,17 +371,17 @@ HTML
                                         </a>
                                     </li>
                                     <li th:if="${profesorLogueado?.rol?.name() == 'ADMIN'}">
-                                        <a class="dropdown-item rounded py-2" th:href="@{/formProfesor}">
+                                        <a class="dropdown-item rounded py-2" th:href="@{/admin/formProfesor}">
                                             <i class="bi bi-person-plus pe-2"></i> Crear Profesor
                                         </a>
                                     </li>
                                     <li th:if="${profesorLogueado?.rol?.name() == 'ADMIN'}">
-                                        <a class="dropdown-item rounded py-2" th:href="@{/formDepartamento}">
+                                        <a class="dropdown-item rounded py-2" th:href="@{/admin/formDepartamento}">
                                             <i class="bi bi-box pe-2"></i> Crear Departamento
                                         </a>
                                     </li>
                                     <li th:if="${profesorLogueado?.rol?.name() == 'ADMIN'}">
-                                        <a class="dropdown-item rounded py-2" th:href="@{/formEspecialidad}">
+                                        <a class="dropdown-item rounded py-2" th:href="@{/admin/formEspecialidad}">
                                             <i class="bi bi-award pe-2"></i> Crear Especialidad
                                         </a>
                                     </li>

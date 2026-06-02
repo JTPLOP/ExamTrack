@@ -34,7 +34,9 @@
                     <h2 class="fw-bold mb-3">Crear nuevo Profesor</h2>
                     <hr class="mb-4" />
 
-                    <form method="post" th:action="${profesor.dni != null} ? @{/editProfesor} : @{/crearProfesor}" th:object="${profesor}">
+                    <form method="post" 
+                          th:action="${profesor.dni != null} ? @{/admin/editProfesor} : @{/admin/crearProfesor}" 
+                          th:object="${profesor}">
 
                         <div class="row g-3">
                             <div class="col-md-6 mb-4">
