@@ -3,7 +3,6 @@ package com.salesianos.dam.examtrack.model;
 import java.io.Serializable;
 
 import jakarta.persistence.Embeddable;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

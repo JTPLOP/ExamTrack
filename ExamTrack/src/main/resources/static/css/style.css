@@ -71,3 +71,24 @@ p {
             transform: translateY(-4px);
             box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15) !important;
 }
+
+/* Contenedor Login Responsive */
+.login-container {
+    width: 95%;
+    height: auto;
+    min-height: 500px;
+}
+
+@media (min-width: 768px) {
+    .login-container {
+        width: 85%;
+        height: 80%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .login-container {
+        width: 75%;
+        height: 75%;
+    }
+}

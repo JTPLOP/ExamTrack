@@ -5,24 +5,19 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
-
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import com.salesianos.dam.examtrack.model.Usuario;
-import com.salesianos.dam.examtrack.model.Especialidad;
 import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.model.UsuarioRol;
 import com.salesianos.dam.examtrack.service.DepartamentoServicio;
 import com.salesianos.dam.examtrack.service.EspecialidadServicio;
 import com.salesianos.dam.examtrack.service.ProfesorServicio;
 import com.salesianos.dam.examtrack.service.UsuarioServicio;
-
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller

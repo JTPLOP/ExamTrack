@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.salesianos.dam.examtrack.model.Alumno;
-import com.salesianos.dam.examtrack.model.Examen;
 import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.service.AlumnoServicio;
 import com.salesianos.dam.examtrack.service.ProfesorServicio;

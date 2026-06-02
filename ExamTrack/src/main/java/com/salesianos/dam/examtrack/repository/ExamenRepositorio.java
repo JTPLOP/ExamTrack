@@ -6,11 +6,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-
-import com.salesianos.dam.examtrack.model.Alumno;
 import com.salesianos.dam.examtrack.model.Examen;
-import com.salesianos.dam.examtrack.model.Profesor;
+
 
 public interface ExamenRepositorio extends JpaRepository<Examen, Long> {
 

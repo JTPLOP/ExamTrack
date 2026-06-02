@@ -25,7 +25,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@Getter @Setter @EqualsAndHashCode @ToString
+@Getter @Setter @ToString
 
 public class Profesor extends Usuario {
     

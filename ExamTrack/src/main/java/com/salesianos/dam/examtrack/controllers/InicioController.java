@@ -1,7 +1,6 @@
 package com.salesianos.dam.examtrack.controllers;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.model.UsuarioRol;
-import com.salesianos.dam.examtrack.service.ExamenServicio;
 import com.salesianos.dam.examtrack.service.InscripcionesServicio;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 public class InicioController {
 
     private final InscripcionesServicio inscripServicio;
-    private final ExamenServicio examServicio;
 
     @GetMapping ("/inicio")
     public String inicioBase (Model model, @AuthenticationPrincipal Profesor profesor) {

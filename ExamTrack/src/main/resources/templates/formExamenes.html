@@ -45,7 +45,7 @@
                         <div class="mb-4">
                             <label for="exampleInputEmail1" class="form-label fw-semibold">Nombre del examen</label>
                             <input type="text" class="form-control form-control-lg fs-6" name="nombre"
-                                th:field="*{nombre}" th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid'" required minlength="4" maxlength="75">
+                                th:field="*{nombre}" th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid'" required minlength="4" maxlength="75" pattern="^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s\-_]+$" title="Solo se permiten letras, números, espacios y guiones">
                             <div class="invalid-feedback"><span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span></div>
                         </div>
 
@@ -95,7 +95,7 @@
 
                             <div class="col-md-6 mb-4">
                                 <label for="aula" class="form-label fw-semibold">Aula</label>
-                                <input type="text" class="form-control form-control-lg fs-6" id="aula" name="aula" th:field="*{aula}" th:classappend="${#fields.hasErrors('aula')} ? 'is-invalid'" required>
+                                <input type="text" class="form-control form-control-lg fs-6" id="aula" name="aula" th:field="*{aula}" th:classappend="${#fields.hasErrors('aula')} ? 'is-invalid'" required pattern="^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$" title="Solo se permiten letras, números y espacios">
                                 <div class="invalid-feedback"><span th:if="${#fields.hasErrors('aula')}" th:errors="*{aula}"></span></div>
                             </div>
                         </div>

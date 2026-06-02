@@ -45,10 +45,10 @@
                         <div class="row g-3">
                             <div class="col-md-6 mb-4">
                                 <label for="exampleInputEmail1" class="form-label fw-semibold">Nombre</label>
-                                <input type="text" class="form-control form-control-lg fs-6" name="dni"
-                                    th:field="*{dni}" th:classappend="${#fields.hasErrors('dni')} ? 'is-invalid'"
-                                    required minlength="9" maxlength="9" pattern="[0-9]{8}[A-Za-z]"
-                                    title="El DNI debe contener 8 números seguidos de una letra">
+                                <input type="text" class="form-control form-control-lg fs-6" name="nombre"
+                                    th:field="*{nombre}" th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid'"
+                                    required minlength="2" maxlength="50" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"
+                                    title="El nombre solo puede contener letras y espacios">
                                 <div class="invalid-feedback"><span th:if="${#fields.hasErrors('nombre')}"
                                         th:errors="*{nombre}"></span></div>
                             </div>
@@ -56,7 +56,7 @@
                                 <label for="exampleInputEmail1" class="form-label fw-semibold">DNI</label>
                                 <input type="text" class="form-control form-control-lg fs-6" name="dni"
                                     th:field="*{dni}" th:classappend="${#fields.hasErrors('dni')} ? 'is-invalid'"
-                                    required minlength="9" maxlength="9">
+                                    required minlength="9" maxlength="9" pattern="^[0-9]{8}[A-Za-z]$" title="El DNI debe contener 8 números seguidos de una letra">
                                 <div class="invalid-feedback"><span th:if="${#fields.hasErrors('dni')}"
                                         th:errors="*{dni}"></span></div>
                             </div>
@@ -69,10 +69,10 @@
                                 <input type="text" aria-label="First name" class="form-control"
                                     placeholder="Primer Apellido" name="primerApellido" th:field="*{primerApellido}"
                                     th:classappend="${#fields.hasErrors('primerApellido')} ? 'is-invalid'" required
-                                    minlength="2" maxlength="75">
+                                    minlength="2" maxlength="75" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" title="Solo se permiten letras y espacios">
                                 <input type="text" aria-label="Last name" class="form-control"
                                     placeholder="Segundo Apellido" name="segundoApellido" th:field="*{segundoApellido}"
-                                    minlength="2" maxlength="75">
+                                    minlength="2" maxlength="75" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$" title="Solo se permiten letras y espacios">
                                 <div class="invalid-feedback"><span th:if="${#fields.hasErrors('primerApellido')}"
                                         th:errors="*{primerApellido}"></span></div>
                             </div>
@@ -136,8 +136,8 @@
                             </div>
                             <div class="col-md-6 mb-4">
                                 <label for="exampleInputEmail1" class="form-label fw-semibold">Foto de perfil </label>
-                                <input type="url" class="form-control form-control-lg fs-6" name="fotoPerfil"
-                                    th:field="*{fotoPerfil}" placeholder="https:www/example.com">
+                                <input type="text" class="form-control form-control-lg fs-6" name="fotoPerfil"
+                                    th:field="*{fotoPerfil}" placeholder="https://www.example.com" >
                             </div>
                         </div>
 

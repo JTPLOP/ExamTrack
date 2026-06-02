@@ -4,13 +4,9 @@ import java.util.Optional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import com.salesianos.dam.examtrack.model.Alumno;

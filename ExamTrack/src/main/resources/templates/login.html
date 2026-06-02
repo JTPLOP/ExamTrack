@@ -27,21 +27,21 @@
 
     <main class="container-fluid background" id="">
         <div class="vh-100 w-100 d-flex justify-content-center align-items-center">
-            <div class="w-75 h-75 d-flex rounded-5 overflow-hidden shadow">
+            <div class="login-container d-flex rounded-5 overflow-hidden shadow">
                 <div class="container-fluid p-0">
                     <div class="row h-100 m-0">
 
                         <div
-                            class="col-xxl-6 col-md-0 d-flex opacity-75 flex-column justify-content-center px-5 bloqueIzqLogin">
-                            <h2 class="display-3 display-md-4 opacity-100 text-light ">Gestiona tus convocatorias</h2>
-                            <p class="pe-xxl-5 pe-md-2 text-light">ExamTrack nace de la idea de gestionar convocatorias
-                                de examenesde la forma mas profesional y optimizada posible, con accesibilidad a todos
-                                los publicos.</p>
+                            class="col-lg-6 d-none d-lg-flex opacity-75 flex-column justify-content-center px-4 px-xl-5 bloqueIzqLogin">
+                            <h2 class="display-5 display-xl-4 opacity-100 text-light mb-4">Gestiona tus convocatorias</h2>
+                            <p class="pe-0 pe-xl-4 text-light fs-5">ExamTrack nace de la idea de gestionar convocatorias
+                                de exámenes de la forma más profesional y optimizada posible, con accesibilidad a todos
+                                los públicos.</p>
                         </div>
 
-                        <div class="col-xxl-6 col-md-12 bg-white">
+                        <div class="col-lg-6 col-12 bg-white py-4 py-lg-0">
                             <div class="container-fluid h-100">
-                                <div class="row d-flex flex-column h-100">
+                                <div class="row d-flex flex-column h-100 justify-content-center">
 
                                     <div class="w-100 d-flex justify-content-center pt-5">
                                         <h1 class="fw-bold">examTrack</h1>
@@ -55,24 +55,23 @@
                                     </div>
 
                                     <div
-                                        class="w-100 flex-grow-1 d-flex flex-column justify-content-center align-items-center pb-5">
-                                        <form class="w-75 d-flex flex-column align-items-center pb-5 needs-validation"
+                                        class="w-100 flex-grow-1 d-flex flex-column justify-content-center align-items-center pb-4 pb-lg-5">
+                                        <form class="d-flex flex-column align-items-center w-100 pb-3 pb-lg-5 needs-validation" style="max-width: 400px;"
                                             method="post" th:action=@{/login} novalidate>
 
-                                            <div class="mb-3 w-75 py-3">
-                                                <label for="emailLabel" class="form-label col-form-label-lg">Correo
-                                                    Electronico</label>
-                                                <input type="email" class="form-control" id="emailLabel" name="username" required>
-
+                                            <div class="mb-3 w-100 py-2">
+                                                <label for="emailLabel" class="form-label fw-bold">Correo
+                                                    Electrónico</label>
+                                                <input type="email" class="form-control form-control-lg" id="emailLabel" name="username" required>
                                             </div>
-                                            <div class="mb-3 w-75 py-3">
+                                            <div class="mb-4 w-100 py-2">
                                                 <label for="contraLabel"
-                                                    class="form-label col-form-label-lg">Contraseña</label>
-                                                <input type="password" class="form-control" id="passwordLabel"
-                                                    name="password" minlength="5" required>
+                                                    class="form-label fw-bold">Contraseña</label>
+                                                <input type="password" class="form-control form-control-lg" id="passwordLabel"
+                                                    name="password" minlength="3" required>
                                             </div>
                                             <button type="submit"
-                                                class="btn btn-redPrimary w-50 mt-3 text-light">Iniciar
+                                                class="btn btn-redPrimary btn-lg w-100 mt-2 text-light">Iniciar
                                                 Sesión</button>
                                         </form>
 

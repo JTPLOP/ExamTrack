@@ -1,13 +1,8 @@
 package com.salesianos.dam.examtrack.service;
 
-import java.util.List;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
-
 import com.salesianos.dam.examtrack.model.Especialidad;
-import com.salesianos.dam.examtrack.model.Profesor;
-import com.salesianos.dam.examtrack.model.Usuario;
 import com.salesianos.dam.examtrack.repository.EspecialidadRepositorio;
 import com.salesianos.dam.examtrack.service.base.ServicioBaseImpl;
 

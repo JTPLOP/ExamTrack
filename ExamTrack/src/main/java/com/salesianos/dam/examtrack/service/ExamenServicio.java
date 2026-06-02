@@ -1,14 +1,10 @@
 package com.salesianos.dam.examtrack.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import com.salesianos.dam.examtrack.model.Examen;
-import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.repository.ExamenRepositorio;
 import com.salesianos.dam.examtrack.service.base.ServicioBaseImpl;
 
