@@ -43,4 +43,9 @@ public class ExcepcionControllerAdvice {
     public String handleIllegalArgument(IllegalArgumentException ex, HttpServletRequest request) {
         return redirigirConError(ex, request);
     }
+
+    @ExceptionHandler(UsuarioDuplicadoException.class)
+    public String handleUsuarioDuplicado(UsuarioDuplicadoException ex, HttpServletRequest request) {
+        return redirigirConError(ex, request);
+    }
 }

@@ -15,4 +15,6 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
        """)
 	Optional<Usuario> extraerUsuario(String dni);
 
+	boolean existsByEmail(String email);
+
 }
