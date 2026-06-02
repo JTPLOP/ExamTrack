@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,7 +58,7 @@ public class Usuario implements UserDetails {
 
     @NotBlank(message = "El email es obligatorio")
     @Size(min = 8, max = 355)
-    @Column(nullable = false, length = 355, unique = true)
+    @Column(nullable = false, length = 355, unique = true) 
     private String email;
 
     @NotBlank(message = "La dirección es obligatoria")
