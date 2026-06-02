@@ -140,10 +140,16 @@
                                 <div class="card bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center p-3 text-center flex-grow-1">
                                     <div class="d-flex justify-content-between align-items-center w-100 mb-2">
                                         <span class="text-muted small fw-bold text-uppercase">Asignaturas</span>
-                                        <button type="button" class="btn btn-secondary btn-sm rounded-pill px-2 py-1" style="font-size: 0.75rem;"
-                                            data-bs-toggle="modal" th:data-bs-target="'#modalAsignaturas-' + ${usuario.dni}">
-                                            <i class="bi bi-plus-circle"></i> Agregar
-                                        </button>
+                                        <div>
+                                            <button type="button" class="btn btn-danger btn-sm rounded-pill px-2 py-1 me-1" style="font-size: 0.75rem;"
+                                                data-bs-toggle="modal" th:data-bs-target="'#modalEliminarAsignaturas-' + ${usuario.dni}" title="Eliminar asignaturas">
+                                                <i class="bi bi-dash-circle"></i> Eliminar
+                                            </button>
+                                            <button type="button" class="btn btn-secondary btn-sm rounded-pill px-2 py-1" style="font-size: 0.75rem;"
+                                                data-bs-toggle="modal" th:data-bs-target="'#modalAsignaturas-' + ${usuario.dni}" title="Agregar asignaturas">
+                                                <i class="bi bi-plus-circle"></i> Agregar
+                                            </button>
+                                        </div>
                                     </div>
                                     <div class="d-flex flex-wrap gap-2 justify-content-center w-100 mt-1 overflow-auto" style="max-height: 100px;">
                                         <div th:if="${usuario.asignaturas == null or #lists.isEmpty(usuario.asignaturas)}" class="text-muted small py-2">
@@ -215,6 +221,38 @@
                                                 <input class="form-check-input" type="checkbox" name="nuevasAsignaturas" th:value="${especialidad}">
                                                 <label class="form-check-label" th:text="${especialidad}">Nombre de la Asignatura</label>
                                             </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-redPrimary text-light">Guardar cambios</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Eliminar Asignaturas -->
+                        <div class="modal fade" th:id="'modalEliminarAsignaturas-' + ${usuario.dni}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <form th:action="@{/alumno/asignatura/remove/{id}(id=${usuario.dni})}" method="get">
+                                        <div class="modal-body">
+                                            <p class="mb-3 text-muted fs-6">
+                                                <strong th:text="${usuario.nombre}"></strong> está inscrito en las siguientes asignaturas suyas. Desmárquelas si quiere eliminarlo de alguna de ellas:
+                                            </p>
+                                            
+                                            <div th:each="especialidad : ${especialidades}"
+                                                 th:if="${#lists.contains(usuario.asignaturas, especialidad)}"
+                                                 class="form-check mb-2">
+                                                 
+                                                <input type="hidden" name="asignaturasActuales" th:value="${especialidad}">
+                                                <input class="form-check-input" type="checkbox" name="asignaturasMantenidas" th:value="${especialidad}" checked>
+                                                <label class="form-check-label" th:text="${especialidad}">Nombre de la Asignatura</label>
+                                            </div>
+
+                                            <p th:if="${usuario.asignaturas == null or #lists.isEmpty(usuario.asignaturas)}" class="text-muted">
+                                                El alumno no tiene asignaturas asignadas.
+                                            </p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

@@ -123,4 +123,35 @@ public class AlumnoController {
 
     }
 
+    @GetMapping ("/alumno/asignatura/remove/{dni}")
+    public String eliminarAsignatura (@PathVariable ("dni") String dni , 
+                                      @RequestParam(name="asignaturasActuales", required=false) List<String> asignaturasActuales,
+                                      @RequestParam(name="asignaturasMantenidas", required=false) List<String> asignaturasMantenidas, 
+                                      HttpServletRequest request) {
+        
+        Optional <Alumno> alumBuscado = servicio.filtrarPorId(dni);
+
+        if (!alumBuscado.isPresent()) {
+            return "redirect:/alumnos";
+        }
+
+        Alumno alumno = alumBuscado.get();
+
+        if (asignaturasActuales != null) {
+            if (asignaturasMantenidas == null) {
+                asignaturasMantenidas = new java.util.ArrayList<>();
+            }
+            
+            for (String actual : asignaturasActuales) {
+                if (!asignaturasMantenidas.contains(actual)) {
+                    alumno.getAsignaturas().remove(actual);
+                }
+            }
+            
+            servicio.modificar(alumno);
+        }
+
+        return "redirect:" + request.getHeader("Referer");
+    }
+
 }
