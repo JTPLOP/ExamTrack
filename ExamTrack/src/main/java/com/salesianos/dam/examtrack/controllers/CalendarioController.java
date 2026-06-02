@@ -3,13 +3,10 @@ package com.salesianos.dam.examtrack.controllers;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.cglib.core.Local;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.model.UsuarioRol;
 import com.salesianos.dam.examtrack.service.ExamenServicio;
@@ -48,7 +45,6 @@ public class CalendarioController {
             default:
                 break;
         }
-
         
         return "calendario";
     }

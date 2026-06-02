@@ -39,15 +39,19 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
             inscripcionPK.setIdExamen(examen.getIdExamen());
 
             Inscripcion nuevaInscripcion = new Inscripcion();
-            nuevaInscripcion.addToExamen(examen);
-            nuevaInscripcion.addToAlumno(alumno);
+            nuevaInscripcion.setInscripcionPK(inscripcionPK);
+            nuevaInscripcion.setExamen(examen);
+            nuevaInscripcion.setAlumno(alumno);
 
             nuevaInscripcion.getEstados().add(InscripcionEstados.INSCRITO);
 
-            inscripcionRepo.save(nuevaInscripcion);
+            Inscripcion savedInscripcion = inscripcionRepo.save(nuevaInscripcion);
+            
+            examen.getInscripcion().add(savedInscripcion);
+            alumno.getInscripcion().add(savedInscripcion);
 
             System.out.println("Agregado excelente");
-            nuevaInscripcion.toString();
+            savedInscripcion.toString();
             
             return true; 
         }else {
