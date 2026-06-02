@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.salesianos.dam.examtrack.model.Profesor;
+import com.salesianos.dam.examtrack.model.UsuarioRol;
 import com.salesianos.dam.examtrack.service.ExamenServicio;
 
 import lombok.RequiredArgsConstructor;
@@ -34,7 +35,19 @@ public class CalendarioController {
         
         model.addAttribute("diasMes", numDias);
         model.addAttribute("nombreMes", nombreMes[mesSeleccionado-1]);
-        model.addAttribute("examenes", examServicio.filtrarExamenesMes(profesor.getDni(), mesSeleccionado).orElse(List.of()));
+
+        UsuarioRol rol = profesor.getRol();
+
+        switch (rol) {
+            case ADMIN:
+                model.addAttribute("examenes", examServicio.filtrarExamenesMesAdmin(mesSeleccionado).orElse(List.of()));
+                break;
+            case PROFESOR:
+                model.addAttribute("examenes", examServicio.filtrarExamenesMes(profesor.getDni(), mesSeleccionado).orElse(List.of()));
+                break;
+            default:
+                break;
+        }
 
         
         return "calendario";

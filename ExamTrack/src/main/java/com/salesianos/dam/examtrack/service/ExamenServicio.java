@@ -56,6 +56,11 @@ public class ExamenServicio extends ServicioBaseImpl <Examen, Long, ExamenReposi
         return examRepo.filtrarExamenesMes(dni, numMes);
     }
 
+    public Optional <List<Examen>> filtrarExamenesMesAdmin (int numMes) {
+        
+        return examRepo.filtrarExamenesMesAdmin(numMes);
+    }
+
     public double contarExamenesMes () {
         LocalDate fecha = LocalDate.now();
         int numMes = fecha.getMonthValue();
