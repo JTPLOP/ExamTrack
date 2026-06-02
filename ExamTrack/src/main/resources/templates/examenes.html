@@ -17,6 +17,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
+    <script th:src="@{/js/randomImage.js}"></script>
+
 </head>
 
 <body>
@@ -32,46 +34,9 @@
                 </div>
                 <div class="container my-4">
 
-                    <div class="row g-3 mb-5 align-items-center bg-white p-3 rounded shadow-sm">
+                    <div class="row g-3 mb-4 align-items-start bg-white p-3 rounded shadow-sm w-50">
 
-                        <form th:action="@{/examenes}" method="get" id="formFiltros"></form>
-
-                        <div class="col-6 col-md-3">
-                            <input type="text" name="filtroBuscar" form="formFiltros" class="form-control"
-                                placeholder="Buscar examen...">
-                        </div>
-
-                        <div class="col-4 col-md-2">
-                            <select name="filtroEstado" form="formFiltros" class="form-select">
-                                <option value="" selected>Estado (Todos)</option>
-                                <option value="1">Activo</option>
-                                <option value="2">Finalizado</option>
-                            </select>
-                        </div>
-
-                        <div class="col-4 col-md-2">
-                            <select class="form-select form-select-md" form="formFiltros" aria-label="Small select example"
-                                name="filtroAsignatura">
-                                <option value="">Asignaturas (Todas)</option>
-                                <option th:each="especialidad : ${especialidades}" th:value="${especialidad}"
-                                    th:text="${especialidad}" required></option>
-                            </select>
-                        </div>
-
-
-                        <div class="col-auto position-relative p-2">
-                            <i class="bi bi-calendar3 fs-5 text-muted"></i>
-
-                            <input type="date" name="filtroFecha" form="formFiltros"
-                                class="position-absolute top-0 start-0 w-100 h-100 opacity-0">
-                        </div>
-
-                        <div class="col-12 col-md-2 text-md-end">
-                            <button type="submit" form="formFiltros"
-                                class="btn btn-redPrimary text-light w-100">Filtrar</button>
-                        </div>
-
-                        <div class="col-12 col-md-2 text-md-end">
+                        <div class="col-12 col-md-2 text-md-end pb-2 w-100">
                             <a th:href="@{/formExamen}" class="btn btn-redPrimary text-light w-100">Crear Examen</a>
                         </div>
                     </div>
@@ -82,17 +47,19 @@
                             <div
                                 class="card h-100 shadow-sm bg-white border-2 border-light-subtle rounded-3 card-examen overflow-hidden position-relative">
 
-                                <img src="https://picsum.photos/400/150" class="w-100"
+                                <img src="" class="w-100 fondo-examen"
                                     style="height: 120px; object-fit: cover;" alt="Banner Examen">
 
-                                <div class="position-absolute top-0 start-0 m-3 d-flex gap-2" th:if="${examenes.fecha >= actualidad}">
+                                <div class="position-absolute top-0 start-0 m-3 d-flex gap-2"
+                                    th:if="${examenes.fecha >= actualidad}">
                                     <p class="btn btn-success py-0 px-2 text-light fw-bold " style="font-size: 11px;"
-                                    th:text="${#temporals.format(examenes.fecha, 'dd-MM-yyyy')}"></p>
+                                        th:text="${#temporals.format(examenes.fecha, 'dd-MM-yyyy')}"></p>
                                 </div>
 
-                                <div class="position-absolute top-0 start-0 m-3 d-flex gap-2" th:if="${actualidad > examenes.fecha}">
+                                <div class="position-absolute top-0 start-0 m-3 d-flex gap-2"
+                                    th:if="${actualidad > examenes.fecha}">
                                     <p class="btn btn-danger py-0 px-2  text-light fw-bold " style="font-size: 11px;"
-                                    th:text="${#temporals.format(examenes.fecha, 'dd-MM-yyyy')}"></p>
+                                        th:text="${#temporals.format(examenes.fecha, 'dd-MM-yyyy')}"></p>
                                 </div>
 
                                 <div class="position-absolute top-0 end-0 m-3 d-flex gap-2">

@@ -34,7 +34,9 @@
                     <h2 class="fw-bold mb-3">Crear nuevo Profesor</h2>
                     <hr class="mb-4" />
 
-                    <form method="post" th:action="${profesor.dni != null} ? @{/editProfesor} : @{/crearProfesor}" th:object="${profesor}">
+                    <form method="post" 
+                          th:action="${profesor.dni != null} ? @{/admin/editProfesor} : @{/admin/crearProfesor}" 
+                          th:object="${profesor}">
 
                         <div class="row g-3">
                             <div class="col-md-6 mb-4">
@@ -84,14 +86,19 @@
                             </div>
                         </div>
 
-                        <div class="row g-3">
-                            <div class="col-md-6 mb-4">
-                                <label for="exampleInputEmail1" class="form-label fw-semibold">Especialidades</label>
-                                <select id="inputState" class="form-select" name="especialidades" >
-                                    <option value="">Escoger opción</option>
-                                    <option th:each="listaEspecialidades : ${listaEspecialidad}" th:value="${listaEspecialidades.idEspecialidad}" th:text="${listaEspecialidades.nombre}" required></option>
-                                    
-                                </select>
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold d-block">Especialidades</label>
+                            <div class="d-flex flex-wrap gap-3">
+                                <div class="form-check form-check-inline m-0" th:each="especialidad : ${listaEspecialidad}">
+                                    <input class="form-check-input border-secondary" type="checkbox" 
+                                           th:id="'esp_' + ${especialidad.idEspecialidad}" 
+                                           name="especialidades" 
+                                           th:value="${especialidad.idEspecialidad}" 
+                                           th:field="*{especialidades}">
+                                    <label class="form-check-label" 
+                                           th:for="'esp_' + ${especialidad.idEspecialidad}" 
+                                           th:text="${especialidad.nombre}"></label>
+                                </div>
                             </div>
                         </div>
 

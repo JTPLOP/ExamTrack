@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
@@ -28,14 +29,213 @@
             <div th:replace="~{fragmentos/sidebar :: sidebarMenu}"></div>
 
             <div class="col-12 col-lg-10">
-                <h1>Inicio</h1>
+                <div class="my-4 ms-5 ps-3">
+                    <h1 class="display-5 fw-semibold">Dashboard</h1>
+                </div>
+
+                <div class="container-fluid mb-4 mt-4">
+
+                    <div class="row g-4 h-100 " style="min-height: 400px;">
+
+                        <div class="col-6 ">
+
+                            <div class="row g-3 h-100 " style="min-height: 400px; ">
+
+                                <div class="col-6">
+                                    <div
+                                        class="card h-100 bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center justify-content-center p-3 text-center">
+
+                                        <i class="bi bi-person-lines-fill text-secondary fs-2 mb-2"></i>
+
+                                        <span class="text-muted small fw-bold text-uppercase mb-2">
+                                            Total Alumnos Inscritos
+                                        </span>
+
+                                        <h2 class="display-6 fw-bold text-dark mb-0"
+                                            th:text="${#numbers.formatInteger(estadisticasBase.get(1), 1)}">
+                                            (Por definir)
+                                        </h2>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div
+                                        class="card h-100 bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center justify-content-center p-3 text-center">
+
+                                        <i class="bi bi-clipboard-check text-secondary fs-2 mb-2"></i>
+
+                                        <span class="text-muted small fw-bold text-uppercase mb-2">
+                                            Asistencia Último Mes
+                                        </span>
+
+                                        <h2 class="display-6 fw-bolder text-dark fs-2 mb-0"
+                                            th:text="${#numbers.formatInteger(estadisticasBase.get(2), 1)} + '%'">
+                                            85%
+                                        </h2>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div
+                                        class="card h-100 bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center justify-content-center p-3 text-center">
+
+                                        <i class="bi bi-calendar-event text-secondary fs-2 mb-2"></i>
+
+                                        <span class="text-muted small fw-bold text-uppercase mb-2">
+                                            Num. Exámenes <span th:text="${nombreMes}"></span>
+                                        </span>
+
+                                        <h2 class="display-6 fw-bolder text-dark mb-0"
+                                            th:text="${#numbers.formatInteger(estadisticasBase.get(3), 1)}">
+                                            5
+                                        </h2>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div
+                                        class="card h-100 bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center justify-content-center p-3 text-center">
+
+                                        <i class="bi bi-check2-all text-secondary fs-2 mb-2"></i>
+
+                                        <span class="text-muted small fw-bold text-uppercase mb-2">
+                                            Aprobados Último Mes
+                                        </span>
+
+                                        <h2 class="display-6 fw-bolder text-dark fs-2 mb-0"
+                                            th:text="${#numbers.formatInteger(estadisticasBase.get(4), 1)} + '%'">
+                                            85%
+                                        </h2>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="border border-2 h-100 rounded-4 p-3">
+                                <p class="text-muted small fw-bold text-uppercase text-center mb-3">
+                                    Evolución de aprobados y suspensos
+                                </p>
+                                <div style="position: relative; height: 85%;">
+                                    <canvas id="graficaEvolucion"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-5">
+                            <h3 class="mb-4 fw-bold">Mejores Datos</h3>
+
+                            <div class="row g-3">
+
+                                <div class="col-4">
+                                    <div class="card h-100 bg-light border border-4 border-white shadow rounded-4 p-3">
+
+                                        <div class="text-center mb-3">
+                                            <i class="bi bi-people-fill text-secondary fs-3 mb-1 d-block"></i>
+                                            <span class="text-muted small fw-bold text-uppercase">
+                                                Examenes con más inscripciones
+                                            </span>
+                                        </div>
+
+                                        <div class="  gap-2">
+
+                                            <a th:each="examen : ${topExamenes}"
+                                                th:href="@{/examen/inscripciones/{id}(id=${examen.idExamen})}"
+                                                class="list-group-item list-group-item-action rounded-3 border-0 shadow-sm d-flex justify-content-between align-items-center px-3 py-1 my-1 bg-white ">
+
+                                                <div class="text-truncate fw-semibold text-dark" style="max-width: 80%;"
+                                                    th:text="${examen.nombre}">
+                                                    Nombre del Examen
+                                                </div>
+
+                                                <span class="badge bg-secondary rounded-pill"
+                                                    th:text="${examen.inscripcion.size()}">
+                                                    0
+                                                </span>
+
+                                            </a>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="card h-100 bg-light border border-4 border-white shadow rounded-4 p-3">
+
+                                        <div class="text-center mb-3">
+                                            <i class="bi bi-award-fill text-secondary fs-3 mb-1 d-block"></i>
+                                            <span class="text-muted small fw-bold text-uppercase">
+                                                Top Asignaturas
+                                            </span>
+                                        </div>
+
+                                        <div class=" gap-2">
+
+                                            <div th:each="asignatura : ${topAsignaturas}"
+                                                class="list-group-item rounded-3 border-0 shadow-sm d-flex justify-content-between align-items-center px-3 py-1 my-1 bg-white">
+
+                                                <div class="text-truncate fw-semibold text-dark" style="max-width: 75%;"
+                                                    th:text="${asignatura}">
+                                                    Nombre Asignatura
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="card h-100 bg-light border border-4 border-white shadow rounded-4 p-3">
+
+                                        <div class="text-center mb-3">
+                                            <i class="bi bi-trophy-fill text-secondary fs-3 mb-1 d-block"></i>
+                                            <span class="text-muted small fw-bold text-uppercase">
+                                                Top Alumnos
+                                            </span>
+                                        </div>
+
+                                        <div class=" gap-2">
+
+                                            <div th:each="alumno : ${topAlumnos}"
+                                                class="list-group-item rounded-3 border-0 shadow-sm d-flex align-items-center px-3 py-1 my-1 bg-white">
+
+                                                <div class="text-truncate fw-semibold text-dark" style="max-width: 75%;"
+                                                    th:text="${alumno.nombre + ' ' + alumno.primerApellido + ' ' + '(' + alumno.dni + ')'}">
+                                                    Alumno ID: 1045
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
+
+
 
         </div>
 
-    </div>
 
-
+        <script th:src="@{/js/grafica.js}"></script>
 </body>
 
 </html>

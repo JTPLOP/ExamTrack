@@ -31,22 +31,16 @@ public interface ExamenRepositorio extends JpaRepository<Examen, Long> {
     @Query("""
              select e
              from Examen e
+             where e.fecha > :actualidad
+            """)
+    List<Examen> filtrarProximosExamenesAdmin(LocalDateTime actualidad);
+
+    @Query("""
+             select e
+             from Examen e
              where e.nombre = :nombre
             """)
     Optional < List<Examen> >  filtrarPorNombres(String nombre);
-
-    @Query(
-        value = """
-        select *
-        from Examen 
-        where ((:filtroBusqueda = '0' or nombre = :filtroBusqueda)
-                and (:filtroEstado = 0 or (CASE WHEN :filtroEstado = 1 THEN fecha >= CURRENT_DATE  ELSE fecha < CURRENT_DATE END ))
-                and (:filtroAsignatura = '0' or asignatura = :filtroAsignatura)
-                and (:filtroFecha = '0' or fecha = :filtroFecha));
-        """, 
-        nativeQuery = true
-        )
-    List <Examen> filtradorExamen(String filtroBusqueda, int filtroEstado, String filtroAsignatura, String filtroFecha );
 
     @Query("""
              select e
@@ -61,5 +55,19 @@ public interface ExamenRepositorio extends JpaRepository<Examen, Long> {
              where e.profesor.dni = :dni and MONTH(e.fecha) = :numMes
             """)
     Optional <List<Examen>>  filtrarExamenesMes(String dni, int numMes);
+
+    @Query("""
+             select e
+             from Examen e
+             where MONTH(e.fecha) = :numMes
+            """)
+    Optional <List<Examen>>  filtrarExamenesMesAdmin(int numMes);
+
+    @Query("""
+             select count(e.idExamen)
+             from Examen e
+             where MONTH(e.fecha) = :numMes
+            """)
+    int contarExamenesMes(int numMes);
 
 }

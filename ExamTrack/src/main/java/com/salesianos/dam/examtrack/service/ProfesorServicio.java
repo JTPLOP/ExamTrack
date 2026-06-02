@@ -27,4 +27,8 @@ public class ProfesorServicio extends ServicioBaseImpl <Profesor, String, Profes
         return this.profesorRepositorio.filtrarEspecialidades(dni);
     } 
 
+    public List<String> filtrarTodasEspecialidades () {
+        return this.profesorRepositorio.filtrarTodasEspecialidades();
+    } 
+
 }

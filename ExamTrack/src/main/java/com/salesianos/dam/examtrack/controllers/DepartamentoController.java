@@ -22,59 +22,59 @@ public class DepartamentoController {
 
     private final DepartamentoServicio servicio;
 
-    @GetMapping("/departamentos")
+    @GetMapping("/admin/departamentos")
     public String departamentosBase(Model model) {
         model.addAttribute("departamento", servicio.filtrarTodos());
-        return "departamentos";
+        return "admin/departamentos";
     }
 
-    @GetMapping("/formDepartamento")
+    @GetMapping("/admin/formDepartamento")
     public String formularioDepartamento(Model model) {
         model.addAttribute("departamento", new Departamento());
-        return "formDepartamento";
+        return "admin/formDepartamento";
     }
 
-    @PostMapping("/crearDepartamento")
+    @PostMapping("/admin/crearDepartamento")
     public String creadorDepartamento(@Valid @ModelAttribute("departamento") Departamento departamento, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "formDepartamento";
+            return "admin/formDepartamento";
         }
 
         servicio.agregar(departamento);
 
-        return "redirect:/departamentos";
+        return "redirect:/admin/departamentos";
     }
 
-    @GetMapping("/editar/departamento/{id}")
+    @GetMapping("/admin/editar/departamento/{id}")
     public String modificarDepartamento(@PathVariable("id") Long id, Model model) {
 
         Optional<Departamento> departamento = servicio.filtrarPorId(id);
 
         if (departamento.isPresent()) {
             model.addAttribute("departamento", departamento.get());
-            return "formDepartamento";
+            return "admin/formDepartamento";
         } else {
-            return "redirect:/departamentos";
+            return "redirect:/admin/departamentos";
         }
     }
 
-    @PostMapping("/editDepartamento")
+    @PostMapping("/admin/editDepartamento")
     public String editorDepartamento(@Valid @ModelAttribute("departamento") Departamento departamento, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "formDepartamento";
+            return "admin/formDepartamento";
         }
 
         servicio.modificar(departamento);
 
-        return "redirect:/departamentos";
+        return "redirect:/admin/departamentos";
     }
 
-    @GetMapping("/eliminar/departamento/{id}")
+    @GetMapping("/admin/eliminar/departamento/{id}")
     public String eliminarDepartamento(@PathVariable("id") Long id) {
         servicio.eliminarPorId(id);
-        return "redirect:/departamentos";
+        return "redirect:/admin/departamentos";
     }
 
 }

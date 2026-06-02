@@ -73,7 +73,7 @@ public class InitData {
     
     repo.save(defecto);
 
-    Usuario admin = Usuario.builder()
+    Profesor admin = Profesor.builder()
             .dni("1B")
             .email("admin@admin.com")
             .username("admin@admin.com")

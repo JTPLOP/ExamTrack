@@ -31,27 +31,12 @@
                 </div>
                 <div class="container">
 
-                    <div class="row mb-4 align-items-center">
-                        <div class="col-9">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Buscar alumno...">
-                                <select class="form-select">
-                                    <option selected value="">Filtrar por Grupo </option>
-                                    <option value="Primero">Primero </option>
-                                    <option value="Segundo">Segundo </option>
-                                    <option value="Tercero">Tercero </option>
-                                    <option value="Cuarto">Cuarto </option>
-                                </select>
-                                <select class="form-select">
-                                    <option selected>Mis Asignaturas</option>
-                                    <option th:each="especialidad : ${especialidades}" th:value="${especialidad}"
-                                        th:text="${especialidad}" required></option>
-                                </select>
-                            </div>
-                        </div>
+                    
 
-                        <div class="col-3">
-                            <a th:href="@{/formAlumno}" class="btn btn-redPrimary w-100">Crear Alumno</a>
+                    <div class="row g-3 mb-4 align-items-start bg-white p-3 rounded shadow-sm w-50">
+
+                        <div class="col-12 pb-2">
+                            <a th:href="@{/formAlumno}" class="btn btn-redPrimary text-light w-100">Crear Alumno</a>
                         </div>
                     </div>
 
@@ -102,7 +87,7 @@
                                                     class="text-muted text-uppercase fs-7 fw-medium me-2">Asignaturas</small>
 
                                                 <i th:if="${!#lists.containsAll(alumnos.asignaturas, especialidades)}"
-                                                    class="bi bi-exclamation-circle-fill text-warning fs-6"
+                                                    class="bi bi-exclamation-circle-fill text-danger fs-6"
                                                     style="cursor: pointer;" data-bs-toggle="modal"
                                                     th:data-bs-target="'#modalAsignaturas-' + ${alumnos.dni}"></i>
                                             </div>
@@ -116,7 +101,7 @@
                                                 </span>
 
                                                 <span th:each="asignatura, asignatBucle : ${alumnos.asignaturas}"
-                                                    th:if="${asignatBucle.index < 2}" class="badge bg-success fw-normal"
+                                                    th:if="${asignatBucle.index < 2}" class="badge bg-dark fw-normal"
                                                     th:text="${asignatura}">
                                                 </span>
 
@@ -189,7 +174,8 @@
                                             class="col-12 col-md-2 d-flex gap-2 justify-content-start justify-content-md-end align-items-center">
 
                                             <a th:href="@{/perfil/{id}(id=${alumnos.dni})}"
-                                                class="btn btn-secondary text-white btn-sm px-2 py-1" title="Ver Perfil">
+                                                class="btn btn-secondary text-white btn-sm px-2 py-1"
+                                                title="Ver Perfil">
                                                 <i class="bi bi-eye-fill fs-6"></i>
                                             </a>
 

@@ -30,24 +30,24 @@ public class ProfesorController {
     private final EspecialidadServicio especiServicio;
     private final UsuarioServicio userServicio;
 
-    @GetMapping("/profesor")
+    @GetMapping("/admin/profesor")
     public String ProfesoresBase(Model model) {
         model.addAttribute("profesor", servicio.filtrarTodos());
 
-        return "profesores";
+        return "admin/profesores";
     }
 
-    @GetMapping("/formProfesor")
+    @GetMapping("/admin/formProfesor")
     public String formularioProfesor(Model model) {
 
         model.addAttribute("profesor", new Profesor());
         model.addAttribute("listaDepartamento", depaServicio.filtrarTodos());
         model.addAttribute("listaEspecialidad", especiServicio.filtrarTodos());
 
-        return "formProfesor";
+        return "admin/formProfesor";
     }
 
-    @PostMapping("/crearProfesor")
+    @PostMapping("/admin/crearProfesor")
     public String creadorProfesor(@ModelAttribute("datosForm") Profesor datosForm, Model model) {
 
         datosForm.setPassword(userServicio.encriptadorPasswords(datosForm.getPassword()));
@@ -57,10 +57,10 @@ public class ProfesorController {
         servicio.agregar(datosForm);
         datosForm.depurarDatos();
 
-        return "redirect:/formProfesor";
+        return "redirect:/admin/formProfesor";
     }
 
-    @GetMapping("/editar/profesor/{dni}")
+    @GetMapping("/admin/editar/profesor/{dni}")
     public String modificarAlumno(@PathVariable("dni") String dni, Model model) {
 
         Optional<Profesor> profesor = servicio.filtrarPorId(dni);
@@ -70,23 +70,23 @@ public class ProfesorController {
             model.addAttribute("listaDepartamento", depaServicio.filtrarTodos());
             model.addAttribute("listaEspecialidad", especiServicio.filtrarTodos());
 
-            return "formProfesor";
+            return "admin/formProfesor";
         } else {
-            return "redirect:/profesor";
+            return "redirect:/admin/profesor";
         }
 
     }
 
-    @PostMapping("/editProfesor")
+    @PostMapping("/admin/editProfesor")
     public String editorAlumno(@ModelAttribute("profesor") Profesor profesor) {
 
         servicio.modificar(profesor);
         profesor.creadorUsername();
 
-        return "redirect:/profesor";
+        return "redirect:/admin/profesor";
     }
 
-    @GetMapping("/eliminar/profesor/{dni}")
+    @GetMapping("/admin/eliminar/profesor/{dni}")
     public String borradorExamen(@PathVariable("dni") String dni) {
 
         Optional<Profesor> profesor = servicio.filtrarPorId(dni);
@@ -94,7 +94,7 @@ public class ProfesorController {
         if (profesor.isPresent())
             servicio.eliminar(profesor.get());
 
-        return "redirect:/profesor";
+        return "redirect:/admin/profesor";
     }
 
 }

@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.salesianos.dam.examtrack.model.Examen;
 import com.salesianos.dam.examtrack.model.Profesor;
+import com.salesianos.dam.examtrack.model.UsuarioRol;
 import com.salesianos.dam.examtrack.service.ExamenServicio;
 import com.salesianos.dam.examtrack.service.InscripcionesServicio;
 import com.salesianos.dam.examtrack.service.ProfesorServicio;
@@ -32,20 +36,26 @@ public class ExamenController {
     private final InscripcionesServicio inscripcionesServicio;
     
     @GetMapping ("/examenes")
-    public String misExamenesBase (Model model, @AuthenticationPrincipal Profesor profesores ,
-        @RequestParam(name="filtroBuscar", required=false, defaultValue="0") String filtroBuscar,
-        @RequestParam(name="filtroEstado", required=false, defaultValue="0") int filtroEstado,
-        @RequestParam(name="filtroAsignatura", required=false, defaultValue="0") String filtroAsignatura,
-        @RequestParam(name="filtroFecha", required=false, defaultValue="0") String filtroFecha) {
+    public String misExamenesBase (Model model, @AuthenticationPrincipal Profesor profesores) {
 
         LocalDateTime actualidad = LocalDateTime.now();
 
         model.addAttribute("actualidad", actualidad);
-        
-        model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesores.getDni()));
         model.addAttribute("alumnosInscritos", inscripcionesServicio.filtrarAlumnosInscritos());
 
-        model.addAttribute("examen", servicio.filtradorExamenes(filtroBuscar, filtroEstado, filtroAsignatura, filtroFecha));
+        UsuarioRol rol = profesores.getRol();
+        
+        switch (rol) {
+            case ADMIN:
+                model.addAttribute("examen", servicio.filtrarTodos());
+                break;
+            case PROFESOR:
+                model.addAttribute("examen", servicio.filtrarExamenesProfesor(profesores.getDni()).orElse(new ArrayList<>()));
+                model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesores.getDni()));
+                break;
+            default:
+                break;
+        }
 
         return "examenes";
     } 
@@ -56,16 +66,44 @@ public class ExamenController {
     @GetMapping ("/formExamen") 
     public String formularioExamen (Model model, @AuthenticationPrincipal Profesor profesores) {
 
+        UsuarioRol rol = profesores.getRol();
+        boolean isAdmin = (rol == UsuarioRol.ADMIN);
+        
+        model.addAttribute("isAdmin", isAdmin);
         model.addAttribute("examen", new Examen());
-        model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesores.getDni()));
+
+        if (isAdmin) {
+            model.addAttribute("especialidades", profeServicio.filtrarTodasEspecialidades());
+            
+
+            /*Hacer que no aparezca el admin como profesor para asignar */
+            List<Profesor> listaProfesores = profeServicio.filtrarTodos().stream()
+                .filter(p -> !p.getDni().equals(profesores.getDni()))
+                .toList();
+            model.addAttribute("listaProfesores", listaProfesores);
+        } else {
+            model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesores.getDni()));
+        }
 
         return "formExamenes";
     }
 
     @PostMapping ("/crearExamen") 
-    public String creadorExamen (@ModelAttribute("examen") Examen examen, Model model, @AuthenticationPrincipal Profesor profesores) {
+    public String creadorExamen (@ModelAttribute("examen") Examen examen, 
+                                 @RequestParam(value = "profesorDni", required = false) String profesorDni,
+                                 Model model, @AuthenticationPrincipal Profesor profesores) {
 
-        examen.setProfesor(profesores);
+        if (profesores.getRol() == UsuarioRol.ADMIN && profesorDni != null && !profesorDni.isEmpty()) {
+            Optional<Profesor> profSeleccionado = profeServicio.filtrarPorId(profesorDni);
+            if (profSeleccionado.isPresent()) {
+                examen.setProfesor(profSeleccionado.get());
+            } else {
+                examen.setProfesor(profesores);
+            }
+        } else {
+            examen.setProfesor(profesores);
+        }
+
         servicio.agregar(examen);
 
         /*Comprobacion de creacion objeto */
@@ -83,8 +121,21 @@ public class ExamenController {
 		Optional <Examen> examen = servicio.filtrarPorId(id);
 
 		if (examen.isPresent()) {
+            UsuarioRol rol = profesores.getRol();
+            boolean isAdmin = (rol == UsuarioRol.ADMIN);
+            
+            model.addAttribute("isAdmin", isAdmin);
             model.addAttribute("examen", examen.get());
-            model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesores.getDni()));
+
+            if (isAdmin) {
+                model.addAttribute("especialidades", profeServicio.filtrarTodasEspecialidades());
+                List<Profesor> listaProfesores = profeServicio.filtrarTodos().stream()
+                    .filter(p -> !p.getDni().equals(profesores.getDni()))
+                    .toList();
+                model.addAttribute("listaProfesores", listaProfesores);
+            } else {
+                model.addAttribute("especialidades", profeServicio.filtrarEspecialidades(profesores.getDni()));
+            }
 
 			return "formExamenes";
 		} else {
@@ -94,8 +145,22 @@ public class ExamenController {
 	}
 
     @PostMapping ("/editExamen")
-    public String editorExamen (@ModelAttribute("examen") Examen examen) {
+    public String editorExamen (@ModelAttribute("examen") Examen examen,
+                                @RequestParam(value = "profesorDni", required = false) String profesorDni,
+                                @AuthenticationPrincipal Profesor profesores) {
         
+        if (profesores.getRol() == UsuarioRol.ADMIN && profesorDni != null && !profesorDni.isEmpty()) {
+            Optional<Profesor> profSeleccionado = profeServicio.filtrarPorId(profesorDni);
+            if (profSeleccionado.isPresent()) {
+                examen.setProfesor(profSeleccionado.get());
+            } else {
+                examen.setProfesor(profesores);
+            }
+        } else {
+            
+            examen.setProfesor(profesores);
+        }
+
         servicio.modificar(examen);
 
         return "redirect:/examenes";

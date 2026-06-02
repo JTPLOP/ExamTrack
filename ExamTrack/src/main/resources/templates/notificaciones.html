@@ -37,7 +37,7 @@
                         <form th:action="@{/notificaciones}" method="get">
                             <input type="hidden" name="filtro" value="1">
                             <button type="submit"
-                                th:class="${filtro == 0 or filtro == 1} ? 'btn btn-redPrimary px-4 rounded-pill' : 'btn btn-greyPrimary px-4 rounded-pill'">
+                                th:class="${filtro == 0 or filtro == 1} ? 'btn btn-redPrimary text-light px-4 rounded-pill' : 'btn btn-greyPrimary px-4 rounded-pill'">
                                 Todos
                             </button>
                         </form>
@@ -45,7 +45,7 @@
                         <form th:action="@{/notificaciones}" method="get">
                             <input type="hidden" name="filtro" value="2">
                             <button type="submit"
-                                th:class="${filtro == 2} ? 'btn btn-redPrimary px-4 rounded-pill' : 'btn btn-greyPrimary px-4 rounded-pill'">
+                                th:class="${filtro == 2} ? 'btn btn-redPrimary text-light px-4 rounded-pill' : 'btn btn-greyPrimary px-4 rounded-pill'">
                                 Próximos Exámenes
                             </button>
                         </form>
@@ -53,7 +53,7 @@
                         <form th:action="@{/notificaciones}" method="get">
                             <input type="hidden" name="filtro" value="3">
                             <button type="submit"
-                                th:class="${filtro == 3} ? 'btn btn-redPrimary px-4 rounded-pill' : 'btn btn-greyPrimary px-4 rounded-pill'">
+                                th:class="${filtro == 3} ? 'btn btn-redPrimary text-light px-4 rounded-pill' : 'btn btn-greyPrimary px-4 rounded-pill'">
                                 Tareas Pendientes
                             </button>
                         </form>
@@ -64,8 +64,8 @@
                         <div th:each="proximoExamen : ${proximosExamenes}"
                             class="bg-light border rounded-3 p-3 mb-3 d-flex align-items-center shadow-sm">
 
-                            <img th:src="${profesor.fotoPerfil != null and !profesor.fotoPerfil.isEmpty() ? profesor.fotoPerfil : 'https://ui-avatars.com/api/?name=' + profesor.nombre + '&background=random'}"
-                                th:alt="'Avatar de ' + ${profesor.nombre}" class="rounded-circle me-3"
+                            <img th:src="${proximoExamen.profesor.fotoPerfil != null and !proximoExamen.profesor.fotoPerfil.isEmpty() ? proximoExamen.profesor.fotoPerfil : 'https://ui-avatars.com/api/?name=' + proximoExamen.profesor.nombre + '&background=random'}"
+                                th:alt="'Avatar de ' + ${proximoExamen.profesor.nombre}" class="rounded-circle me-3"
                                 style="width: 50px; height: 50px; object-fit: cover;">
 
                             <div class="flex-grow-1">
@@ -74,16 +74,13 @@
                                             class="text-muted"></span> </span>
                                 </h6>
                                 <p class="mb-0 text-secondary small">
-                                    Fecha: <span th:text="${proximoExamen.fecha}"></span> || Alumnos Inscritos:
+                                    Fecha: <span th:text="${#temporals.format(proximoExamen.fecha, 'dd/MM/yyyy')}"></span> || Alumnos Inscritos:
                                     <span
                                         th:if="${contadorNumAlumnos != null and contadorNumAlumnos.containsKey(proximoExamen.idExamen)}"
                                         th:text="${contadorNumAlumnos.get(proximoExamen.idExamen)}"></span>
                                 </p>
                             </div>
 
-                            <div class="ms-3">
-                                <button class="btn btn-redPrimary btn-sm px-4 rounded-pill me-5">Acción</button>
-                            </div>
                         </div>
 
                         <div th:if="${filtro == 2 and #lists.isEmpty(proximosExamenes)}"
@@ -114,9 +111,7 @@
                                 </p>
                             </div>
 
-                            <div class="ms-3">
-                                <button class="btn btn-redPrimary btn-sm px-4 rounded-pill me-5">Acción</button>
-                            </div>
+
                         </div>
 
                         <div th:if="${filtro == 3 and #lists.isEmpty(alumnosSinNotas)}"

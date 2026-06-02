@@ -1,5 +1,6 @@
 package com.salesianos.dam.examtrack.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -40,10 +41,9 @@ public class ExamenServicio extends ServicioBaseImpl <Examen, Long, ExamenReposi
 
     }
 
-    public List<Examen> filtradorExamenes (String filtroBusqueda, int filtroEstado, String filtroAsignatura, String filtroFecha) {
-
-        return examRepo.filtradorExamen(filtroBusqueda, filtroEstado, filtroAsignatura, filtroFecha);
-
+    public List<Examen> filtrarProximosExamenesAdmin () {
+        LocalDateTime fechaActual = LocalDateTime.now();
+        return examRepo.filtrarProximosExamenesAdmin(fechaActual);
     }
 
     public Optional <List<Examen>> filtrarExamenesProfesor (String dni) {
@@ -54,6 +54,18 @@ public class ExamenServicio extends ServicioBaseImpl <Examen, Long, ExamenReposi
     public Optional <List<Examen>> filtrarExamenesMes (String dni, int numMes) {
         
         return examRepo.filtrarExamenesMes(dni, numMes);
+    }
+
+    public Optional <List<Examen>> filtrarExamenesMesAdmin (int numMes) {
+        
+        return examRepo.filtrarExamenesMesAdmin(numMes);
+    }
+
+    public double contarExamenesMes () {
+        LocalDate fecha = LocalDate.now();
+        int numMes = fecha.getMonthValue();
+
+        return examRepo.contarExamenesMes(numMes);
     }
     
 

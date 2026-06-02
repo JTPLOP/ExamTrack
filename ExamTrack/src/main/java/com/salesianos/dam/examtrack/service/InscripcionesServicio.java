@@ -1,13 +1,16 @@
 package com.salesianos.dam.examtrack.service;
 
 import java.util.Optional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import com.salesianos.dam.examtrack.model.Alumno;
@@ -117,6 +120,133 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
                 .collect(Collectors.groupingBy(Inscripcion::getExamen,
                     Collectors.collectingAndThen(Collectors.toList(), list -> list.stream().map(Inscripcion::getAlumno).toList())));
 
+    }
+
+    public double contarAllAlumnos (String dni) {
+        LocalDateTime actualidad = LocalDateTime.now();
+
+        return (double)inscripcionRepo.contarAllAlumnos(actualidad, dni);
+    }
+
+    public double extraerPorcentajePresentados (String dni) {
+        int valor1, valor2;
+        double resultado;
+        
+        InscripcionEstados estado = InscripcionEstados.PRESENTADO;
+        LocalDateTime fecha = LocalDateTime.now();
+
+        valor1 = inscripcionRepo.contarAlumnosInscritoMesPasado(fecha, dni);
+        valor2 = inscripcionRepo.contarAlumnosPresentadoMesPasado(fecha,dni,estado);
+
+        /*Extraer Porcentaje */
+        
+        resultado = (valor2/valor1 *100);
+
+        return (double)resultado;
+    }
+
+    public double porcentajeAsistenciaMes (int numMes) {
+
+        int total = inscripcionRepo.contarTotalPorMes(numMes);
+        int presentados = inscripcionRepo.contarPorEstadoYMes(InscripcionEstados.PRESENTADO, numMes);
+        double resultado;
+
+        if (total == 0) {
+            return 0.0;
+        }
+        
+        resultado = (presentados * 100) / total;
+        return resultado;
+    }
+
+    public double porcentajeAprobadosMes (int numMes) {
+
+        int total = inscripcionRepo.contarTotalPorMes(numMes);
+        int aprobados = inscripcionRepo.contarPorEstadoYMes(InscripcionEstados.APROBADO, numMes);
+        double resultado;
+
+        if (total == 0) {
+            return 0.0;
+        }
+
+        resultado = (aprobados * 100) / total;
+        return resultado;
+    }
+
+    public List<Double> porcentajeAprobadosPorMes() {
+
+        List<Double> resultado = new ArrayList<>();
+
+        for (int mes = 1; mes <= 12; mes++) {
+
+            int total = inscripcionRepo.contarTotalPorMes(mes);
+            int aprobados = inscripcionRepo.contarPorEstadoYMes(InscripcionEstados.APROBADO, mes);
+
+            if (total == 0) {
+                resultado.add(0.0);
+            } else {
+                double porcentaje = (aprobados * 100) / total;
+                resultado.add(porcentaje);
+            }
+        }
+
+        return resultado;
+    }
+
+    public List<Double> porcentajeSuspensosPorMes() {
+
+        List<Double> resultado = new ArrayList<>();
+
+        for (int mes = 1; mes <= 12; mes++) {
+
+            int total = inscripcionRepo.contarTotalPorMes(mes);
+            int suspensos = inscripcionRepo.contarPorEstadoYMes(InscripcionEstados.SUSPENDIDO, mes);
+
+            if (total == 0) {
+                resultado.add(0.0);
+            } else {
+                double porcentaje = (suspensos * 100) / total;
+                resultado.add(porcentaje);
+            }
+        }
+
+        return resultado;
+    }
+
+    public List <Examen> filtrarExamenesMasInscripciones (String dni) {
+        return inscripcionRepo.filtrarExamenesMasInscripciones(dni);
+    }
+
+    public List <String> filtrarAsignaturasMasInscripciones (String dni) {
+        return inscripcionRepo.filtrarAsignaturasMasInscripciones(dni);
+    }
+
+    public List <Alumno> filtrarAlumnosConMasInscripciones (String dni) {
+
+        return inscripcionRepo.filtrarAlumnosConMasInscripciones(dni);
+
+    }
+
+    public double contarAllAlumnosAdmin () {
+        LocalDateTime actualidad = LocalDateTime.now();
+
+        return (double)inscripcionRepo.contarAllAlumnosAdmin(actualidad);
+    }
+
+    public List <Examen> filtrarExamenesMasInscripcionesAdmin () {
+        return inscripcionRepo.filtrarExamenesMasInscripcionesAdmin();
+    }
+
+    public List <String> filtrarAsignaturasMasInscripcionesAdmin () {
+        return inscripcionRepo.filtrarAsignaturasMasInscripcionesAdmin();
+    }
+
+    public List <Alumno> filtrarAlumnosConMasInscripcionesAdmin () {
+        return inscripcionRepo.filtrarAlumnosConMasInscripcionesAdmin();
+    }
+
+    public int contarAlumnosEvaluados (String dni) {
+        return inscripcionRepo.contarAlumnosEvaluados(dni);
     }
 
 }

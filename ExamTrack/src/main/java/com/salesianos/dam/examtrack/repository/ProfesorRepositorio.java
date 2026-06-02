@@ -15,4 +15,10 @@ public interface ProfesorRepositorio extends JpaRepository<Profesor,String> {
        """)
 	List<String> filtrarEspecialidades(String dni);
        
+    @Query("""
+        select distinct e.nombre
+        from Profesor p join p.especialidades e
+       """)
+    List<String> filtrarTodasEspecialidades();
+       
 }

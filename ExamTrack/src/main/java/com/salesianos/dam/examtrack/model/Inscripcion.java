@@ -45,7 +45,7 @@ public class Inscripcion {
 
     @ManyToOne
     @MapsId ("dni")
-    @JoinColumn (name = "dni_Alumno")
+    @JoinColumn (name = "dni_alumno")
     private Alumno alumno;
 
     /*Metodos helpers para la asociacion bidireccional */

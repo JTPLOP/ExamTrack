@@ -37,17 +37,17 @@
                         <div class="col-12 col-md-auto ms-md-auto text-end" th:switch="${usuario.rol.name()}">
 
                             <a th:case="'ALUMNO'" th:href="@{/alumnos}"
-                                class="btn btn-redPrimary rounded-pill px-4 py-2 fw-semibold shadow-sm fs-6">
+                                class="btn btn-redPrimary text-light rounded-pill px-4 py-2 fw-semibold shadow-sm fs-6">
                                 <i class="bi me-2"></i>Volver atrás
                             </a>
 
-                            <a th:case="'PROFESOR'" th:href="@{/}"
-                                class="btn btn-redPrimary rounded-pill px-4 py-2 fw-semibold shadow-sm fs-6">
+                            <a th:case="'PROFESOR'" th:href="@{/inicio}"
+                                class="btn btn-redPrimary text-light rounded-pill px-4 py-2 fw-semibold shadow-sm fs-6">
                                 <i class="bi me-2"></i>Volver atrás
                             </a>
 
-                            <a th:case="ADMIN" th:href="@{/}"
-                                class="btn btn-redPrimary rounded-pill px-4 py-2 fw-semibold shadow-sm fs-6">
+                            <a th:case="ADMIN" th:href="@{/inicio}"
+                                class="btn btn-redPrimary text-light rounded-pill px-4 py-2 fw-semibold shadow-sm fs-6">
                                 <i class="bi me-2"></i>Volver atrás
                             </a>
 
@@ -110,7 +110,7 @@
                                     <i class="bi bi-pencil-square me-2"></i>Editar datos
                                 </a>
 
-                                <a th:case="'PROFESOR'" th:href="@{/editar/profesor/{id}(id=${usuario.dni})}"
+                                <a th:case="'PROFESOR'" th:href="@{/admin/editar/profesor/{id}(id=${usuario.dni})}"
                                     class="btn btn-dark rounded-pill px-4 py-2 fw-semibold shadow-sm fs-6">
                                     <i class="bi bi-pencil-square me-2"></i>Editar datos
                                 </a>
@@ -126,85 +126,173 @@
                     </div>
 
                     <div class="container-fluid mt-5 p-0" th:if="${usuario.rol.name() == 'ALUMNO'}">
-                        <div class="row g-4">
-
-                            <div class="col-12 col-md-4">
-                                <div class="card border-0 shadow-sm rounded-4 h-100">
-                                    <div
-                                        class="card-header bg-white border-bottom pt-4 pb-3 px-4 d-flex justify-content-between align-items-center">
-                                        <h5 class="fw-bold text-dark mb-0">Asignaturas</h5>
-                                        <button type="button" class="btn btn-primary btn-sm rounded-pill px-3"
-                                            data-bs-toggle="modal"
-                                            th:data-bs-target="'#modalAsignaturas-' + ${usuario.dni}">
-                                            <i class="bi bi-plus-circle me-1"></i> Gestionar
+                        <h3 class="mb-4 fw-bold text-dark">Estadísticas del Alumno</h3>
+                        
+                        <div class="row g-4 align-items-stretch" style="min-height: 380px;">
+                            
+                            <div class="col-12 col-lg-3 d-flex flex-column gap-3">
+                                <div class="card bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center justify-content-center p-3 text-center flex-grow-1">
+                                    <i class="bi bi-people-fill text-secondary fs-2 mb-2"></i>
+                                    <span class="text-muted small fw-bold text-uppercase mb-2">Grupo</span>
+                                    <h5 class="fw-bold text-dark mb-0" th:text="${usuario.grupo != null and usuario.grupo != '' ? usuario.grupo : 'Sin grupo'}">2º DAM</h5>
+                                </div>
+                                
+                                <div class="card bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center p-3 text-center flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-center w-100 mb-2">
+                                        <span class="text-muted small fw-bold text-uppercase">Asignaturas</span>
+                                        <button type="button" class="btn btn-secondary btn-sm rounded-pill px-2 py-1" style="font-size: 0.75rem;"
+                                            data-bs-toggle="modal" th:data-bs-target="'#modalAsignaturas-' + ${usuario.dni}">
+                                            <i class="bi bi-plus-circle"></i> Agregar
                                         </button>
                                     </div>
-                                    <div class="card-body p-3 overflow-auto" style="max-height: 250px;">
-                                        <div th:if="${usuario.asignaturas == null or #lists.isEmpty(usuario.asignaturas)}"
-                                            class="text-center text-muted py-4">
-                                            <small>No estás inscrito en ninguna asignatura.</small>
+                                    <div class="d-flex flex-wrap gap-2 justify-content-center w-100 mt-1 overflow-auto" style="max-height: 100px;">
+                                        <div th:if="${usuario.asignaturas == null or #lists.isEmpty(usuario.asignaturas)}" class="text-muted small py-2">
+                                            Sin asignaturas
                                         </div>
-                                        <div th:if="${usuario.asignaturas != null and not #lists.isEmpty(usuario.asignaturas)}"
-                                            class="d-flex flex-wrap gap-2">
-                                            <span th:each="asignatura : ${usuario.asignaturas}"
-                                                class="badge bg-primary bg-opacity-10 text-primary border border-primary-subtle fw-medium px-3 py-2"
-                                                style="font-size: 0.85rem;" th:text="${asignatura}">
+                                        <span th:each="asignatura : ${usuario.asignaturas}"
+                                            class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary-subtle fw-medium px-2 py-1"
+                                            th:text="${asignatura}">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-3">
+                                <div class="card h-100 bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center justify-content-center p-3 text-center">
+                                    <i class="bi bi-journal-text text-secondary fs-1 mb-3"></i>
+                                    <span class="text-muted small fw-bold text-uppercase mb-2">Exámenes Inscritos</span>
+                                    <h2 class="display-4 fw-bolder text-dark mb-0" th:text="${usuario.inscripcion != null ? usuario.inscripcion.size() : 0}">
+                                        0
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-3">
+                                <div class="card h-100 bg-light border border-4 border-white shadow rounded-4 p-3">
+                                    <div class="text-center mb-3">
+                                        <i class="bi bi-calendar-event text-secondary fs-3 mb-1 d-block"></i>
+                                        <span class="text-muted small fw-bold text-uppercase">Próximos Exámenes</span>
+                                    </div>
+                                    <div class="gap-2 overflow-auto" style="max-height: 250px;">
+                                        <a th:each="examen : ${proximosExamenes}" 
+                                           th:href="@{/examen/detalle/{id}(id=${examen.idExamen})}"
+                                           class="list-group-item list-group-item-action rounded-3 border-0 shadow-sm d-flex justify-content-between align-items-center px-3 py-2 my-1 bg-white">
+                                            <div class="text-truncate fw-semibold text-dark" style="max-width: 70%;" th:text="${examen.nombre}">
+                                                Examen
+                                            </div>
+                                            <small class="text-muted fw-bold" th:text="${#temporals.format(examen.fecha, 'dd/MM')}">12/05</small>
+                                        </a>
+                                        <div th:if="${proximosExamenes == null or #lists.isEmpty(proximosExamenes)}" class="text-center text-muted py-4">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-3">
+                                <div class="card h-100 bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center justify-content-center p-3 text-center">
+                                    <i class="bi bi-pie-chart-fill text-secondary fs-1 mb-3"></i>
+                                    <span class="text-muted small fw-bold text-uppercase mb-2">Porcentaje Aprobado</span>
+                                    <h2 class="display-4 fw-bolder text-dark mb-0" th:text="${#numbers.formatDecimal(porcentajeAprobado, 1, 0) + '%'}">
+                                        0%
+                                    </h2>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        <div class="modal fade" th:id="'modalAsignaturas-' + ${usuario.dni}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <form th:action="@{/alumno/asignatura/add/{id}(id=${usuario.dni})}" method="get">
+                                        <div class="modal-body">
+                                            <p class="mb-3 text-muted fs-6">
+                                                Aquí se listan tus asignaturas como profesor. Si quieres agregar a <strong th:text="${usuario.nombre}"></strong> en alguna de ellas, simplemente marca las casillas a continuación:
+                                            </p>
+                                            
+                                            <div th:each="especialidad : ${especialidades}"
+                                                 th:if="${ !#lists.contains(usuario.asignaturas, especialidad)}"
+                                                 class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" name="nuevasAsignaturas" th:value="${especialidad}">
+                                                <label class="form-check-label" th:text="${especialidad}">Nombre de la Asignatura</label>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-redPrimary text-light">Guardar cambios</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid mt-5 p-0" th:if="${usuario.rol.name() == 'PROFESOR'}">
+                        <h3 class="mb-4 fw-bold text-dark">Estadísticas del Profesor</h3>
+                        
+                        <div class="row g-4 align-items-stretch" style="min-height: 380px;">
+                            
+                            <div class="col-12 col-lg-3 d-flex flex-column gap-3">
+                                <div class="card bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center justify-content-center p-3 text-center flex-grow-1">
+                                    <i class="bi bi-building-fill text-secondary fs-2 mb-2"></i>
+                                    <span class="text-muted small fw-bold text-uppercase mb-2">Departamento</span>
+                                    <h5 class="fw-bold text-dark mb-0" th:text="${usuario.departamento != null ? usuario.departamento.nombre : 'Sin asignar'}">Informática</h5>
+                                </div>
+                                
+                                <div class="card bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center justify-content-center p-3 text-center flex-grow-1">
+                                    <i class="bi bi-tags-fill text-secondary fs-2 mb-2"></i>
+                                    <span class="text-muted small fw-bold text-uppercase mb-2">Especialidades</span>
+                                    <div class="d-flex flex-wrap gap-2 justify-content-center mt-1">
+                                        <div th:if="${usuario.especialidades == null or #lists.isEmpty(usuario.especialidades)}" class="text-muted small">
+                                            Sin especialidades
+                                        </div>
+                                        <span th:each="especialidad : ${usuario.especialidades}" 
+                                              class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary-subtle fw-medium px-2 py-1"
+                                              th:text="${especialidad.nombre}">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-3">
+                                <div class="card h-100 bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center justify-content-center p-3 text-center">
+                                    <i class="bi bi-journal-check text-secondary fs-1 mb-3"></i>
+                                    <span class="text-muted small fw-bold text-uppercase mb-2">Exámenes Creados</span>
+                                    <h2 class="display-4 fw-bolder text-dark mb-0" th:text="${usuario.examen != null ? usuario.examen.size() : 0}">
+                                        0
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-3">
+                                <div class="card h-100 bg-light border border-4 border-white shadow rounded-4 p-3">
+                                    <div class="text-center mb-3">
+                                        <i class="bi bi-people-fill text-secondary fs-3 mb-1 d-block"></i>
+                                        <span class="text-muted small fw-bold text-uppercase">Top Exámenes</span>
+                                    </div>
+                                    <div class="gap-2 overflow-auto" style="max-height: 250px;">
+                                        <a th:each="examen : ${topExamenesProfesor}" 
+                                           th:href="@{/examen/inscripciones/{id}(id=${examen.idExamen})}"
+                                           class="list-group-item list-group-item-action rounded-3 border-0 shadow-sm d-flex justify-content-between align-items-center px-3 py-2 my-1 bg-white">
+                                            <div class="text-truncate fw-semibold text-dark" style="max-width: 75%;" th:text="${examen.nombre}">
+                                                Examen de prueba
+                                            </div>
+                                            <span class="badge bg-secondary rounded-pill" th:text="${examen.inscripcion != null ? examen.inscripcion.size() : 0}">
+                                                0
                                             </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="modal fade" th:id="'modalAsignaturas-' + ${usuario.dni}" tabindex="-1"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-
-                                        <div class="modal-content">
-                                            <form th:action="@{/alumno/asignatura/add/{id}(id=${usuario.dni})}"
-                                                method="get">
-
-                                                <div class="modal-body">
-                                                    <p class="mb-3 text-muted fs-6"><span th:text="${usuario.nombre}">
-                                                        </span> no esta
-                                                        inscrito es
-                                                        algunas de tus asignaturas. Seleccione abajo si
-                                                        quieres agregarle a alguna de tus
-                                                        asignaturas:</span>
-                                                    </p>
-
-                                                    <div th:each="especialidad : ${especialidades}"
-                                                        th:if="${ !#lists.contains(usuario.asignaturas, especialidad)}"
-                                                        class="form-check mb-2">
-
-                                                        <input class="form-check-input" type="checkbox"
-                                                            name="nuevasAsignaturas" th:value="${especialidad}">
-
-                                                        <label class="form-check-label" th:text="${especialidad}">
-                                                            Nombre de la Asignatura
-                                                        </label>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Cerrar</button>
-                                                    <button type="submit" class="btn btn-redPrimary text-light">Guardar
-                                                        cambios</button>
-                                                </div>
-
-                                            </form>
-                                        </div>
+                                        </a>
+                                       
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-4">
-                                <div class="card border-0 shadow-sm rounded-4 h-100 bg-white"></div>
-                            </div>
-
-                            <div class="col-12 col-md-4">
-                                <div class="card border-0 shadow-sm rounded-4 h-100 bg-white"></div>
+                            <div class="col-12 col-lg-3">
+                                <div class="card h-100 bg-light border border-4 border-white shadow rounded-4 d-flex flex-column align-items-center justify-content-center p-3 text-center">
+                                    <i class="bi bi-person-badge-fill text-secondary fs-1 mb-3"></i>
+                                    <span class="text-muted small fw-bold text-uppercase mb-2">Total Alumnos Evaluados</span>
+                                    <h2 class="display-4 fw-bolder text-dark mb-0" th:text="${numEvaluados}">
+                                        0
+                                    </h2>
+                                </div>
                             </div>
 
                         </div>

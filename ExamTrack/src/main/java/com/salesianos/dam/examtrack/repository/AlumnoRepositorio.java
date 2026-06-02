@@ -22,4 +22,21 @@ public interface AlumnoRepositorio extends JpaRepository<Alumno, String> {
              where asig like :asignatura
             """)
     List<Alumno> filtrarPorAsignatura(String asignatura);
+
+    @Query("""
+             select i.examen
+             from Alumno a join a.inscripcion i
+             where a.dni = :dni and i.examen.fecha > :actualidad
+             order by i.examen.fecha asc
+             limit 5
+            """)
+    List<Examen> filtrarProximosExamenes(String dni, LocalDateTime actualidad);
+
+    @Query("""
+             select count(i)
+             from Alumno a join a.inscripcion i join i.estados est
+             where a.dni = :dni and est = :estado
+            """)
+    int contarExamenesPorEstadoAlumno(String dni, com.salesianos.dam.examtrack.model.InscripcionEstados estado);
+    
 }

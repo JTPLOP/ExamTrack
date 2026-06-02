@@ -22,59 +22,59 @@ public class EspecialidadController {
 
     private final EspecialidadServicio servicio;
 
-    @GetMapping("/especialidades")
+    @GetMapping("/admin/especialidades")
     public String especialidadesBase(Model model) {
         model.addAttribute("especialidad", servicio.filtrarTodos());
-        return "especialidades";
+        return "admin/especialidades";
     }
 
-    @GetMapping("/formEspecialidad")
+    @GetMapping("/admin/formEspecialidad")
     public String formularioEspecialidad(Model model) {
         model.addAttribute("especialidad", new Especialidad());
-        return "formEspecialidad";
+        return "admin/formEspecialidad";
     }
 
-    @PostMapping("/crearEspecialidad")
+    @PostMapping("/admin/crearEspecialidad")
     public String creadorEspecialidad(@Valid @ModelAttribute("especialidad") Especialidad especialidad, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "formEspecialidad";
+            return "admin/formEspecialidad";
         }
 
         servicio.agregar(especialidad);
 
-        return "redirect:/especialidades";
+        return "redirect:/admin/especialidades";
     }
 
-    @GetMapping("/editar/especialidad/{id}")
+    @GetMapping("/admin/editar/especialidad/{id}")
     public String modificarEspecialidad(@PathVariable("id") Long id, Model model) {
 
         Optional<Especialidad> especialidad = servicio.filtrarPorId(id);
 
         if (especialidad.isPresent()) {
             model.addAttribute("especialidad", especialidad.get());
-            return "formEspecialidad";
+            return "admin/formEspecialidad";
         } else {
-            return "redirect:/especialidades";
+            return "redirect:/admin/especialidades";
         }
     }
 
-    @PostMapping("/editEspecialidad")
+    @PostMapping("/admin/editEspecialidad")
     public String editorEspecialidad(@Valid @ModelAttribute("especialidad") Especialidad especialidad, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "formEspecialidad";
+            return "admin/formEspecialidad";
         }
 
         servicio.modificar(especialidad);
 
-        return "redirect:/especialidades";
+        return "redirect:/admin/especialidades";
     }
 
-    @GetMapping("/eliminar/especialidad/{id}")
+    @GetMapping("/admin/eliminar/especialidad/{id}")
     public String eliminarEspecialidad(@PathVariable("id") Long id) {
         servicio.eliminarPorId(id);
-        return "redirect:/especialidades";
+        return "redirect:/admin/especialidades";
     }
 
 }

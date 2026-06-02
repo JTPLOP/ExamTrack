@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Especialidad</title>
+    <title>Crear Departamento</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -31,24 +31,24 @@
 
                 <div class="w-100 p-4" style="max-width: 650px;">
 
-                    <h2 class="fw-bold mb-3" th:text="${especialidad.idEspecialidad != null} ? 'Editar Especialidad' : 'Crear nueva Especialidad'">Crear nueva Especialidad</h2>
+                    <h2 class="fw-bold mb-3" th:text="${departamento.idDepartamento != null} ? 'Editar Departamento' : 'Crear nuevo Departamento'">Crear nuevo Departamento</h2>
                     <hr class="mb-4" />
 
-                    <form method="post" class="needs-validation" th:action="${especialidad.idEspecialidad != null} ? @{/editEspecialidad} : @{/crearEspecialidad}" th:object="${especialidad}" novalidate>
+                    <form method="post" class="needs-validation" th:action="${departamento.idDepartamento != null} ? @{/admin/editDepartamento} : @{/admin/crearDepartamento}" th:object="${departamento}" novalidate>
 
-                        <input type="hidden" th:field="*{idEspecialidad}">
+                        <input type="hidden" th:field="*{idDepartamento}">
 
                         <div class="mb-4">
-                            <label for="nombreEspecialidad" class="form-label fw-semibold">Nombre de la Especialidad</label>
-                            <input type="text" id="nombreEspecialidad" class="form-control form-control-lg fs-6" name="nombre"
+                            <label for="nombreDepartamento" class="form-label fw-semibold">Nombre del Departamento</label>
+                            <input type="text" id="nombreDepartamento" class="form-control form-control-lg fs-6" name="nombre"
                                 th:field="*{nombre}" th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid'" required minlength="2" maxlength="100"
-                                placeholder="Ej: Bases de Datos">
+                                placeholder="Ej: Departamento de Informática">
                             <div class="invalid-feedback"><span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span></div>
                         </div>
 
                         <button type="submit" class="btn btn-redPrimary btn-lg w-100 rounded-pill mt-2"
-                            th:text="${especialidad.idEspecialidad != null} ? 'Guardar cambios' : 'Crear Especialidad'">Crear
-                            Especialidad</button>
+                            th:text="${departamento.idDepartamento != null} ? 'Guardar cambios' : 'Crear Departamento'">Crear
+                            Departamento</button>
                     </form>
 
                 </div>
