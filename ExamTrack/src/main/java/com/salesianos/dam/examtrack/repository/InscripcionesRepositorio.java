@@ -115,6 +115,40 @@ public interface InscripcionesRepositorio extends JpaRepository<Inscripcion, Ins
         List<Alumno> filtrarAlumnosConMasInscripciones(String dni);
 
         @Query("""
+                         select e
+                         from Inscripcion i join i.examen e
+                         group by e
+                         order by count(i) desc
+                         limit 3
+                        """)
+        List<Examen> filtrarExamenesMasInscripcionesAdmin();
+
+        @Query("""
+                         select e.asignatura
+                         from Inscripcion i join i.examen e
+                         group by e.asignatura
+                         order by count(i) desc
+                         limit 3
+                        """)
+        List<String> filtrarAsignaturasMasInscripcionesAdmin();
+
+        @Query("""
+                         select a
+                         from Inscripcion i join i.examen e join i.alumno a
+                         group by a
+                         order by count(i) desc
+                         limit 3
+                        """)
+        List<Alumno> filtrarAlumnosConMasInscripcionesAdmin();
+
+        @Query("""
+                         select count(a.dni)
+                         from Inscripcion i join i.alumno a join i.examen e
+                         where e.fecha > :actualidad
+                        """)
+        int contarAllAlumnosAdmin(LocalDateTime actualidad);
+
+        @Query("""
                          select count(i)
                          from Inscripcion i join i.examen e
                          where e.profesor.dni = :dni and i.observaciones is not null

@@ -227,6 +227,24 @@ public class InscripcionesServicio extends ServicioBaseImpl<Inscripcion, Inscrip
 
     }
 
+    public double contarAllAlumnosAdmin () {
+        LocalDateTime actualidad = LocalDateTime.now();
+
+        return (double)inscripcionRepo.contarAllAlumnosAdmin(actualidad);
+    }
+
+    public List <Examen> filtrarExamenesMasInscripcionesAdmin () {
+        return inscripcionRepo.filtrarExamenesMasInscripcionesAdmin();
+    }
+
+    public List <String> filtrarAsignaturasMasInscripcionesAdmin () {
+        return inscripcionRepo.filtrarAsignaturasMasInscripcionesAdmin();
+    }
+
+    public List <Alumno> filtrarAlumnosConMasInscripcionesAdmin () {
+        return inscripcionRepo.filtrarAlumnosConMasInscripcionesAdmin();
+    }
+
     public int contarAlumnosEvaluados (String dni) {
         return inscripcionRepo.contarAlumnosEvaluados(dni);
     }
