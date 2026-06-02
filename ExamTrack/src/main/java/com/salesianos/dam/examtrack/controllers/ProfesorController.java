@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import com.salesianos.dam.examtrack.model.Usuario;
 import com.salesianos.dam.examtrack.model.Especialidad;
 import com.salesianos.dam.examtrack.model.Profesor;
 import com.salesianos.dam.examtrack.model.UsuarioRol;
@@ -32,7 +34,14 @@ public class ProfesorController {
 
     @GetMapping("/admin/profesor")
     public String ProfesoresBase(Model model) {
-        model.addAttribute("profesor", servicio.filtrarTodos());
+        List<Profesor> todos = servicio.filtrarTodos();
+        List<Profesor> sinAdmin = new ArrayList<>();
+        for (Profesor p : todos) {
+            if (p.getRol() != UsuarioRol.ADMIN) {
+                sinAdmin.add(p);
+            }
+        }
+        model.addAttribute("profesor", sinAdmin);
 
         return "admin/profesores";
     }
@@ -78,8 +87,13 @@ public class ProfesorController {
     }
 
     @PostMapping("/admin/editProfesor")
-    public String editorAlumno(@ModelAttribute("profesor") Profesor profesor) {
+    public String editorAlumno(@ModelAttribute("profesor") Profesor profesor, @AuthenticationPrincipal Usuario currentUser) {
 
+        if (currentUser != null && currentUser.getDni().equals(profesor.getDni())) {
+            return "redirect:/inicio?errorAccion=true";
+        }
+
+        
         servicio.modificar(profesor);
         profesor.creadorUsername();
 
@@ -87,7 +101,11 @@ public class ProfesorController {
     }
 
     @GetMapping("/admin/eliminar/profesor/{dni}")
-    public String borradorExamen(@PathVariable("dni") String dni) {
+    public String borradorExamen(@PathVariable("dni") String dni, @AuthenticationPrincipal Usuario currentUser) {
+
+        if (currentUser != null && currentUser.getDni().equals(dni)) {
+            return "redirect:/inicio?errorAccion=true";
+        }
 
         Optional<Profesor> profesor = servicio.filtrarPorId(dni);
 

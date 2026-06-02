@@ -31,7 +31,7 @@
 
                 <div class="w-100 p-4" style="max-width: 650px;">
 
-                    <h2 class="fw-bold mb-3">Crear nuevo Profesor</h2>
+                    <h2 class="fw-bold mb-3" th:text="${profesor.dni != null and profesor.dni != ''} ? 'Editar Profesor' : 'Crear nuevo Profesor'">Crear nuevo Profesor</h2>
                     <hr class="mb-4" />
 
                     <form method="post" 
@@ -118,8 +118,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-redPrimary btn-lg w-100 rounded-pill mt-2">Crear
-                            Profesor</button>
+                        <button type="submit" class="btn btn-redPrimary btn-lg w-100 rounded-pill mt-2" th:text="${profesor.dni != null and profesor.dni != ''} ? 'Editar Profesor' : 'Crear Profesor'">Crear Profesor</button>
                     </form>
 
                 </div>

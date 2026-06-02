@@ -31,7 +31,7 @@
 
                 <div class="w-100 p-4" style="max-width: 650px;">
 
-                    <h2 class="fw-bold mb-3">Crear nuevo alumno</h2>
+                    <h2 class="fw-bold mb-3" th:text="${alumno.dni != null and alumno.dni != ''} ? 'Editar alumno' : 'Crear nuevo alumno'">Crear nuevo alumno</h2>
                     <hr class="mb-4" />
 
                     <form method="post" th:action="${alumno.dni != null} ? @{/editAlumno} : @{/crearAlumno}" th:object="${alumno}">
@@ -111,8 +111,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-redPrimary btn-lg w-100 rounded-pill mt-2">Crear
-                            alumno</button>
+                        <button type="submit" class="btn btn-redPrimary btn-lg w-100 rounded-pill mt-2" th:text="${alumno.dni != null and alumno.dni != ''} ? 'Editar alumno' : 'Crear alumno'">Crear alumno</button>
                     </form>
 
                 </div>

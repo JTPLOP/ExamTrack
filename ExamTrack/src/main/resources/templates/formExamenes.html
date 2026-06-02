@@ -34,7 +34,7 @@
                     <form method="post" th:action="${examen.idExamen != null} ? @{/editExamen} : @{/crearExamen}"
                         th:object="${examen}">
 
-                        <h2 class="fw-bold mb-3">Crear Examen</h2>
+                        <h2 class="fw-bold mb-3" th:text="${examen.idExamen != null} ? 'Editar Examen' : 'Crear Examen'">Crear Examen</h2>
 
                         <hr class="mb-4" />
 
@@ -107,8 +107,7 @@
                         </div>
 
 
-                        <button type="submit" class="btn btn-redPrimary btn-lg w-100 rounded-pill mt-2">Crear
-                            Examen</button>
+                        <button type="submit" class="btn btn-redPrimary btn-lg w-100 rounded-pill mt-2" th:text="${examen.idExamen != null} ? 'Editar Examen' : 'Crear Examen'">Crear Examen</button>
                     </form>
 
                 </div>
