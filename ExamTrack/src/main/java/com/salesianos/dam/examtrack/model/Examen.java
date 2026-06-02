@@ -14,6 +14,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,17 +36,29 @@ public class Examen {
     @GeneratedValue
     @Column(nullable = false) 
     private Long idExamen;
-
+ 
+    @NotBlank(message = "El nombre del examen es obligatorio")
+    @Size(min = 4, max = 75)
+    @Column(nullable = false, length = 75)
     private String nombre;
 
-    @Column(columnDefinition = "TEXT")
+    @NotBlank(message = "La descripción es obligatoria")
+    @Size(min = 0, max = 250)
+    @Column(nullable = false, length = 75)
     private String descripcion;
 
+    @NotNull(message = "La fecha es obligatoria")
     private LocalDateTime fecha;
+
+
+    @NotBlank(message = "El aula es obligatoria")
     private String aula;
+
     private double puntuacionMax;
+
     private double duracionMinutos;
-    private int numPlazas;
+    
+    @NotBlank(message = "La asignatura es obligatoria")
     private String asignatura;
     
     // Relacion Tabla intermedia

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -24,6 +26,8 @@ import lombok.experimental.SuperBuilder;
 @Getter @Setter @ToString
 public class Alumno extends Usuario {
     
+    @NotBlank(message = "El grupo es obligatorio")
+    @Column(nullable = false)
     private String grupo;
 
     @Builder.Default

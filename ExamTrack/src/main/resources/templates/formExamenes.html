@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <script th:src="@{/js/rangoFormulario}" defer></script>
+
+    <script th:src="@{/js/validacion.js}" defer></script>
 </head>
 
 <body>
@@ -31,8 +33,8 @@
 
                 <div class="w-100 p-4" style="max-width: 650px;">
 
-                    <form method="post" th:action="${examen.idExamen != null} ? @{/editExamen} : @{/crearExamen}"
-                        th:object="${examen}">
+                    <form method="post" class="needs-validation" th:action="${examen.idExamen != null} ? @{/editExamen} : @{/crearExamen}"
+                        th:object="${examen}" novalidate>
 
                         <h2 class="fw-bold mb-3" th:text="${examen.idExamen != null} ? 'Editar Examen' : 'Crear Examen'">Crear Examen</h2>
 
@@ -43,23 +45,26 @@
                         <div class="mb-4">
                             <label for="exampleInputEmail1" class="form-label fw-semibold">Nombre del examen</label>
                             <input type="text" class="form-control form-control-lg fs-6" name="nombre"
-                                th:field="*{nombre}">
+                                th:field="*{nombre}" th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid'" required minlength="4" maxlength="75">
+                            <div class="invalid-feedback"><span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span></div>
                         </div>
 
                         <div class="mb-4">
                             <label for="exampleFormControlTextarea1" class="form-label fw-semibold">Descripción del
                                 examen</label>
                             <textarea class="form-control fs-6" rows="3" name="descripcion"
-                                th:field="*{descripcion}"></textarea>
+                                th:field="*{descripcion}" th:classappend="${#fields.hasErrors('descripcion')} ? 'is-invalid'" required maxlength="250"></textarea>
+                            <div class="invalid-feedback"><span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></span></div>
                         </div>
 
                         <div class="mb-4">
                             <label for="exampleFormControlTextarea1" class="form-label fw-semibold">Asignatura</label>
                             <select class="form-select form-select-md" aria-label="Small select example"
-                                name="asignatura" th:field="*{asignatura}">
+                                name="asignatura" th:field="*{asignatura}" th:classappend="${#fields.hasErrors('asignatura')} ? 'is-invalid'" required>
                                 <option value="">Escoge aquí tu asignatura</option>
-                                <option th:each="especialidad : ${especialidades}" th:value="${especialidad}" th:text="${especialidad}" required></option>
+                                <option th:each="especialidad : ${especialidades}" th:value="${especialidad}" th:text="${especialidad}"></option>
                             </select>
+                            <div class="invalid-feedback"><span th:if="${#fields.hasErrors('asignatura')}" th:errors="*{asignatura}"></span></div>
                         </div>
 
                         <div th:if="${isAdmin}" class="mb-4">
@@ -84,25 +89,14 @@
                             <div class="col-md-6 mb-4">
                                 <label for="fecha" class="form-label fw-semibold">Fecha y Hora</label>
                                 <input type="datetime-local" class="form-control form-control-lg fs-6" id="fecha" name="fecha"
-                                    th:field="*{fecha}" required>
+                                    th:field="*{fecha}" th:classappend="${#fields.hasErrors('fecha')} ? 'is-invalid'" required>
+                                <div class="invalid-feedback"><span th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></span></div>
                             </div>
 
                             <div class="col-md-6 mb-4">
                                 <label for="aula" class="form-label fw-semibold">Aula</label>
-                                <input type="text" class="form-control form-control-lg fs-6" id="aula" name="aula" th:field="*{aula}" required>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <label for="puntuacionMax" class="form-label fw-semibold">Puntuación Máxima</label>
-                                <input type="number" step="0.1" class="form-control form-control-lg fs-6" id="puntuacionMax" name="puntuacionMax"
-                                    th:field="*{puntuacionMax}" required>
-                            </div>
-
-                            <div class="col-md-6 mb-4">
-                                <label for="numPlazas" class="form-label fw-semibold">Número de Plazas</label>
-                                <input type="number" class="form-control form-control-lg fs-6" id="numPlazas" name="numPlazas" th:field="*{numPlazas}" required>
+                                <input type="text" class="form-control form-control-lg fs-6" id="aula" name="aula" th:field="*{aula}" th:classappend="${#fields.hasErrors('aula')} ? 'is-invalid'" required>
+                                <div class="invalid-feedback"><span th:if="${#fields.hasErrors('aula')}" th:errors="*{aula}"></span></div>
                             </div>
                         </div>
 

@@ -8,6 +8,7 @@ import org.springframework.cglib.core.Local;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,8 @@ import com.salesianos.dam.examtrack.model.UsuarioRol;
 import com.salesianos.dam.examtrack.service.ExamenServicio;
 import com.salesianos.dam.examtrack.service.InscripcionesServicio;
 import com.salesianos.dam.examtrack.service.ProfesorServicio;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 

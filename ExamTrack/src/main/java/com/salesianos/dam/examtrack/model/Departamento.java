@@ -30,8 +30,8 @@ public class Departamento {
     @Column(nullable = false) 
     private Long idDepartamento;
 
-    @NotBlank(message = "El nombre del departamento es obligatorio")
-    @Size (min = 5, max = 100)
+    @Size(min = 4, max = 100)
+    @Column(nullable = false, length = 100)
     private String nombre;
 
     @OneToMany (mappedBy = "departamento", fetch = FetchType.EAGER)
