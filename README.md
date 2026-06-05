@@ -1,3 +1,5 @@
+![ExamTrack Banner](./assets/banner.png)
+
 # ExamTrack
 
 ExamTrack es una aplicación web enfocada en la gestión de convocatorias de exámenes, alumnados participantes y resultados académicos. Este proyecto proporciona una solución integral para llevar el control del entorno educativo, facilitando las tareas de administración y docencia.
@@ -40,10 +42,22 @@ Se proporcionan los siguientes usuarios principales para poder ingresar a la pla
   * Usuario: admin@admin.com (admin)
   * Contraseña: admin
 
-### Alumnado de Prueba
+### Entorno y Datos de Prueba
 
-El programa incluye una instancia con 20 alumnos de prueba preconfigurados para testear la asignación de notas, seguimiento académico y la correcta visualización de listados en la interfaz web, permitiendo operar con un volumen de datos realista desde el primer momento.
+El programa incluye una instancia con **20 alumnos** de prueba preconfigurados para testear la asignación de notas, seguimiento académico y la correcta visualización de listados en la interfaz web, permitiendo operar con un volumen de datos realista desde el primer momento.
+
+Además, el entorno cuenta con **10 departamentos** y **10 especialidades** ya inicializados para facilitar la navegación y la asociación con el profesorado y alumnado.
 
 ## Ejecución
 
 Para iniciar la aplicación, compile el proyecto utilizando Maven y ejecute la clase principal correspondiente a la aplicación de Spring Boot. Una vez que el registro de inicio confirme el despliegue del servidor web, abra su navegador web y diríjase a la URL local configurada.
+
+## Funcionalidades Principales
+
+El sistema ExamTrack permite realizar de forma sencilla las siguientes operaciones:
+
+* **Gestión de Usuarios y Roles:** Control de acceso y permisos diferenciados entre Administrador y Profesor.
+* **Administración de Departamentos y Especialidades:** Organización del centro educativo mediante la creación y asignación de departamentos y especialidades.
+* **Gestión de Profesorado:** Registro y administración de docentes, vinculándolos a sus respectivas áreas.
+* **Gestión de Alumnado:** Mantenimiento del registro de alumnos, incluyendo su información personal, grupo y asignaturas matriculadas.
+* **Convocatorias y Resultados:** Control de las pruebas de evaluación, registro de notas y seguimiento del rendimiento académico de los estudiantes.
